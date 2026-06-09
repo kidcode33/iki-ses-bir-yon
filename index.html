@@ -650,6 +650,14 @@ body {
 /* Fade geçiş için JS kullanacağız */
 
 </style>
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#f7f3ec">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="İki Ses, Bir Yön">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -1941,6 +1949,17 @@ function audioTestVoice()     { AudioSys.testVoice(); }
 
 
 
+
+  <!-- Service Worker — Offline Destek -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/iki-ses-bir-yon/sw.js')
+          .then(reg => console.log('SW kayıt:', reg.scope))
+          .catch(err => console.log('SW hata:', err));
+      });
+    }
+  </script>
 </body>
 </html>
 <!-- EKLEME NOKTASI -->
