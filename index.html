@@ -287,6 +287,113 @@ body { font-family: 'DM Sans', sans-serif; background: #f7f3ec; color: #1c1a16; 
 }
 .sor-toggle:hover { color: #4a3f7a; }
 
+
+/* ════════════════════════════════════════════════
+   MOBİL LAYOUT — max 768px
+   ════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Toolbar */
+  #toolbar {
+    padding: 0 10px;
+    height: 44px;
+    gap: 2px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tb-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .tb-btn svg { width: 12px; height: 12px; }
+  .tb-title { font-size: 10px; min-width: 0; }
+  .tb-sep { display: none; }
+
+  /* Reader */
+  #reader { padding: 0; }
+
+  /* Chapter header */
+  .ch-header { padding: 32px 16px 24px; }
+  .ch-number { font-size: 64px; margin-bottom: 10px; }
+  .ch-title  { font-size: 24px; }
+  .ch-eyebrow { font-size: 10px; margin-bottom: 8px; }
+
+  /* Sahne */
+  .ch-sahne { font-size: 16px; line-height: 1.9; padding: 24px 16px; }
+
+  /* Paneller */
+  .ch-panel { grid-template-columns: 1fr; }
+  .pbox { padding: 16px; }
+  .pbox-text { font-size: 13px; }
+
+  /* Devam */
+  .ch-devam { font-size: 14px; padding: 20px 16px; }
+
+  /* Kapanış */
+  .ch-kapanis { font-size: 17px; padding: 24px 16px; }
+
+  /* Tepki */
+  .ch-react { padding: 20px 16px; }
+  .ch-react-opts { gap: 6px; }
+  .react-opt { padding: 6px 11px; font-size: 10px; }
+
+  /* Sorular */
+  .ch-sorular { padding: 20px 16px; }
+  .sor-text { font-size: 13px; }
+
+  /* Not */
+  .ch-notes { padding: 12px 16px; }
+
+  /* Öneriler */
+  .ch-recs { padding: 16px; }
+  .rec-item { padding: 8px 10px; }
+  .rec-title { font-size: 12px; }
+
+  /* Favori */
+  .ch-fav-row { padding: 10px 16px; }
+
+  /* Nav butonları */
+  .ch-nav-btn { padding: 16px; font-size: 11px; }
+
+  /* Float nav */
+  #float-nav {
+    bottom: 16px;
+    padding: 4px 6px;
+    gap: 1px;
+  }
+  .nav-btn { width: 28px; height: 28px; }
+  .nav-counter { font-size: 10px; padding: 0 6px; }
+
+  /* Sidebar */
+  #sidebar { width: 100%; max-width: 320px; }
+
+  /* Sistem paneli */
+  #sys-panel { width: 100%; max-width: 100%; }
+  .sys-body { padding: 16px; }
+  .sys-tab { padding: 0 10px; font-size: 10px; }
+
+  /* Karşılama kartı */
+  .wb-card { padding: 24px 20px; }
+
+  /* Giriş sayfası */
+  #intro-overlay { padding: 0 20px; }
+
+  /* Final ekranı */
+  #final-content { padding: 40px 20px 60px; }
+}
+
+/* Çok küçük ekranlar — max 380px */
+@media (max-width: 380px) {
+  .ch-number { font-size: 48px; }
+  .ch-title  { font-size: 20px; }
+  .ch-sahne  { font-size: 15px; }
+  .react-opt { padding: 5px 8px; font-size: 10px; }
+  .tb-btn span { display: none; }
+  .tb-btn { padding: 5px 6px; }
+}
+
 </style>
 </head>
 <body>
