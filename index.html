@@ -649,6 +649,74 @@ body {
 
 /* Fade geçiş için JS kullanacağız */
 
+
+/* ════════════════════════════════════════════
+   BİLDİRİM SİSTEMİ
+   ════════════════════════════════════════════ */
+#notif-prompt {
+  display: none; position: fixed;
+  bottom: 88px; left: 50%; transform: translateX(-50%);
+  z-index: 200; background: #1c1a16; color: #f7f3ec;
+  border-radius: 12px; padding: 16px 20px;
+  max-width: min(360px, 90vw); width: 100%;
+  box-shadow: 0 8px 32px rgba(28,26,22,.3);
+  animation: notifSlide .4s ease;
+}
+@keyframes notifSlide {
+  from { opacity:0; transform: translateX(-50%) translateY(16px); }
+  to   { opacity:1; transform: translateX(-50%) translateY(0); }
+}
+#notif-prompt.show { display: block; }
+.np-title {
+  font-family: Georgia, serif; font-size: 14px;
+  font-weight: 500; margin-bottom: 6px;
+}
+.np-text {
+  font-family: Georgia, serif; font-size: 12px;
+  font-style: italic; color: #9e9484;
+  margin-bottom: 14px; line-height: 1.6;
+}
+.np-btns { display: flex; gap: 8px; }
+.np-yes {
+  flex: 1; background: #f7f3ec; color: #1c1a16;
+  border: none; border-radius: 6px; padding: 9px;
+  font-family: monospace; font-size: 11px;
+  font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; cursor: pointer;
+}
+.np-yes:hover { background: #e8e0d2; }
+.np-no {
+  background: none; border: 1px solid #3a3628;
+  border-radius: 6px; padding: 9px 14px;
+  font-family: monospace; font-size: 11px;
+  color: #6b6454; cursor: pointer;
+}
+.np-no:hover { border-color: #6b6454; }
+
+/* Bildirim ayarları — sistem panelinde */
+.notif-settings { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd5c6; }
+.notif-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.notif-label { font-family: monospace; font-size: 11px; color: #6b6454; }
+.notif-toggle {
+  width: 36px; height: 20px; border-radius: 10px;
+  background: #ddd5c6; border: none; cursor: pointer;
+  position: relative; transition: background .2s;
+}
+.notif-toggle.on { background: #3a6048; }
+.notif-toggle::after {
+  content: ''; position: absolute;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: white; top: 3px; left: 3px;
+  transition: left .2s;
+}
+.notif-toggle.on::after { left: 19px; }
+.notif-time {
+  font-family: monospace; font-size: 12px;
+  color: #1c1a16; background: #f0eade;
+  border: 1px solid #ddd5c6; border-radius: 6px;
+  padding: 5px 10px; width: 90px; outline: none;
+}
+
 </style>
 
   <!-- PWA -->
@@ -1960,6 +2028,128 @@ function audioTestVoice()     { AudioSys.testVoice(); }
       });
     }
   </script>
+
+<!-- BİLDİRİM İSTEK KUTUSU -->
+<div id="notif-prompt">
+  <div class="np-title">📖 Günlük hatırlatma</div>
+  <div class="np-text">Her gün bir bölüm. Bildirim açık olsun mu?</div>
+  <div class="np-btns">
+    <button class="np-yes" onclick="notifAllow()">Evet, hatırlat</button>
+    <button class="np-no" onclick="notifDeny()">Hayır</button>
+  </div>
+</div>
+
+<script>
+
+/* ════════════════════════════════════════════
+   BİLDİRİM SİSTEMİ
+   ════════════════════════════════════════════ */
+
+const NotifSys = {
+  isSupported() { return 'Notification' in window && 'serviceWorker' in navigator; },
+  isGranted()   { return Notification.permission === 'granted'; },
+  isDenied()    { return Notification.permission === 'denied'; },
+
+  // İzin iste
+  async request() {
+    if (!this.isSupported()) return false;
+    const perm = await Notification.requestPermission();
+    return perm === 'granted';
+  },
+
+  // İlk ziyarette 30 saniye sonra sor
+  maybeAsk() {
+    if (!this.isSupported()) return;
+    if (this.isGranted() || this.isDenied()) return;
+    if (Store.get('notif_asked', false)) return;
+
+    setTimeout(() => {
+      const prompt = document.getElementById('notif-prompt');
+      if (prompt) prompt.classList.add('show');
+    }, 30000); // 30 saniye
+  },
+
+  // Günlük bildirim planla
+  schedule() {
+    if (!this.isGranted()) return;
+    const time = Store.get('notif_time', '09:00');
+    const [h, m] = time.split(':').map(Number);
+    const now = new Date();
+    let next = new Date();
+    next.setHours(h, m, 0, 0);
+    if (next <= now) next.setDate(next.getDate() + 1);
+    const ms = next - now;
+
+    // Bir sonraki bildirimi planla
+    setTimeout(() => {
+      this.show();
+      // Her 24 saatte bir tekrarla
+      setInterval(() => this.show(), 24 * 60 * 60 * 1000);
+    }, ms);
+
+    console.log(`Bildirim planlandı: ${next.toLocaleString('tr-TR')}`);
+  },
+
+  // Bildirim göster
+  show() {
+    if (!this.isGranted()) return;
+    const last = Store.get('last', 1);
+    const nextId = Math.min((last || 1) + 1, 89);
+    const c = CHAPTERS.find(x => x.id === nextId);
+    if (!c) return;
+
+    new Notification('İki Ses, Bir Yön', {
+      body: `B${nextId} · ${c.sure} — ${c.title} seni bekliyor.`,
+      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23f7f3ec"/><text y="44" x="32" text-anchor="middle" font-size="36">✦</text></svg>',
+      badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23f7f3ec"/><text y="44" x="32" text-anchor="middle" font-size="36">✦</text></svg>',
+      tag: 'iks-daily',
+      renotify: true,
+    });
+  },
+
+  // Saat güncelle
+  updateTime(time) {
+    Store.set('notif_time', time);
+    this.schedule();
+  }
+};
+
+// Buton fonksiyonları
+async function notifAllow() {
+  document.getElementById('notif-prompt').classList.remove('show');
+  Store.set('notif_asked', true);
+  const granted = await NotifSys.request();
+  if (granted) {
+    Store.set('notif_on', true);
+    NotifSys.schedule();
+    // Küçük onay toast
+    const toast = document.getElementById('onboard-toast');
+    if (toast) {
+      toast.textContent = "Bildirim acik. Her sabah 09:00da hatirlatacagim.";
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+  }
+}
+
+function notifDeny() {
+  document.getElementById('notif-prompt').classList.remove('show');
+  Store.set('notif_asked', true);
+}
+
+// Init'e ekle
+window.addEventListener('DOMContentLoaded', function() {
+  // Bildirim sistemi başlat
+  setTimeout(() => {
+    NotifSys.maybeAsk();
+    if (NotifSys.isGranted() && Store.get('notif_on', false)) {
+      NotifSys.schedule();
+    }
+  }, 2000);
+});
+
+</script>
+
 </body>
 </html>
 <!-- EKLEME NOKTASI -->

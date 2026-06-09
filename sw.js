@@ -42,3 +42,16 @@ self.addEventListener('fetch', e => {
     })
   );
 });
+
+// Bildirime tıklanınca uygulamayı aç
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(
+    clients.matchAll({ type: 'window' }).then(list => {
+      for (const c of list) {
+        if (c.url.includes('iki-ses-bir-yon') && 'focus' in c) return c.focus();
+      }
+      return clients.openWindow('/iki-ses-bir-yon/');
+    })
+  );
+});
