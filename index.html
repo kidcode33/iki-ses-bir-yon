@@ -394,6 +394,86 @@ body { font-family: 'DM Sans', sans-serif; background: #f7f3ec; color: #1c1a16; 
   .tb-btn { padding: 5px 6px; }
 }
 
+
+/* ════════════════════════════════════════════
+   ONBOARDING — 3 EKRAN
+   ════════════════════════════════════════════ */
+#onboarding {
+  display: none; position: fixed; inset: 0; z-index: 260;
+  background: #f7f3ec;
+}
+.ob-screen {
+  display: none; position: absolute; inset: 0;
+  flex-direction: column; align-items: center; justify-content: center;
+  padding: clamp(40px,8vw,80px) clamp(24px,6vw,64px);
+  text-align: center;
+  animation: obFade .5s ease;
+}
+.ob-screen.active { display: flex; }
+@keyframes obFade { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+.ob-step {
+  display: flex; gap: 6px; margin-bottom: 40px;
+}
+.ob-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #ddd5c6; transition: all .3s;
+}
+.ob-dot.on { background: #1c1a16; width: 20px; border-radius: 3px; }
+
+.ob-icon {
+  font-size: 40px; margin-bottom: 28px; opacity: .85;
+}
+.ob-title {
+  font-family: Georgia, serif;
+  font-size: clamp(28px,6vw,42px);
+  font-weight: 500; color: #1c1a16;
+  line-height: 1.15; letter-spacing: -.025em;
+  margin-bottom: 20px;
+}
+.ob-text {
+  font-family: Georgia, serif;
+  font-size: clamp(15px,2.5vw,18px);
+  font-style: italic; color: #6b6454;
+  line-height: 1.8; max-width: 480px;
+  margin-bottom: 48px;
+}
+.ob-text strong { font-style: normal; color: #1c1a16; font-weight: 500; }
+
+.ob-btn-primary {
+  background: #1c1a16; color: #f7f3ec;
+  border: none; border-radius: 3px;
+  padding: 16px 48px;
+  font-family: Georgia, serif; font-size: 17px; font-weight: 500;
+  cursor: pointer; transition: background .2s;
+  margin-bottom: 12px; display: block;
+}
+.ob-btn-primary:hover { background: #3a3628; }
+.ob-btn-skip {
+  background: none; border: none;
+  font-family: monospace; font-size: 11px;
+  color: #c8bfb0; cursor: pointer; padding: 8px;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.ob-btn-skip:hover { color: #9e9484; }
+
+/* Ekran 1 — koyu arka plan */
+#ob-1 { background: #1c1a16; }
+#ob-1 .ob-title { color: #f7f3ec; }
+#ob-1 .ob-text  { color: #9e9484; }
+#ob-1 .ob-dot   { background: #3a3628; }
+#ob-1 .ob-dot.on { background: #f7f3ec; }
+#ob-1 .ob-btn-primary { background: #f7f3ec; color: #1c1a16; }
+#ob-1 .ob-btn-primary:hover { background: #e8e0d2; }
+#ob-1 .ob-btn-skip { color: #3a3628; }
+#ob-1 .ob-btn-skip:hover { color: #9e9484; }
+
+/* Ekran 2 — açık */
+#ob-2 { background: #f0eade; }
+
+/* Ekran 3 — kapak */
+#ob-3 { background: #f7f3ec; }
+
 </style>
 </head>
 <body>
@@ -752,9 +832,15 @@ window.addEventListener('DOMContentLoaded', function() {
     render((_initLast>=1&&_initLast<=89)?_initLast:1);
     if (typeof showWelcomeBack === 'function') showWelcomeBack(_initLast, _initRead);
   } else if (!_introDone) {
-    // İlk kez — giriş sayfasını göster
-    const intro = document.getElementById('intro-overlay');
-    if (intro) intro.style.display = 'flex';
+    // İlk kez — onboarding göster
+    const ob = document.getElementById('onboarding');
+    if (ob) {
+      ob.style.display = 'block';
+      // İlk ekranı aktif et
+      const first = document.getElementById('ob-1');
+      if (first) first.classList.add('active');
+    }
+    render(1); // arka planda hazırla
   } else {
     render(1);
   }
@@ -797,6 +883,65 @@ window.addEventListener('DOMContentLoaded', function() {
   </div>
 </div>
 <div id="final-screen"><div id="final-content"></div></div>
+<div id="onboarding">
+
+  <!-- EKRAN 1: Bu bir kitap değil -->
+  <div class="ob-screen" id="ob-1">
+    <div class="ob-step">
+      <div class="ob-dot on"></div>
+      <div class="ob-dot"></div>
+      <div class="ob-dot"></div>
+    </div>
+    <div class="ob-icon">✦</div>
+    <div class="ob-title">Bu bir kitap değil.</div>
+    <div class="ob-text">
+      Okuyacaksın. Duracaksın.<br>
+      Not alacaksın.<br>
+      Bazen de kendi cevabını arayacaksın.
+    </div>
+    <button class="ob-btn-primary" onclick="obNext(2)">Devam Et →</button>
+    <button class="ob-btn-skip" onclick="obSkip()">Atla</button>
+  </div>
+
+  <!-- EKRAN 2: İki Ses -->
+  <div class="ob-screen" id="ob-2">
+    <div class="ob-step">
+      <div class="ob-dot"></div>
+      <div class="ob-dot on"></div>
+      <div class="ob-dot"></div>
+    </div>
+    <div class="ob-icon">📖</div>
+    <div class="ob-title">İki Ses.<br>Bir Yolculuk.</div>
+    <div class="ob-text">
+      <strong>Kur'an</strong> ve <strong>Nutuk</strong> — aynı anda, aynı sayfada.<br>
+      Biri evrensel dilde, biri somut bir coğrafyada.<br>
+      İkisi de aynı soruyu soruyor:<br>
+      <strong>Zor bir anda, insan ne yapar?</strong>
+    </div>
+    <button class="ob-btn-primary" onclick="obNext(3)">Anladım →</button>
+    <button class="ob-btn-skip" onclick="obSkip()">Atla</button>
+  </div>
+
+  <!-- EKRAN 3: Yolculuğa Başla -->
+  <div class="ob-screen" id="ob-3">
+    <div class="ob-step">
+      <div class="ob-dot"></div>
+      <div class="ob-dot"></div>
+      <div class="ob-dot on"></div>
+    </div>
+    <div class="ob-icon">🌿</div>
+    <div class="ob-title">Başlamak için<br>hazır mısın?</div>
+    <div class="ob-text">
+      İlk bölüm: <strong>Alak Suresi.</strong><br>
+      Atatürk, 1919'da üç plan arasında karar vermek zorunda.<br>
+      Ve bir soru seni bekliyor.
+    </div>
+    <button class="ob-btn-primary" onclick="obFinish()">Bölüm 1'i Aç →</button>
+    <button class="ob-btn-skip" onclick="obSkip()">Önsözü gör</button>
+  </div>
+
+</div>
+
 <div id="intro-overlay" style="overflow-y:auto;padding:0 clamp(20px,5vw,48px)">
   <div style="max-width:580px;width:100%">
 
@@ -1359,6 +1504,39 @@ function saveSoruQ(id, qi, ta) {
   if (toggle) toggle.textContent = '✓ yanıt';
 }
 </script>
+<script>
+
+/* ── ONBOARDING ── */
+function obNext(n) {
+  document.querySelectorAll('.ob-screen').forEach(s => s.classList.remove('active'));
+  const next = document.getElementById('ob-'+n);
+  if (next) next.classList.add('active');
+}
+
+function obFinish() {
+  document.getElementById('onboarding').style.opacity = '0';
+  document.getElementById('onboarding').style.transition = 'opacity .4s';
+  setTimeout(() => {
+    document.getElementById('onboarding').style.display = 'none';
+  }, 420);
+  Store.set('intro_done', true);
+  render(1);
+}
+
+function obSkip() {
+  // "Önsözü gör" → intro sayfasını göster
+  const btn = event.target;
+  document.getElementById('onboarding').style.display = 'none';
+  Store.set('intro_done', true);
+  if (btn.textContent.includes('Önsöz')) {
+    document.getElementById('intro-overlay').style.display = 'flex';
+  } else {
+    render(1);
+  }
+}
+
+</script>
+
 </body>
 </html>
 <!-- EKLEME NOKTASI -->
