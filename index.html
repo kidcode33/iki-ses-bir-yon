@@ -1683,7 +1683,7 @@ const AudioSys = {
     this.setLoading(true);
     this.showBar(c);
 
-    const text = (c.sahne || '').substring(0, 800); // ilk 800 karakter
+    const text = [c.sahne, c.devam, c.kapanis].filter(Boolean).join('\n\n').substring(0, 2500);
     try {
       const res = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + this.getVoice(), {
         method: 'POST',
