@@ -748,11 +748,12 @@ body {
   position: absolute; inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(5,8,16,.1) 0%,
-    rgba(5,8,16,.0) 30%,
+    rgba(5,8,16,.3) 0%,
+    rgba(5,8,16,.05) 25%,
+    rgba(5,8,16,.0) 45%,
     rgba(5,8,16,.0) 55%,
-    rgba(5,8,16,.7) 75%,
-    rgba(5,8,16,.95) 100%
+    rgba(5,8,16,.5) 70%,
+    rgba(5,8,16,.0) 100%
   );
 }
 
@@ -760,11 +761,12 @@ body {
 .cover-content {
   position: relative; z-index: 2;
   margin-top: auto;
-  padding: clamp(32px,6vw,60px) clamp(24px,6vw,48px);
+  padding: clamp(24px,4vw,40px) clamp(24px,6vw,48px) clamp(32px,5vw,48px);
   display: flex; flex-direction: column;
   align-items: center; text-align: center;
   animation: coverContentRise 1s ease .6s forwards;
   opacity: 0; transform: translateY(20px);
+  background: linear-gradient(to top, rgba(5,8,16,.98) 0%, rgba(5,8,16,.85) 60%, transparent 100%);
 }
 @keyframes coverContentRise {
   to { opacity: 1; transform: translateY(0); }
@@ -780,46 +782,17 @@ body {
 }
 
 /* Özellik ikonları */
-.cover-features {
-  display: flex; gap: clamp(20px,4vw,36px);
-  margin-bottom: clamp(32px,5vw,48px);
-  justify-content: center;
-}
-.cover-feat {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 8px;
-  opacity: 0;
-  animation: featPop .5s ease forwards;
-}
-.cover-feat:nth-child(1) { animation-delay: 1.0s; }
-.cover-feat:nth-child(2) { animation-delay: 1.15s; }
-.cover-feat:nth-child(3) { animation-delay: 1.3s; }
-.cover-feat:nth-child(4) { animation-delay: 1.45s; }
-@keyframes featPop {
-  from { opacity:0; transform:translateY(8px); }
+
+
+
+
+
+
+
   to   { opacity:1; transform:translateY(0); }
 }
-.cover-feat-icon {
-  width: clamp(36px,8vw,48px);
-  height: clamp(36px,8vw,48px);
-  border: 1px solid rgba(200,168,100,.3);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: clamp(16px,4vw,22px);
-  background: rgba(200,168,100,.05);
-  transition: all .3s;
-}
-.cover-feat:hover .cover-feat-icon,
-.cover-feat:active .cover-feat-icon {
-  border-color: rgba(200,168,100,.7);
-  background: rgba(200,168,100,.12);
-  transform: translateY(-2px);
-}
-.cover-feat-label {
-  font-family: monospace; font-size: 9px;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.4);
-}
+
+
 
 /* Bilgi satırı */
 .cover-info {
@@ -831,20 +804,20 @@ body {
 
 /* Ana buton */
 .cover-btn-primary {
-  width: 100%; max-width: 340px;
+  width: 100%; max-width: 320px;
   background: linear-gradient(135deg, #c8a860, #a07830);
   color: #0a0c14;
-  border: none; border-radius: 6px;
-  padding: clamp(15px,3vw,18px) 32px;
+  border: none; border-radius: 4px;
+  padding: 16px 32px;
   font-family: Georgia, serif;
-  font-size: clamp(15px,3vw,18px);
-  font-weight: 500; letter-spacing: .02em;
-  cursor: pointer; margin-bottom: 12px;
+  font-size: 17px;
+  font-weight: 500; letter-spacing: .04em;
+  cursor: pointer; margin-bottom: 10px;
   position: relative; overflow: hidden;
   transition: transform .2s, box-shadow .2s;
-  box-shadow: 0 4px 24px rgba(200,168,100,.25);
+  box-shadow: 0 4px 24px rgba(200,168,100,.3);
   opacity: 0;
-  animation: coverContentRise .6s ease 1.6s forwards;
+  animation: coverContentRise .6s ease 1.2s forwards;
 }
 .cover-btn-primary::after {
   content: '';
@@ -858,7 +831,7 @@ body {
 
 /* İkinci buton */
 .cover-btn-secondary {
-  width: 100%; max-width: 340px;
+  width: 100%; max-width: 320px;
   background: rgba(255,255,255,.05);
   color: rgba(255,255,255,.6);
   border: 1px solid rgba(255,255,255,.12);
@@ -919,8 +892,8 @@ body {
 }
 
 @media (max-width: 480px) {
-  .cover-features { gap: 14px; }
-  .cover-feat-label { display: none; }
+  
+  
 }
 
 </style>
@@ -945,28 +918,7 @@ body {
   <div class="cover-light-blue"></div>
 
   <div class="cover-content">
-    <div class="cover-tagline">12 Yaş İçin Hikâye Serisi</div>
-
-    <div class="cover-features">
-      <div class="cover-feat">
-        <div class="cover-feat-icon">📖</div>
-        <div class="cover-feat-label">Oku</div>
-      </div>
-      <div class="cover-feat">
-        <div class="cover-feat-icon">💭</div>
-        <div class="cover-feat-label">Düşün</div>
-      </div>
-      <div class="cover-feat">
-        <div class="cover-feat-icon">✏️</div>
-        <div class="cover-feat-label">Not Al</div>
-      </div>
-      <div class="cover-feat">
-        <div class="cover-feat-icon">🧭</div>
-        <div class="cover-feat-label">Yön Çiz</div>
-      </div>
-    </div>
-
-    <div class="cover-info">89 Bölüm • Bir Yolculuk</div>
+    <div class="cover-info" style="margin-bottom:24px">89 Bölüm • Bir Yolculuk</div>
 
     <button class="cover-btn-primary" onclick="coverStart()">
       Yolculuğa Başla →
