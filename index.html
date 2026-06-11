@@ -727,6 +727,7 @@ body {
   position: fixed; inset: 0; z-index: 400;
   background: #050810;
   overflow: hidden;
+  min-height: 100svh;
 }
 
 
@@ -734,9 +735,14 @@ body {
 .cover-bg {
   position: absolute; inset: 0;
   background-size: cover;
-  background-position: center top;
+  background-position: center center;
   animation: coverFadeIn 1.2s ease forwards;
   opacity: 0;
+}
+@media (max-width: 600px) {
+  .cover-bg {
+    background-position: center top !important;
+  }
 }
 @keyframes coverFadeIn {
   from { opacity: 0; transform: scale(1.03); }
@@ -748,12 +754,10 @@ body {
   position: absolute; inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(5,8,16,.3) 0%,
-    rgba(5,8,16,.05) 25%,
-    rgba(5,8,16,.0) 45%,
-    rgba(5,8,16,.0) 55%,
+    rgba(5,8,16,.1) 0%,
+    rgba(5,8,16,.0) 40%,
     rgba(5,8,16,.5) 70%,
-    rgba(5,8,16,.0) 100%
+    rgba(5,8,16,.92) 100%
   );
 }
 
@@ -761,7 +765,7 @@ body {
 .cover-content {
   position: relative; z-index: 2;
   margin-top: auto;
-  padding: clamp(16px,3vw,28px) clamp(24px,6vw,48px) clamp(28px,4vw,40px);
+  padding: clamp(20px,3vw,32px) clamp(24px,6vw,48px) clamp(36px,5vw,52px);
   display: flex; flex-direction: column;
   align-items: center; text-align: center;
   animation: coverContentRise 1s ease .6s forwards;
@@ -949,6 +953,15 @@ body {
   .evre-sonu { padding: 28px 16px; }
 }
 
+
+/* Kapak responsive */
+@media (max-width: 600px) {
+  .cover-bg {
+    background-image: url('kapak_mobil.jpg') !important;
+    background-position: center top !important;
+  }
+}
+
 </style>
 
   <!-- PWA -->
@@ -964,7 +977,7 @@ body {
 
 <!-- KAPAK EKRANI -->
 <div id="cover-screen" style="display:flex;flex-direction:column">
-  <div class="cover-bg" style="background-image:url('kapak.png')"></div>
+  <div class="cover-bg" style="background-image:url('kapak_web.jpg')"></div>
   <div class="cover-overlay"></div>
   <div class="cover-compass-glow"></div>
   <div class="cover-light-gold"></div>
