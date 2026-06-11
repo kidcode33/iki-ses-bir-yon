@@ -1295,7 +1295,7 @@ function render(id) {
     </div>`;
 
   window.scrollTo({top:0});
-  AudioSys.stop();
+  if (typeof AudioSys !== "undefined") AudioSys.stop();
   Store.markRead(id);
   try { Store.set('last', id); } catch{}
 }
