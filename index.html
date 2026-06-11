@@ -896,6 +896,59 @@ body {
   
 }
 
+
+/* ════════════════════════════════════════════
+   EVRE SONU KARTI
+   ════════════════════════════════════════════ */
+.evre-sonu {
+  margin: 0;
+  padding: 36px 32px;
+  background: #1c1a16;
+  color: #f7f3ec;
+  border-bottom: 1px solid #ddd5c6;
+  text-align: center;
+}
+.evre-sonu-icon {
+  font-size: 32px; margin-bottom: 16px; opacity: .8;
+}
+.evre-sonu-label {
+  font-family: monospace; font-size: 10px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: #a07830; margin-bottom: 12px;
+}
+.evre-sonu-baslik {
+  font-family: Georgia, serif; font-size: 24px; font-weight: 500;
+  color: #f7f3ec; margin-bottom: 12px; letter-spacing: -.01em;
+}
+.evre-sonu-metin {
+  font-family: Georgia, serif; font-size: 14px; font-style: italic;
+  color: #9e9484; line-height: 1.8; max-width: 380px; margin: 0 auto 24px;
+}
+.evre-sonu-stats {
+  display: flex; justify-content: center; gap: 24px; margin-bottom: 24px;
+}
+.evre-sonu-stat { text-align: center; }
+.evre-sonu-stat-n {
+  font-family: monospace; font-size: 22px; font-weight: 700;
+  color: #c8a860; line-height: 1;
+}
+.evre-sonu-stat-l {
+  font-family: monospace; font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; color: #6b6454; margin-top: 4px;
+}
+.evre-sonu-devam {
+  display: inline-block; background: linear-gradient(135deg, #c8a860, #a07830);
+  color: #1c1a16; border: none; border-radius: 4px;
+  padding: 12px 28px; font-family: Georgia, serif;
+  font-size: 15px; font-weight: 500; cursor: pointer;
+  transition: opacity .2s;
+}
+.evre-sonu-devam:hover { opacity: .9; }
+
+@media (max-width: 768px) {
+  .evre-sonu { padding: 28px 16px; }
+}
+
 </style>
 
   <!-- PWA -->
@@ -953,10 +1006,7 @@ body {
   </button>
   <span class="tb-title" id="tb-title"></span>
   <div class="tb-sep"></div>
-  <button class="tb-btn" id="fav-tb-btn" onclick="toggleFav()" title="Favori">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    Favori
-  </button>
+
   <button class="tb-btn" onclick="openSystem('kitabim')" title="Kitabım">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
     Kitabım
@@ -1232,17 +1282,12 @@ function render(id) {
       </div>
       <div class="ch-devam">${devam}</div>
       <div class="ch-kapanis">${c.kapanis||''}</div>
-      <div class="ch-react">
-        <div class="ch-react-q">Bu bölüm sana ne hissettirdi?</div>
-        <div class="ch-react-opts">${reactHTML}</div>
-      </div>
       <div class="ch-sorular">
         <div class="sor-hdr">Düşün</div>
         ${soruHTML}
       </div>
-      ${recHTML?`<div class="ch-recs"><div class="ch-recs-hdr">Bunu sevdiysen</div>${recHTML}</div>`:''}
-      ${favRowHTML}
       ${noteHTML}
+      ${typeof buildEvreSonuHTML === 'function' ? buildEvreSonuHTML(id) : ''}
       ${navHTML}
     </div>`;
 
@@ -2406,6 +2451,59 @@ function initCoverScreen() {
   // Kapağı göster
   const cover = document.getElementById('cover-screen');
   if (cover) cover.classList.add('active');
+}
+
+</script>
+
+<script>
+
+/* ── EVRE SONU KARTI ── */
+const EVRE_SONU_IDS = {
+  9:  {icon:'🌱', label:'BAŞLANGIÇ EVRE TAMAMLANDI', baslik:'İlk Adımlar Atıldı', metin:'Okudun, sorguladın, hissettin. Uyanış seni bekliyor.', sonraki:'Uyanış'},
+  21: {icon:'👁',  label:'UYANIS EVRE TAMAMLANDI', baslik:'Gözler Açıldı', metin:'Artık aynı bakış değil. Karar zamanı geliyor.', sonraki:'Karar'},
+  34: {icon:'⚖️', label:'KARAR EVRE TAMAMLANDI', baslik:'Kararlar Verildi', metin:'Her karar bir bedel taşır. Hazır mısın?', sonraki:'Bedel'},
+  49: {icon:'🔥', label:'BEDEL EVRE TAMAMLANDI', baslik:'Bedel Ödendi', metin:'Direniş başlıyor — en uzun evre.', sonraki:'Direniş'},
+  67: {icon:'🌊', label:'DİRENİŞ EVRE TAMAMLANDI', baslik:'Kırılmadın', metin:'Direniş bitmedi ama kırılmadın. Zafer yaklaşıyor.', sonraki:'Zafer'},
+  81: {icon:'🌅', label:'ZAFER EVRE TAMAMLANDI', baslik:'Zafer Geldi', metin:'Ama asıl soru şimdi: ne bırakacaksın?', sonraki:'Emanet'},
+  89: {icon:'✦',  label:'EMANET EVRE TAMAMLANDI', baslik:'Yolculuk Bitti', metin:'89 bölüm. İki ses. Bir yön. Artık bu uygulama sana lazım değil.', sonraki:null},
+};
+
+function buildEvreSonuHTML(id) {
+  const evre = EVRE_SONU_IDS[id];
+  if (!evre) return '';
+  
+  // Kullanıcı istatistikleri
+  const favCount  = Store.getFavs().length;
+  const readCount = Object.keys(Store.get('read',{})).length;
+  const allReacts = Store.getAllReacts ? Store.getAllReacts() : {};
+  const reactCount = Object.values(allReacts).filter(Boolean).length;
+
+  return `
+    <div class="evre-sonu">
+      <div class="evre-sonu-icon">${evre.icon}</div>
+      <div class="evre-sonu-label">${evre.label}</div>
+      <div class="evre-sonu-baslik">${evre.baslik}</div>
+      <div class="evre-sonu-metin">${evre.metin}</div>
+      <div class="evre-sonu-stats">
+        <div class="evre-sonu-stat">
+          <div class="evre-sonu-stat-n">${readCount}</div>
+          <div class="evre-sonu-stat-l">Bölüm</div>
+        </div>
+        <div class="evre-sonu-stat">
+          <div class="evre-sonu-stat-n">${favCount}</div>
+          <div class="evre-sonu-stat-l">Favori</div>
+        </div>
+        <div class="evre-sonu-stat">
+          <div class="evre-sonu-stat-n">${reactCount}</div>
+          <div class="evre-sonu-stat-l">Tepki</div>
+        </div>
+      </div>
+      ${evre.sonraki ? `<button class="evre-sonu-devam" onclick="render(${id+1})">
+        ${evre.sonraki} Evresine Geç →
+      </button>` : `<button class="evre-sonu-devam" onclick="openFinalScreen()">
+        Yolculuğumu Gör →
+      </button>`}
+    </div>`;
 }
 
 </script>
