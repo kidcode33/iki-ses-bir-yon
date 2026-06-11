@@ -1176,8 +1176,10 @@ function render(id) {
   // Fav toolbar
   const isFav = Store.isFav(id);
   const favTb = document.getElementById('fav-tb-btn');
-  favTb.className = 'tb-btn' + (isFav?' on':'');
-  favTb.querySelector('svg').setAttribute('fill', isFav?'currentColor':'none');
+  if (favTb) {
+    favTb.className = 'tb-btn' + (isFav?' on':'');
+    favTb.querySelector('svg').setAttribute('fill', isFav?'currentColor':'none');
+  }
 
   // Sidebar
   document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('on'));
@@ -1287,6 +1289,11 @@ function render(id) {
         ${soruHTML}
       </div>
       ${noteHTML}
+      ${[9,21,34,49,67,81,89].includes(id) ? `
+      <div class="ch-react">
+        <div class="ch-react-q">Bu bölüm sana ne hissettirdi?</div>
+        <div class="ch-react-opts">${reactHTML}</div>
+      </div>` : ''}
       ${typeof buildEvreSonuHTML === 'function' ? buildEvreSonuHTML(id) : ''}
       ${navHTML}
     </div>`;
@@ -1517,16 +1524,19 @@ window.addEventListener('DOMContentLoaded', function() {
     <div style="padding-bottom:48px;border-bottom:1px solid #ddd5c6;margin-bottom:48px">
       <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#1c1a16;margin-bottom:24px">Önsöz</div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
-        Bu seri, 12 yaşındaki çocuklar için yazıldı. Ama içindeki sorular yaşla büyümüyor — sadece daha derine iniyor.
+        Bu kitap, iki sesin aynı sayfada buluştuğu bir yolculuktur. Biri binlerce yıl önce söylenmiş, biri yüz yıl önce yaşanmış. İkisi de hâlâ konuşuyor.
       </div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
-        İki kitap, iki ses. Birincisi Kur'an — Yaşar Nuri Öztürk'ün iniş sırasına göre meal çevirisiyle. Korkutucu değil, yol gösterici olarak. İkincisi Nutuk — Gazi Mustafa Kemal Atatürk'ün 1927'de altı gün boyunca anlattığı sekiz yıllık dönüşüm. Her bölümde gerçek bir sahne, gerçek bir karar, gerçek bir an.
+        Birinci ses Kur'an — Yaşar Nuri Öztürk'ün iniş sırasına göre meal çevirisiyle. İkinci ses Nutuk — Gazi Mustafa Kemal Atatürk'ün 1927'de altı gün boyunca anlattığı sekiz yıllık dönüşüm. Her bölümde gerçek bir tarihsel an, bir karar, bir insan.
       </div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
-        İki kitap birbiriyle konuşuyor. Biri evrensel dilde, öbürü somut bir coğrafyada. Ama her ikisi de aynı soruyu soruyor: <em style="color:#1c1a16">Zor bir anda, insan ne yapar?</em>
+        İki ses birbirinden bağımsız doğdu. Biri evrensel dilde, öbürü somut bir coğrafyada. Ama her ikisi de aynı soruyu soruyor: <em style="color:#1c1a16">Zor bir anda, insan ne yapar?</em>
+      </div>
+      <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
+        Bu bir okuma kitabı değil. Okuyacaksın, duracaksın, düşüneceksin. Bazen not alacaksın. Bazen sadece oturup bir soruyla kalacaksın.
       </div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95">
-        89 bölüm. Alak'tan Nasr'a. "Oku"dan "Şükret"e. İkisi arasında bir ömür var.
+        89 bölüm. Alak'tan Nasr'a. "Oku"dan "Şükret"e. İkisi arasında bir ömür var. Yolculuğun sonunda bu uygulamaya ihtiyacın kalmayacak — o an bu kitabın sana bıraktığı şey olacak.
       </div>
     </div>
 
