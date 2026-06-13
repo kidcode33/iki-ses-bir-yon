@@ -427,14 +427,14 @@ body { font-family: 'DM Sans', sans-serif; background: #f7f3ec; color: #1c1a16; 
 .ob-title {
   font-family: Georgia, serif;
   font-size: clamp(28px,6vw,42px);
-  font-weight: 500; color: #1c1a16;
+  font-weight: 500; color: #ffffff;
   line-height: 1.15; letter-spacing: -.025em;
   margin-bottom: 20px;
 }
 .ob-text {
   font-family: Georgia, serif;
   font-size: clamp(15px,2.5vw,18px);
-  font-style: italic; color: #6b5f4a;
+  font-style: italic; color: #ffffff;
   line-height: 1.8; max-width: 480px;
   margin-bottom: 48px;
 }
@@ -1227,7 +1227,7 @@ function closeSidebar() { document.getElementById('sidebar').classList.remove('o
 /* ── JOURNEY ── */
 function buildJourney() {
   document.getElementById('journey-rail').innerHTML = WAYPOINTS.map(wp => `
-    <div class="jr-item" id="jr-${wp.id}" title="${wp.label}" onclick="goTo(${wp.chs[0]})">
+    <div class="jr-item" id="jr-${wp.id}" title="${wp.label}" onclick="goTo(${wp.start})">
       <span class="jr-label">${wp.label}</span>
       <div class="jr-dot"></div>
     </div>`).join('');
@@ -1522,9 +1522,9 @@ window.addEventListener('DOMContentLoaded', function() {
       <div class="ob-dot"></div>
       <div class="ob-dot"></div>
     </div>
-    <div class="ob-icon">✦</div>
-    <div class="ob-title">İki ses.<br>İki çağ.<br>Aynı soru.</div>
-    <div class="ob-text">
+    <div class="ob-icon" style="color:#c8a860;">✦</div>
+    <div class="ob-title" style="color:#ffffff !important;font-size:clamp(24px,5vw,38px);">İki ses. İki çağ. Aynı soru.</div>
+    <div class="ob-text" style="color:#ffffff !important;">
       İnsan zor bir anda ne yapar?
     </div>
     <button class="ob-btn-primary" onclick="obNext(2)">Devam →</button>
@@ -1539,9 +1539,9 @@ window.addEventListener('DOMContentLoaded', function() {
       <div class="ob-dot"></div>
     </div>
     <div class="ob-icon">◈</div>
-    <div class="ob-title">Bu kitap sana<br>ne düşüneceğini<br>söylemeyecek.</div>
-    <div class="ob-text">
-      Ama bazı sorulardan<br>kaçmanı da zorlaştıracak.
+    <div class="ob-title" style="color:#ffffff !important;">Bu kitap sana ne düşüneceğini söylemeyecek.</div>
+    <div class="ob-text" style="color:#ffffff !important;">
+      Ama bazı sorulardan kaçmanı da zorlaştıracak.
     </div>
     <button class="ob-btn-primary" onclick="obNext(3)">Anladım →</button>
     <button class="ob-btn-skip" onclick="obSkip()">Atla</button>
@@ -1555,11 +1555,9 @@ window.addEventListener('DOMContentLoaded', function() {
       <div class="ob-dot on"></div>
     </div>
     <div class="ob-icon">→</div>
-    <div class="ob-title">Hazır mısın?</div>
-    <div class="ob-text">
-      89 bölüm.<br>
-      Alak'tan Nasr'a.<br>
-      "Oku"dan "Şükret"e.
+    <div class="ob-title" style="color:#ffffff !important;">Hazır mısın?</div>
+    <div class="ob-text" style="color:#ffffff !important;">
+      89 bölüm. Alak'tan Nasr'a. "Oku"dan "Şükret"e.
     </div>
     <button class="ob-btn-primary" onclick="obFinish()">Başla →</button>
     <button class="ob-btn-skip" onclick="obSkip()">Önsözü gör</button>
@@ -1604,19 +1602,26 @@ window.addEventListener('DOMContentLoaded', function() {
     <div style="padding-bottom:48px;border-bottom:1px solid #ddd5c6;margin-bottom:48px">
       <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#1c1a16;margin-bottom:24px">Önsöz</div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
-        Bu kitap, iki sesin aynı sayfada buluştuğu bir yolculuktur. Biri binlerce yıl önce söylenmiş, biri yüz yıl önce yaşanmış. İkisi de hâlâ konuşuyor.
+        İki ses var.
       </div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
-        Birinci ses Kur'an — Yaşar Nuri Öztürk'ün iniş sırasına göre meal çevirisiyle. İkinci ses Nutuk — Gazi Mustafa Kemal Atatürk'ün 1927'de altı gün boyunca anlattığı sekiz yıllık dönüşüm. Her bölümde gerçek bir tarihsel an, bir karar, bir insan.
+        Biri binlerce yıl önce söylendi. Biri yüz yıl önce yaşandı. İkisi de hâlâ konuşuyor.
       </div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
-        İki ses birbirinden bağımsız doğdu. Biri evrensel dilde, öbürü somut bir coğrafyada. Ama her ikisi de aynı soruyu soruyor: <em style="color:#1c1a16">Zor bir anda, insan ne yapar?</em>
+        İlki Kur'an. İlk inen sure'den son inene kadar — iniş sırasıyla. İkincisi Nutuk. Mustafa Kemal Atatürk'ün 1927'de altı gün boyunca anlattığı sekiz yıl. İki çağ. İki dil. İki şahit.
       </div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
-        Bu bir okuma kitabı değil. Okuyacaksın, duracaksın, düşüneceksin. Bazen not alacaksın. Bazen sadece oturup bir soruyla kalacaksın.
+        Her bölümde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru var. Soru sana soruluyor.
+      </div>
+      <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
+        Bu kitap sana ne düşüneceğini söylemeyecek. Ama bazı sorulardan kaçmanı da zorlaştıracak.
+      </div>
+      <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95;margin-bottom:18px">
+        Okuyacaksın. Duracaksın. Bazen not alacaksın. Bazen sadece bir soruyla oturacaksın.
       </div>
       <div style="font-family:Georgia,serif;font-size:16px;color:#3a3628;line-height:1.95">
-        89 bölüm. Alak'tan Nasr'a. "Oku"dan "Şükret"e. İkisi arasında bir ömür var. Yolculuğun sonunda bu uygulamaya ihtiyacın kalmayacak — o an bu kitabın sana bıraktığı şey olacak.
+        89 bölüm. Alak'tan Nasr'a. "Oku"dan "Şükret"e. İkisi arasında bir ömür var.<br><br>
+        <em style="color:#1c1a16">Yolculuğun sonunda bu uygulamaya ihtiyacın kalmayacak. O an, bu kitabın sana bıraktığı şey olacak.</em>
       </div>
     </div>
 
