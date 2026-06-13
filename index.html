@@ -1001,42 +1001,114 @@ body {
 .sys-close:hover { color: #c8a860 !important; }
 
 
-/* ════ AÇIK TEMA — OVERRIDE ════ */
-body { background-color: #f7f3ec !important; color: #1c1a16 !important; }
-#toolbar { background: #f7f3ec !important; border-bottom-color: #ddd5c6 !important; }
-.tb-btn { color: #9e9484 !important; }
-#sidebar { background: #f0eade !important; }
-.sb-logo { color: #6b6454 !important; }
-.sb-close { color: #9e9484 !important; }
-.si-num { color: #c8bfb0 !important; }
-.si-sure { color: #6b6454 !important; }
-.ch-title { color: #1c1a16 !important; }
-.ch-eyebrow { color: #9e9484 !important; }
-.ch-number { color: #ddd3c4 !important; }
-.ch-sahne { color: #1c1a16 !important; }
-.ch-devam { color: #3a3628 !important; }
-.ch-kapanis { color: #1c1a16 !important; }
-.ch-nav-btn { color: #6b6454 !important; }
-.ch-nav-btn:hover { background: #f0eade !important; color: #1c1a16 !important; }
-.sor-text { color: #3a3628 !important; }
-.sor-arrow { color: #c8bfb0 !important; }
-.sor-hdr { color: #c8bfb0 !important; }
-.pbox-q { background: #f0eef8 !important; }
-.pbox-n { background: #faf4e8 !important; }
-.pbox-q .pbox-label { color: #6a5fa0 !important; }
-.pbox-n .pbox-label { color: #a07830 !important; }
-.pbox-q .pbox-text { color: #4a3f7a !important; }
-.pbox-n .pbox-text { color: #a07830 !important; }
-.nav-counter { color: #c8bfb0 !important; }
-.nav-btn { color: #9e9484 !important; }
-#float-nav { background: #f7f3ec !important; border-color: #cfc5b4 !important; }
-.ob-title { color: #1c1a16 !important; }
-.ob-text { color: #6b6454 !important; }
-.sys-body { background: #f0eade !important; }
-.sys-tab { color: #9e9484 !important; }
-.sys-tab.on { color: #1c1a16 !important; border-bottom-color: #a07830 !important; }
-#intro-overlay { background: #f7f3ec !important; }
-.note-toggle { color: #c8bfb0 !important; }
+/* ════ KOYU TEMA — KAPAK PALETİ ════ */
+/* Arka planlar */
+body { background-color: #0d0f18 !important; color: #e8dcc8 !important; }
+#toolbar { background: #0a0c14 !important; border-bottom-color: #1e2030 !important; }
+#sidebar { background: #0a0c14 !important; border-right-color: #1e2030 !important; }
+#reader > div { background: #0d0f18 !important; }
+
+/* Toolbar */
+.tb-btn { color: #6b5f4a !important; }
+.tb-btn:hover { background: #1a1c24 !important; color: #c8a860 !important; }
+.tb-btn.on { background: #1a1c24 !important; color: #c8a860 !important; }
+.tb-sep { background: #1e2030 !important; }
+.tb-title { color: #6b5f4a !important; }
+
+/* Sidebar */
+.sb-logo { color: #c8a860 !important; }
+.sb-close { color: #6b5f4a !important; }
+.sb-item:hover { background: #1a1c24 !important; }
+.sb-item.on { background: #1a1c24 !important; border-left-color: #c8a860 !important; }
+.si-num { color: #2a2c3a !important; }
+.si-sure { color: #6b5f4a !important; }
+
+/* Chapter header */
+.ch-number { color: #1e2030 !important; }
+.ch-eyebrow { color: #6b5f4a !important; }
+.ch-title { color: #e8dcc8 !important; }
+.ch-role-badge { color: #6b5f4a !important; border-color: #1e2030 !important; }
+.ch-header { border-bottom-color: #1e2030 !important; }
+
+/* İçerik */
+.ch-sahne { color: #d4c8b0 !important; border-bottom-color: #1e2030 !important; }
+.ch-devam { color: #9a8e78 !important; border-bottom-color: #1e2030 !important; }
+.ch-kapanis { color: #c8a860 !important; border-bottom-color: #1e2030 !important; }
+
+/* Paneller */
+.ch-panel { background: #1e2030 !important; border-bottom-color: #1e2030 !important; }
+.pbox-q { background: #12102a !important; }
+.pbox-n { background: #1a1408 !important; }
+.pbox-q .pbox-label { color: #7a6fb0 !important; }
+.pbox-n .pbox-label { color: #c8a860 !important; }
+.pbox-q .pbox-text { color: #9a8fc0 !important; }
+.pbox-n .pbox-text { color: #c8a860 !important; }
+
+/* Sorular */
+.ch-sorular { border-bottom-color: #1e2030 !important; }
+.sor-hdr { color: #2a2c3a !important; }
+.sor-item { border-bottom-color: #1e2030 !important; }
+.sor-arrow { color: #2a2c3a !important; }
+.sor-text { color: #9a8e78 !important; }
+.sor-response textarea { background: #1a1c24 !important; border-color: #2a2c34 !important; color: #d4c8b0 !important; }
+.sor-save { border-color: #2a2c34 !important; color: #6b5f4a !important; }
+.sor-save:hover { border-color: #c8a860 !important; color: #c8a860 !important; }
+
+/* Not alanı */
+.ch-notes { border-bottom-color: #1e2030 !important; }
+.note-toggle { color: #2a2c3a !important; }
+.note-area textarea { background: #1a1c24 !important; border-color: #2a2c34 !important; color: #d4c8b0 !important; }
+.note-save { background: #c8a860 !important; color: #0d0f18 !important; }
+
+/* Nav */
+.ch-nav { border-bottom-color: #1e2030 !important; }
+.ch-nav-btn { color: #6b5f4a !important; border-right-color: #1e2030 !important; }
+.ch-nav-btn:hover { background: #1a1c24 !important; color: #c8a860 !important; }
+#float-nav { background: #0d0f18 !important; border-color: #2a2416 !important; box-shadow: 0 4px 20px rgba(0,0,0,.5) !important; }
+.nav-btn { color: #6b5f4a !important; }
+.nav-btn:hover { background: #1a1c24 !important; color: #c8a860 !important; }
+.nav-counter { color: #2a2c3a !important; }
+.nav-sep { background: #1e2030 !important; }
+
+/* Evre sonu */
+.evre-sonu { background: transparent !important; border-top-color: #1e2030 !important; border-bottom-color: #1e2030 !important; color: #e8dcc8 !important; }
+.evre-sonu-label { color: #c8a860 !important; }
+.evre-sonu-baslik { color: #e8dcc8 !important; }
+.evre-sonu-metin { color: #6b5f4a !important; }
+.evre-sonu-stat-n { color: #c8a860 !important; }
+.evre-sonu-stat-l { color: #2a2c3a !important; }
+
+/* Journey rail */
+.jr-dot { background: #1e2030 !important; border-color: #2a2c3a !important; }
+.jr-label { color: #6b5f4a !important; }
+.jr-item.active .jr-label { color: #c8a860 !important; }
+.jr-item.passed .jr-dot { background: #3a3020 !important; border-color: #3a3020 !important; }
+
+/* Sistem paneli */
+#sys-panel { background: #0a0c14 !important; border-left-color: #1e2030 !important; }
+.sys-top { border-bottom-color: #1e2030 !important; }
+.sys-tab { color: #6b5f4a !important; }
+.sys-tab:hover { color: #c8a860 !important; }
+.sys-tab.on { color: #c8a860 !important; border-bottom-color: #c8a860 !important; }
+.sys-body { background: #0a0c14 !important; }
+.sys-close { color: #6b5f4a !important; border-color: #1e2030 !important; }
+
+/* Intro overlay */
+#intro-overlay { background: #0d0f18 !important; }
+
+/* Welcome back */
+.wb-card { background: #10121c !important; border-color: #1e2030 !important; }
+
+/* Progress bar */
+#prog { background: linear-gradient(90deg,#c8a860,#7a6fb0) !important; }
+
+/* Onboarding */
+#ob-2 { background: #0d0f18 !important; }
+#ob-3 { background: #0d0f18 !important; }
+.ob-btn-skip { color: #3a3020 !important; }
+
+/* Final */
+#final-screen { background: #0d0f18 !important; }
 
 </style>
 
