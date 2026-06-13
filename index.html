@@ -1198,7 +1198,7 @@ const WAYPOINTS = [
   {id:'yon',      label:'Yön',       start:68, end:89, his:'Sükûnet, bütünleşme'},
 ];
 const CH_TO_WP = {};
-WAYPOINTS.forEach(wp => wp.chs.forEach(id => CH_TO_WP[id] = wp));
+WAYPOINTS.forEach(wp => { for(let id=wp.start; id<=wp.end; id++) CH_TO_WP[id]=wp; });
 
 const THEME_DOT = {violet:'#4a3f7a', gold:'#a07830', sage:'#3a6048', rose:'#8a3a50'};
 const ROLE_TR   = {opening:'açılış',rising:'yükseliş',drive:'ilerleme',tension:'gerilim',climax:'doruk',reflection:'yansıma',resolution:'çözüm',transition:'geçiş',closing:'kapanış'};
@@ -1210,7 +1210,7 @@ const REACT_OPTS = [
   {key:'kararsiz',  label:'Kararsız bıraktı'},
 ];
 
-let cur = 1;
+var cur = 1;
 
 /* ── SIDEBAR ── */
 function buildSidebar() {
@@ -1455,6 +1455,11 @@ buildJourney();
 render(1); // reader'ı hazırla arka planda
 
 window.addEventListener('DOMContentLoaded', function() {
+  // Kapak ekranını başlat
+  if (typeof initCoverScreen === 'function') {
+    initCoverScreen();
+  }
+
   const _initLast  = Store.get('last', null);
   const _initRead  = Object.keys(Store.get('read',{})).length;
   const _introDone = Store.get('intro_done', false);
@@ -1465,13 +1470,6 @@ window.addEventListener('DOMContentLoaded', function() {
     if (typeof showWelcomeBack === 'function') showWelcomeBack(_initLast, _initRead);
   } else if (!_introDone) {
     // İlk kez — onboarding göster
-    const ob = document.getElementById('onboarding');
-    if (ob) {
-      ob.style.display = 'block';
-      // İlk ekranı aktif et
-      const first = document.getElementById('ob-1');
-      if (first) first.classList.add('active');
-    }
     render(1); // arka planda hazırla
   } else {
     render(1);
