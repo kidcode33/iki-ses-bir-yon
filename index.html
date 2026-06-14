@@ -3242,11 +3242,28 @@ function openSystem(tab) {
 function closeSystem() {
   document.getElementById('sys-overlay').style.display = 'none';
 }
-function sysTab(name) {
-  document.querySelectorAll('.sys-tab').forEach(t=>t.classList.toggle('on', t.dataset.tab===name));
-  document.querySelectorAll('.sys-pnl').forEach(p=>p.style.display=p.id==='sysp-'+name?'block':'none');
-  const renderers = {kitabim:renderKitabim, harita:renderHarita, lab:renderLab};
-  if(renderers[name]) renderers[name]();
+function sysTab(nameOrBtn, id) {
+  // İki kullanım biçimini destekle: sysTab('name') ve sysTab(btn, 'id')
+  let name = id !== undefined ? id : nameOrBtn;
+
+  document.querySelectorAll('.sys-tab').forEach(t => {
+    const isOn = t.dataset.tab === name || t.getAttribute('onclick')?.includes("'"+name+"'");
+    t.classList.toggle('on', isOn);
+  });
+
+  // sys-pnl (orijinal paneller)
+  document.querySelectorAll('.sys-pnl').forEach(p => {
+    p.style.display = p.id === 'sysp-' + name ? 'block' : 'none';
+  });
+
+  // sys-pane (sonradan eklenen paneller — günlük vb.)
+  document.querySelectorAll('.sys-pane').forEach(p => {
+    p.style.display = p.id === 'sys-' + name ? 'block' : 'none';
+  });
+
+  const renderers = {kitabim: renderKitabim, harita: renderHarita, lab: renderLab};
+  if (renderers[name]) renderers[name]();
+  if (name === 'gunluk' && typeof buildJournal === 'function') buildJournal();
 }
 
 /* ── BENİM KİTABIM ── */
@@ -4315,18 +4332,8 @@ function shareJournal() {
   }
 }
 
-// sysTab fonksiyonuna günlük sekmesi desteği ekle
-const _origSysTab = typeof sysTab === 'function' ? sysTab : null;
-function sysTab(btn, id) {
-  document.querySelectorAll('.sys-tab').forEach(b => b.classList.remove('on'));
-  document.querySelectorAll('.sys-pane').forEach(p => { p.style.display='none'; });
-  btn.classList.add('on');
-  const pane = document.getElementById('sys-'+id);
-  if (pane) pane.style.display = 'block';
+// sysTab — orijinal script'e taşındı
 
-  // Günlük açıldığında inşa et
-  if (id === 'gunluk') buildJournal();
-}
 
 </script>
 
