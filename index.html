@@ -1714,7 +1714,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   padding: 40px 24px;
   text-align: center;
   opacity: 0;
-  transition: opacity .8s ease;
+  transition: opacity 1.2s ease;
 }
 #sabah-ritual.open {
   display: flex;
@@ -1748,7 +1748,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   color: #B8AA96;
   margin-bottom: 24px;
   opacity: 0;
-  animation: srFadeUp .6s ease .6s forwards;
+  animation: srFadeUp .7s ease 1.1s forwards;
 }
 .sr-kapanis {
   font-family: Georgia, serif;
@@ -1762,7 +1762,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border-left: 2px solid rgba(212,176,106,.3);
   text-align: left;
   opacity: 0;
-  animation: srFadeUp .6s ease .8s forwards;
+  animation: srFadeUp .7s ease 1.3s forwards;
 }
 .sr-soru {
   font-family: Georgia, serif;
@@ -1772,7 +1772,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   max-width: 440px;
   margin-bottom: 32px;
   opacity: 0;
-  animation: srFadeUp .6s ease 1s forwards;
+  animation: srFadeUp .7s ease 1.5s forwards;
 }
 .sr-cevaplar {
   display: flex;
@@ -1782,7 +1782,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   max-width: 400px;
   margin-bottom: 32px;
   opacity: 0;
-  animation: srFadeUp .6s ease 1.2s forwards;
+  animation: srFadeUp .7s ease 1.8s forwards;
 }
 .sr-cevap-btn {
   background: rgba(255,255,255,.04);
@@ -1854,7 +1854,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .6s ease .4s forwards;
 }
 @keyframes srFadeUp {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -1909,7 +1909,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   max-width: 380px;
   line-height: 1.7;
   opacity: 0;
-  animation: srFadeUp .6s ease .6s forwards;
+  animation: srFadeUp .7s ease 1.1s forwards;
 }
 .ks-secenekler {
   display: flex;
@@ -1918,7 +1918,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   width: 100%;
   max-width: 420px;
   opacity: 0;
-  animation: srFadeUp .6s ease .8s forwards;
+  animation: srFadeUp .7s ease 1.3s forwards;
 }
 .ks-secenek {
   background: rgba(255,255,255,.03);
@@ -2201,7 +2201,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   color: #4a3a2a;
   margin-bottom: 24px;
   opacity: 0;
-  animation: srFadeUp .5s ease .2s forwards;
+  animation: srFadeUp .7s ease .3s forwards;
 }
 .gs-ust {
   font-family: monospace;
@@ -2211,7 +2211,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   color: #B88A3B;
   margin-bottom: 16px;
   opacity: 0;
-  animation: srFadeUp .5s ease .3s forwards;
+  animation: srFadeUp .7s ease .5s forwards;
 }
 .gs-bolum {
   font-family: monospace;
@@ -2219,7 +2219,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   color: #4a3a2a;
   margin-bottom: 8px;
   opacity: 0;
-  animation: srFadeUp .5s ease .4s forwards;
+  animation: srFadeUp .7s ease .7s forwards;
 }
 .gs-kapanis {
   font-family: Georgia, serif;
@@ -2235,7 +2235,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   background: rgba(212,176,106,.04);
   border-radius: 0 8px 8px 0;
   opacity: 0;
-  animation: srFadeUp .5s ease .5s forwards;
+  animation: srFadeUp .7s ease .9s forwards;
 }
 .gs-soru {
   font-family: Georgia, serif;
@@ -4935,7 +4935,13 @@ function selectSabahCevap(btn, idx) {
 function closeSabahRitual() {
   const el = document.getElementById('sabah-ritual');
   el.classList.remove('visible');
-  setTimeout(() => el.classList.remove('open'), 600);
+  setTimeout(() => {
+    el.classList.remove('open');
+    // Sabah ritüeli tamamen kapandıktan sonra günlük soruyu göster
+    setTimeout(() => {
+      if (typeof showGunlukSoru === 'function') showGunlukSoru();
+    }, 400);
+  }, 700);
 
   // Streak güncelle
   updateStreak();
@@ -5529,9 +5535,7 @@ if (_prevBuildJournal) {
 // Init
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initGsTbBtn, 500);
-  setTimeout(() => {
-    if (typeof showGunlukSoru === 'function') showGunlukSoru();
-  }, 3500);
+  // Günlük soru sabah ritüelinden sonra açılacak — closeSabahRitual() içinde tetiklenir
 });
 
 </script>
