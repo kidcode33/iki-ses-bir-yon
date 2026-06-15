@@ -2717,8 +2717,7 @@ function render(id) {
   // B1 ilk kez açılıyorsa giriş ekranı göster
   const readMap = Store.get('read', {});
   if (id === 1 && !readMap[1] && !Store.get('b1intro_seen', false)) {
-    showB1Intro();
-    return;
+    if (typeof showB1Intro === 'function') { showB1Intro(); return; }
   }
 
   // Toolbar
@@ -4840,17 +4839,9 @@ const SABAH_SORULARI = [
 ];
 
 function shouldShowSabahRitual() {
-  const last    = Store.get('last', null);
-  const readMap = Store.get('read', {});
-  if (!last || Object.keys(readMap).length === 0) return false;
-
   // Bugün zaten gösterildi mi?
   const today = new Date().toISOString().slice(0, 10);
   if (Store.get('sabah_shown_date', '') === today) return false;
-
-  // Sabah 6-12 arası mı?
-  const hour = new Date().getHours();
-  if (hour < 6 || hour > 22) return false;  // geniş aralık — her açılışta göster
 
   return true;
 }
@@ -5595,8 +5586,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const FREE_LIMIT = 10; // İlk 10 bölüm ücretsiz
 
 function isSubscribed() {
-  // Gerçek uygulamada: Supabase'den token doğrula
-  return Store.get('access_token', null) !== null;
+  return true; // TODO: Stripe entegrasyonu tamamlanınca aktif et
 }
 
 function checkPaywall(chapterId) {
