@@ -2325,6 +2325,152 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 }
 .gs-tb-dot.visible { display: block; }
 
+
+/* ════════════════════════════════════
+   PAYWALL
+   ════════════════════════════════════ */
+#paywall-screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 550;
+  background: #1B1511;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+#paywall-screen.open    { display: flex; }
+#paywall-screen.visible { opacity: 1; }
+
+.pw-lock {
+  font-size: 36px;
+  margin-bottom: 24px;
+  opacity: .6;
+}
+.pw-eyebrow {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #B88A3B;
+  margin-bottom: 16px;
+}
+.pw-title {
+  font-family: Georgia, serif;
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: 500;
+  color: #F3E7D2;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  max-width: 400px;
+}
+.pw-sub {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-style: italic;
+  color: #B8AA96;
+  line-height: 1.7;
+  max-width: 380px;
+  margin-bottom: 36px;
+}
+.pw-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+  width: 100%;
+  margin-bottom: 36px;
+  text-align: left;
+}
+.pw-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  color: #B8AA96;
+}
+.pw-feature-icon {
+  color: #D4B06A;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.pw-price-box {
+  background: rgba(212,176,106,.08);
+  border: 1px solid rgba(212,176,106,.3);
+  border-radius: 16px;
+  padding: 24px 32px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 320px;
+}
+.pw-price-label {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: #B88A3B;
+  margin-bottom: 8px;
+}
+.pw-price {
+  font-family: Georgia, serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: #D4B06A;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.pw-price-note {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: #7a6e60;
+  text-transform: uppercase;
+}
+.pw-btn-primary {
+  background: linear-gradient(135deg, #D4B06A, #B88A3B);
+  color: #1B1511;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 40px;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  max-width: 320px;
+  transition: opacity .2s, transform .2s;
+  margin-bottom: 12px;
+}
+.pw-btn-primary:hover {
+  opacity: .92;
+  transform: translateY(-1px);
+}
+.pw-btn-back {
+  background: none;
+  border: none;
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #4a3a2a;
+  cursor: pointer;
+  transition: color .2s;
+  margin-top: 8px;
+}
+.pw-btn-back:hover { color: #B8AA96; }
+.pw-guarantee {
+  font-family: monospace;
+  font-size: 10px;
+  color: #4a3a2a;
+  letter-spacing: .08em;
+  margin-top: 16px;
+}
+
 </style>
 
   <!-- PWA -->
@@ -2347,7 +2493,6 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   <div class="cover-light-blue"></div>
 
   <div class="cover-content">
-    <div class="cover-title-main">İKİ SES<br>BİR YÖN</div>
     <div class="cover-tagline">Oku • Düşün • Not Al • Kendi Yolunu Çiz</div>
     <div class="cover-info">89 BÖLÜM  •  BİR YOLCULUK</div>
 
@@ -5387,6 +5532,171 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     if (typeof showGunlukSoru === 'function') showGunlukSoru();
   }, 3500);
+});
+
+</script>
+
+<!-- PAYWALL -->
+<div id="paywall-screen">
+  <div class="pw-lock">🔒</div>
+  <div class="pw-eyebrow">10. Bölümden Sonra</div>
+  <div class="pw-title">Yolculuğa devam et.</div>
+  <div class="pw-sub">
+    79 bölüm daha seni bekliyor.<br>
+    Tek seferlik — ömür boyu erişim.
+  </div>
+
+  <div class="pw-features">
+    <div class="pw-feature">
+      <span class="pw-feature-icon">✦</span>
+      <span>89 bölümün tamamı</span>
+    </div>
+    <div class="pw-feature">
+      <span class="pw-feature-icon">✦</span>
+      <span>Not alma ve soru yanıtlama</span>
+    </div>
+    <div class="pw-feature">
+      <span class="pw-feature-icon">✦</span>
+      <span>Yolculuk Günlüğü</span>
+    </div>
+    <div class="pw-feature">
+      <span class="pw-feature-icon">✦</span>
+      <span>Tüm cihazlarda, internet olmadan</span>
+    </div>
+  </div>
+
+  <div class="pw-price-box">
+    <div class="pw-price-label">Tek Seferlik</div>
+    <div class="pw-price">149 ₺</div>
+    <div class="pw-price-note">Ömür boyu erişim · Güncelleme dahil</div>
+  </div>
+
+  <button class="pw-btn-primary" onclick="openCheckout()">
+    Erişim Satın Al →
+  </button>
+
+  <div class="pw-guarantee">✓ Güvenli ödeme · Stripe</div>
+
+  <button class="pw-btn-back" onclick="closePaywall()">
+    ← Geri dön
+  </button>
+</div>
+
+<script>
+
+/* ════════════════════════════════════
+   PAYWALL SİSTEMİ
+   ════════════════════════════════════ */
+
+const FREE_LIMIT = 10; // İlk 10 bölüm ücretsiz
+
+function isSubscribed() {
+  // Gerçek uygulamada: Supabase'den token doğrula
+  return Store.get('access_token', null) !== null;
+}
+
+function checkPaywall(chapterId) {
+  if (chapterId <= FREE_LIMIT) return true;
+  if (isSubscribed()) return true;
+  showPaywall(chapterId);
+  return false;
+}
+
+function showPaywall(chapterId) {
+  const el = document.getElementById('paywall-screen');
+  if (!el) return;
+  el.classList.add('open');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => el.classList.add('visible'));
+  });
+}
+
+function closePaywall() {
+  const el = document.getElementById('paywall-screen');
+  if (!el) return;
+  el.classList.remove('visible');
+  setTimeout(() => el.classList.remove('open'), 600);
+}
+
+function openCheckout() {
+  // TODO: Stripe Payment Link veya Checkout Session
+  // Şimdilik placeholder — Stripe entegrasyonunda doldurulacak
+  const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/PLACEHOLDER';
+  window.open(STRIPE_PAYMENT_LINK, '_blank');
+}
+
+// Stripe success dönüşünde token kaydet
+function handlePaymentSuccess() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === '1') {
+    // TODO: Stripe webhook'tan gelen token'ı kaydet
+    // Şimdilik demo: URL parametresinden session_id al
+    const sessionId = urlParams.get('session_id');
+    if (sessionId) {
+      Store.set('access_token', sessionId);
+      Store.set('access_granted_at', new Date().toISOString());
+      // URL'i temizle
+      window.history.replaceState({}, '', window.location.pathname);
+      if (typeof showToast === 'function') {
+        showToast('Erişim açıldı — iyi yolculuklar ✦');
+      }
+    }
+  }
+}
+
+// render() fonksiyonunu paywall ile sar
+const _origRenderForPaywall = window.render;
+window.render = function(id) {
+  if (!checkPaywall(id)) return;
+  _origRenderForPaywall(id);
+};
+
+// Kitabım'daki bölüm listesinde kilitli olanları göster
+function renderLockedChapters() {
+  if (isSubscribed()) return '';
+  return `
+    <div style="
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px dashed rgba(212,176,106,.2);
+      border-radius: 10px;
+      text-align: center;
+    ">
+      <div style="font-family:monospace;font-size:10px;letter-spacing:.12em;
+                  text-transform:uppercase;color:#B88A3B;margin-bottom:8px">
+        🔒 ${89 - FREE_LIMIT} Bölüm Daha
+      </div>
+      <div style="font-family:Georgia,serif;font-size:13px;
+                  color:#B8AA96;margin-bottom:12px;font-style:italic">
+        B11'den B89'a kadar erişmek için
+      </div>
+      <button onclick="showPaywall(11)" style="
+        background:linear-gradient(135deg,#D4B06A,#B88A3B);
+        color:#1B1511;border:none;border-radius:8px;
+        padding:10px 24px;font-family:Georgia,serif;
+        font-size:14px;font-weight:500;cursor:pointer
+      ">Erişim Satın Al — 149 ₺</button>
+    </div>`;
+}
+
+// Sidebar'da kilitli bölümler için kilit ikonu
+const _origBuildJourney = typeof buildJourney === 'function' ? buildJourney : null;
+if (_origBuildJourney) {
+  window.buildJourney = function() {
+    _origBuildJourney();
+    if (!isSubscribed()) {
+      document.querySelectorAll('.jr-item').forEach(item => {
+        const wpId = parseInt(item.id.replace('jr-', ''));
+        const wp = WAYPOINTS.find(w => w.id === `jr-${wpId}` || w.start > FREE_LIMIT);
+        // Basit kontrol: evre başlangıcı FREE_LIMIT'in üzerindeyse kilitle
+      });
+    }
+  };
+}
+
+// Sayfa yüklenince ödeme başarısını kontrol et
+document.addEventListener('DOMContentLoaded', () => {
+  handlePaymentSuccess();
 });
 
 </script>
