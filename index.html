@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
+
 /* === RESET === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 15px; }
@@ -175,7 +177,7 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
 .note-toggle:hover { color: #5e5448; }
 .note-area { margin-top: 10px; display: none; }
 .note-area.open { display: block; }
-.note-area textarea { width: 100%; min-height: 80px; padding: 12px; font-family: 'Lora', serif; font-size: 13px; line-height: 1.7; color: #1c1a16; background: #f0eade; border: 1.5px solid #ddd5c6; border-radius: 8px; resize: vertical; outline: none; }
+.note-area textarea { width: 100%; min-height: 80px; padding: 12px; font-family: 'Lora', serif; font-size: 13px; line-height: 1.7; color: #1c1a16; background: #f0eade; border: 1.5px solid #ddd5c6; border-radius: 2px; resize: vertical; outline: none; }
 .note-area textarea:focus { border-color: #C9A86A; }
 .note-save { margin-top: 6px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; color: #f7f3ec; background: #1c1a16; border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; }
 .note-save.saved { background: #3a6048; }
@@ -183,7 +185,7 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
 /* === ÖNERİLER === */
 .ch-recs { padding: 20px 32px; border-bottom: 1px solid #ddd5c6; }
 .ch-recs-hdr { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #c8bfb0; margin-bottom: 12px; }
-.rec-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 8px; cursor: pointer; margin-bottom: 6px; transition: background .15s; }
+.rec-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 2px; cursor: pointer; margin-bottom: 6px; transition: background .15s; }
 .rec-item:hover { background: #e8e0d2; }
 .rec-num { font-family: 'DM Mono', monospace; font-size: 10px; color: #c8bfb0; min-width: 22px; }
 .rec-sure { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #8e8478; min-width: 60px; }
@@ -213,7 +215,7 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
   z-index: 150; display: flex; align-items: center; gap: 2px;
   background: #f7f3ec; border: 1px solid #cfc5b4; border-radius: 40px;
-  padding: 5px 8px; box-shadow: 0 4px 20px rgba(28,26,22,.1);
+  padding: 5px 8px; box-shadow: none;
 }
 .nav-btn { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: none; border: none; color: #8a7860; cursor: pointer; }
 .nav-btn:hover { background: #e8e0d2; color: #1c1a16; }
@@ -248,16 +250,16 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
 #sys-panel { width:min(860px,100vw); background:#f0eade; border-left:1px solid #ddd5c6; display:flex; flex-direction:column; animation:sysIn .3s ease; }
 @keyframes sysIn { from{transform:translateX(100%)} to{transform:translateX(0)} }
 .sys-top { display:flex; align-items:center; gap:4px; padding:0 16px; height:52px; border-bottom:1px solid #ddd5c6; flex-shrink:0; overflow-x:auto; }
-.sys-tab { background:none; border:none; height:52px; padding:0 12px; font-family:monospace; font-size:11px; font-weight:500; letter-spacing:.04em; text-transform:uppercase; color:#8e8478; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
+.sys-tab { background:none; border:none; height:52px; padding:0 12px; font-family:"Inter",sans-serif; font-size:11px; font-weight:500; letter-spacing:.04em; text-transform:uppercase; color:#8e8478; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
 .sys-tab:hover { color:#1c1a16; }
 .sys-tab.on { color:#1c1a16; border-bottom-color:#C9A86A; }
-.sys-close { margin-left:auto; background:none; border:1px solid #ddd5c6; border-radius:4px; padding:5px 10px; font-family:monospace; font-size:11px; color:#8e8478; cursor:pointer; white-space:nowrap; }
+.sys-close { margin-left:auto; background:none; border:1px solid #ddd5c6; border-radius:4px; padding:5px 10px; font-family:"Inter",sans-serif; font-size:11px; color:#8e8478; cursor:pointer; white-space:nowrap; }
 .sys-body { flex:1; overflow-y:auto; padding:20px 24px; }
 .sys-pnl { display:none; }
-#onboard-toast { position:fixed; bottom:88px; left:50%; transform:translateX(-50%) translateY(16px); z-index:200; background:#1c1a16; color:#f7f3ec; border-radius:40px; padding:10px 20px; font-family:Georgia,serif; font-size:13px; font-style:italic; max-width:min(360px,90vw); text-align:center; box-shadow:0 8px 32px rgba(28,26,22,.2); opacity:0; pointer-events:none; transition:opacity .4s,transform .4s; }
+#onboard-toast { position:fixed; bottom:88px; left:50%; transform:translateX(-50%) translateY(16px); z-index:200; background:#1c1a16; color:#f7f3ec; border-radius:40px; padding:14px 28px; font-family:"Cormorant Garamond",Georgia,serif; font-size:13px; font-style:italic; max-width:min(360px,90vw); text-align:center; box-shadow: none; opacity:0; pointer-events:none; transition:opacity .4s,transform .4s; }
 #onboard-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 #welcome-back { display:none; position:fixed; inset:0; z-index:250; background:rgba(28,26,22,.55); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:24px; }
-.wb-card { background:#f7f3ec; border:1px solid #ddd5c6; border-radius:14px; padding:36px 32px; max-width:400px; width:100%; box-shadow:0 24px 60px rgba(28,26,22,.15); }
+.wb-card { background:#f7f3ec; border:1px solid #ddd5c6; border-radius:14px; padding:36px 32px; max-width:400px; width:100%; box-shadow: none; }
 #final-screen { display:none; position:fixed; inset:0; z-index:500; background:#f7f3ec; overflow-y:auto; }
 #final-content { max-width:600px; margin:0 auto; padding:clamp(48px,8vw,80px) clamp(20px,5vw,48px); }
 #intro-overlay { display:none; position:fixed; inset:0; z-index:250; background:#191613; flex-direction:column; align-items:center; justify-content:flex-start; overflow-y:auto; }
@@ -267,14 +269,14 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
 .sor-response.open { display: block; }
 .sor-response textarea {
   width: 100%; min-height: 72px; padding: 10px 12px;
-  font-family: Georgia, serif; font-size: 13px; line-height: 1.6;
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 13px; line-height: 1.6;
   color: #1c1a16; background: #f0eade;
-  border: 1px solid #ddd5c6; border-radius: 8px;
+  border: 1px solid #ddd5c6; border-radius: 2px;
   resize: vertical; outline: none;
 }
 .sor-response textarea:focus { border-color: #c89848; }
 .sor-save {
-  margin-top: 5px; font-family: monospace; font-size: 10px;
+  margin-top: 5px; font-family: "Inter", sans-serif; font-size: 10px;
   color: #8e8478; background: none; border: 1px solid #ddd5c6;
   border-radius: 4px; padding: 4px 10px; cursor: pointer;
 }
@@ -282,7 +284,7 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
 .sor-save.saved { color: #3a6048; border-color: #5a8060; }
 .sor-toggle {
   display: inline-block; margin-left: 8px; font-size: 10px;
-  color: #c8bfb0; cursor: pointer; font-family: monospace;
+  color: #c8bfb0; cursor: pointer; font-family: "Inter", sans-serif;
   font-weight: 500; user-select: none;
 }
 .sor-toggle:hover { color: #3a6a5a; }
@@ -425,14 +427,14 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
   font-size: 40px; margin-bottom: 28px; opacity: .85;
 }
 .ob-title {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(28px,6vw,42px);
   font-weight: 500; color: #ffffff;
   line-height: 1.15; letter-spacing: -.025em;
   margin-bottom: 20px;
 }
 .ob-text {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(15px,2.5vw,18px);
   font-style: italic; color: #ffffff;
   line-height: 1.8; max-width: 480px;
@@ -444,14 +446,14 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
   background: #1c1a16; color: #f7f3ec;
   border: none; border-radius: 3px;
   padding: 16px 48px;
-  font-family: Georgia, serif; font-size: 17px; font-weight: 500;
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 17px; font-weight: 500;
   cursor: pointer; transition: background .2s;
   margin-bottom: 12px; display: block;
 }
 .ob-btn-primary:hover { background: #3a3628; }
 .ob-btn-skip {
   background: none; border: none;
-  font-family: monospace; font-size: 11px;
+  font-family: "Inter", sans-serif; font-size: 11px;
   color: #c8bfb0; cursor: pointer; padding: 8px;
   letter-spacing: .06em; text-transform: uppercase;
 }
@@ -485,8 +487,8 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
   background: #1c1a16; color: #f7f3ec;
   border-radius: 40px; padding: 8px 16px;
   display: none; align-items: center; gap: 10px;
-  box-shadow: 0 8px 32px rgba(28,26,22,.3);
-  font-family: monospace; font-size: 11px;
+  box-shadow: none;
+  font-family: "Inter", sans-serif; font-size: 11px;
   min-width: 240px;
 }
 #audio-bar.show { display: flex; }
@@ -513,17 +515,17 @@ body { font-family: 'DM Sans', sans-serif; background: #191613; color: #1c1a16; 
   transform: translateX(-50%); z-index: 161;
   background: #f7f3ec; border: 1px solid #ddd5c6;
   border-radius: 12px; padding: 20px 24px;
-  box-shadow: 0 8px 32px rgba(28,26,22,.12);
+  box-shadow: none;
   min-width: 300px;
 }
 #audio-settings.show { display: block; }
-.as-title { font-family: monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8e8478; margin-bottom: 14px; }
+.as-title { font-family: "Inter", sans-serif; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8e8478; margin-bottom: 14px; }
 .as-row { margin-bottom: 12px; }
-.as-label { font-family: monospace; font-size: 11px; color: #5e5448; margin-bottom: 6px; display: block; }
-.as-input { width: 100%; padding: 8px 10px; font-family: monospace; font-size: 12px; color: #1c1a16; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 6px; outline: none; }
+.as-label { font-family: "Inter", sans-serif; font-size: 11px; color: #5e5448; margin-bottom: 6px; display: block; }
+.as-input { width: 100%; padding: 8px 10px; font-family: "Inter", sans-serif; font-size: 12px; color: #1c1a16; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 6px; outline: none; }
 .as-input:focus { border-color: #C9A86A; }
-.as-select { width: 100%; padding: 8px 10px; font-family: monospace; font-size: 12px; color: #1c1a16; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 6px; outline: none; cursor: pointer; }
-.as-save { background: #1c1a16; color: #f7f3ec; border: none; border-radius: 6px; padding: 9px 20px; font-family: monospace; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 4px; }
+.as-select { width: 100%; padding: 8px 10px; font-family: "Inter", sans-serif; font-size: 12px; color: #1c1a16; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 6px; outline: none; cursor: pointer; }
+.as-save { background: #1c1a16; color: #f7f3ec; border: none; border-radius: 6px; padding: 9px 20px; font-family: "Inter", sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 4px; }
 .as-save:hover { background: #3a3628; }
 .as-close { position: absolute; top: 12px; right: 14px; background: none; border: none; color: #8e8478; cursor: pointer; font-size: 16px; }
 
@@ -579,14 +581,7 @@ body {
   max-width: 708px;
   margin: 24px auto;
   border-radius: 2px;
-  box-shadow:
-    0 1px 1px rgba(0,0,0,.06),
-    0 2px 4px rgba(0,0,0,.06),
-    0 4px 8px rgba(0,0,0,.04),
-    0 8px 16px rgba(0,0,0,.03),
-    4px 0 8px rgba(0,0,0,.03),
-    -4px 0 8px rgba(0,0,0,.03),
-    inset -3px 0 6px rgba(0,0,0,.04);
+  box-shadow: none;
   border-left: 1px solid rgba(0,0,0,.08);
   border-right: 1px solid rgba(0,0,0,.08);
   border-top: 1px solid rgba(0,0,0,.05);
@@ -659,7 +654,7 @@ body {
   z-index: 200; background: #1c1a16; color: #f7f3ec;
   border-radius: 12px; padding: 16px 20px;
   max-width: min(360px, 90vw); width: 100%;
-  box-shadow: 0 8px 32px rgba(28,26,22,.3);
+  box-shadow: none;
   animation: notifSlide .4s ease;
 }
 @keyframes notifSlide {
@@ -668,11 +663,11 @@ body {
 }
 #notif-prompt.show { display: block; }
 .np-title {
-  font-family: Georgia, serif; font-size: 14px;
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 14px;
   font-weight: 500; margin-bottom: 6px;
 }
 .np-text {
-  font-family: Georgia, serif; font-size: 12px;
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 12px;
   font-style: italic; color: #8e8478;
   margin-bottom: 14px; line-height: 1.6;
 }
@@ -680,7 +675,7 @@ body {
 .np-yes {
   flex: 1; background: #f7f3ec; color: #1c1a16;
   border: none; border-radius: 6px; padding: 9px;
-  font-family: monospace; font-size: 11px;
+  font-family: "Inter", sans-serif; font-size: 11px;
   font-weight: 600; letter-spacing: .06em;
   text-transform: uppercase; cursor: pointer;
 }
@@ -688,7 +683,7 @@ body {
 .np-no {
   background: none; border: 1px solid #3a3628;
   border-radius: 6px; padding: 9px 14px;
-  font-family: monospace; font-size: 11px;
+  font-family: "Inter", sans-serif; font-size: 11px;
   color: #5e5448; cursor: pointer;
 }
 .np-no:hover { border-color: #5e5448; }
@@ -696,7 +691,7 @@ body {
 /* Bildirim ayarları — sistem panelinde */
 .notif-settings { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd5c6; }
 .notif-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.notif-label { font-family: monospace; font-size: 11px; color: #5e5448; }
+.notif-label { font-family: "Inter", sans-serif; font-size: 11px; color: #5e5448; }
 .notif-toggle {
   width: 36px; height: 20px; border-radius: 10px;
   background: #ddd5c6; border: none; cursor: pointer;
@@ -711,7 +706,7 @@ body {
 }
 .notif-toggle.on::after { left: 19px; }
 .notif-time {
-  font-family: monospace; font-size: 12px;
+  font-family: "Inter", sans-serif; font-size: 12px;
   color: #1c1a16; background: #f0eade;
   border: 1px solid #ddd5c6; border-radius: 6px;
   padding: 5px 10px; width: 90px; outline: none;
@@ -778,7 +773,7 @@ body {
 
 /* Tagline */
 .cover-tagline {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: clamp(10px, 2vw, 12px);
   letter-spacing: .2em; text-transform: uppercase;
   color: rgba(200,168,100,.7);
@@ -800,7 +795,7 @@ body {
 
 /* Bilgi satırı */
 .cover-info {
-  font-family: monospace; font-size: 11px;
+  font-family: "Inter", sans-serif; font-size: 11px;
   letter-spacing: .1em; text-transform: uppercase;
   color: rgba(200,168,100,.4);
   margin-bottom: clamp(28px,5vw,40px);
@@ -809,17 +804,17 @@ body {
 /* Ana buton */
 .cover-btn-primary {
   width: 100%; max-width: 320px;
-  background: linear-gradient(135deg, #C9A86A, #C9A86A);
+  background: #C9A86A;
   color: #2A241F;
   border: none; border-radius: 4px;
   padding: 16px 32px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 17px;
   font-weight: 500; letter-spacing: .04em;
   cursor: pointer; margin-bottom: 10px;
   position: relative; overflow: hidden;
   transition: transform .2s, box-shadow .2s;
-  box-shadow: 0 4px 24px rgba(200,168,100,.3);
+  box-shadow: none;
   opacity: 0;
   animation: coverContentRise .6s ease 1.2s forwards;
 }
@@ -829,7 +824,7 @@ body {
   background: linear-gradient(135deg, rgba(243,236,226,.12), transparent);
   opacity: 0; transition: opacity .2s;
 }
-.cover-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,168,100,.4); }
+.cover-btn-primary:hover { transform: translateY(-2px); box-shadow: none; }
 .cover-btn-primary:hover::after { opacity: 1; }
 .cover-btn-primary:active { transform: translateY(0); }
 
@@ -841,7 +836,7 @@ body {
   border: 1px solid rgba(243,236,226,.10);
   border-radius: 6px;
   padding: clamp(12px,2.5vw,15px) 32px;
-  font-family: monospace; font-size: 12px;
+  font-family: "Inter", sans-serif; font-size: 12px;
   font-weight: 500; letter-spacing: .08em;
   text-transform: uppercase;
   cursor: pointer;
@@ -917,16 +912,16 @@ body {
   font-size: 32px; margin-bottom: 16px; opacity: .8;
 }
 .evre-sonu-label {
-  font-family: monospace; font-size: 10px; font-weight: 600;
+  font-family: "Inter", sans-serif; font-size: 10px; font-weight: 600;
   letter-spacing: .2em; text-transform: uppercase;
   color: #C9A86A; margin-bottom: 12px;
 }
 .evre-sonu-baslik {
-  font-family: Georgia, serif; font-size: 24px; font-weight: 500;
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 24px; font-weight: 500;
   color: #f7f3ec; margin-bottom: 12px; letter-spacing: -.01em;
 }
 .evre-sonu-metin {
-  font-family: Georgia, serif; font-size: 14px; font-style: italic;
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 14px; font-style: italic;
   color: #8e8478; line-height: 1.8; max-width: 380px; margin: 0 auto 24px;
 }
 .evre-sonu-stats {
@@ -934,17 +929,17 @@ body {
 }
 .evre-sonu-stat { text-align: center; }
 .evre-sonu-stat-n {
-  font-family: monospace; font-size: 22px; font-weight: 700;
+  font-family: "Inter", sans-serif; font-size: 22px; font-weight: 700;
   color: #C9A86A; line-height: 1;
 }
 .evre-sonu-stat-l {
-  font-family: monospace; font-size: 9px; letter-spacing: .1em;
+  font-family: "Inter", sans-serif; font-size: 9px; letter-spacing: .1em;
   text-transform: uppercase; color: #5e5448; margin-top: 4px;
 }
 .evre-sonu-devam {
-  display: inline-block; background: linear-gradient(135deg, #C9A86A, #C9A86A);
+  display: inline-block; background: #C9A86A;
   color: #1c1a16; border: none; border-radius: 4px;
-  padding: 12px 28px; font-family: Georgia, serif;
+  padding: 12px 28px; font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 15px; font-weight: 500; cursor: pointer;
   transition: opacity .2s;
 }
@@ -1064,7 +1059,7 @@ body { background-color: #191613 !important; color: #F3ECE2 !important; }
 .ch-nav { border-bottom-color: #2e2820 !important; }
 .ch-nav-btn { color: #8a7860 !important; border-right-color: #2e2820 !important; }
 .ch-nav-btn:hover { background: #221D19 !important; color: #C9A86A !important; }
-#float-nav { background: #191613 !important; border-color: #2e2820 !important; box-shadow: 0 4px 20px rgba(0,0,0,.5) !important; }
+#float-nav { background: #191613 !important; border-color: #2e2820 !important; box-shadow: none; }
 .nav-btn { color: #8a7860 !important; }
 .nav-btn:hover { background: #221D19 !important; color: #C9A86A !important; }
 .nav-counter { color: #3a3028 !important; }
@@ -1159,7 +1154,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 
 /* ════ KAPAK BAŞLIK ════ */
 .cover-title-main {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(42px, 10vw, 88px);
   font-weight: 600;
   color: #F3ECE2;
@@ -1172,7 +1167,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   opacity: 0;
 }
 .cover-tagline {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: clamp(10px, 2vw, 13px);
   letter-spacing: .25em;
   color: rgba(201,168,106,.7);
@@ -1251,7 +1246,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   text-align: center;
   padding: 60px 32px;
   color: var(--text2);
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-style: italic;
   font-size: 15px;
   line-height: 1.8;
@@ -1279,7 +1274,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 12px;
 }
 .je-num {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .12em;
   color: var(--gold);
@@ -1289,21 +1284,21 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   flex-shrink: 0;
 }
 .je-sure {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .08em;
   color: var(--text2);
   text-transform: uppercase;
 }
 .je-date {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   color: #3a3028;
   margin-left: auto;
   flex-shrink: 0;
 }
 .je-kapanis {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 15px;
   font-style: italic;
   color: var(--gold);
@@ -1313,7 +1308,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border-left: 2px solid var(--gold);
 }
 .je-note {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 13px;
   color: var(--text2);
   line-height: 1.7;
@@ -1332,7 +1327,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   right: 12px;
 }
 .je-answer {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 13px;
   color: var(--text2);
   line-height: 1.7;
@@ -1341,7 +1336,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 6px;
 }
 .je-question {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   color: #3a3028;
   letter-spacing: .06em;
@@ -1354,14 +1349,14 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 0;
 }
 .journal-title {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 20px;
   font-weight: 500;
   color: var(--title);
   margin-bottom: 4px;
 }
 .journal-subtitle {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .12em;
   color: var(--text2);
@@ -1375,14 +1370,14 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 }
 .js-stat { text-align: center; }
 .js-stat-n {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 22px;
   font-weight: 700;
   color: var(--gold);
   line-height: 1;
 }
 .js-stat-l {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 9px;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -1394,7 +1389,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 8px 16px;
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -1424,10 +1419,10 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   z-index: 200;
   background: #221D19;
   border: 1px solid rgba(201,168,106,.35);
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 20px 24px;
   width: min(360px, calc(100vw - 48px));
-  box-shadow: 0 8px 40px rgba(0,0,0,.5);
+  box-shadow: none;
   opacity: 0;
   transition: opacity .5s ease, transform .5s ease;
   pointer-events: none;
@@ -1438,7 +1433,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   pointer-events: all;
 }
 .rc-eyebrow {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 9px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -1446,7 +1441,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 10px;
 }
 .rc-title {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 16px;
   font-weight: 500;
   color: #F3ECE2;
@@ -1454,14 +1449,14 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   line-height: 1.3;
 }
 .rc-meta {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 11px;
   color: #CDBFAE;
   margin-bottom: 16px;
   line-height: 1.6;
 }
 .rc-kapanis {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 12px;
   font-style: italic;
   color: #C9A86A;
@@ -1479,12 +1474,12 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 }
 .rc-btn-primary {
   flex: 1;
-  background: linear-gradient(135deg, #C9A86A, #C9A86A);
+  background: #C9A86A;
   color: #191613;
   border: none;
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 11px 16px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -1494,7 +1489,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .rc-btn-close {
   background: none;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 11px 14px;
   color: var(--text2);
   font-size: 16px;
@@ -1509,7 +1504,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border: 1px solid rgba(201,168,106,.2);
   border-radius: 20px;
   padding: 3px 10px;
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   color: #C9A86A;
   margin-bottom: 4px;
@@ -1532,7 +1527,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 }
 #evre-mini:hover { opacity: .8; }
 .evre-mini-label {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -1553,7 +1548,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   transition: width .4s ease;
 }
 .evre-mini-count {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   color: var(--gold);
   white-space: nowrap;
@@ -1566,14 +1561,14 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border-bottom: 1px solid var(--border);
 }
 .evre-progress-title {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 18px;
   font-weight: 500;
   color: var(--title);
   margin-bottom: 4px;
 }
 .evre-progress-sub {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -1623,14 +1618,14 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   flex-shrink: 0;
 }
 .evre-card-name {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 15px;
   font-weight: 500;
   color: var(--title);
   flex: 1;
 }
 .evre-card-status {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -1643,7 +1638,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .status-locked  { background: var(--border); color: var(--text2); }
 
 .evre-card-his {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .06em;
   color: var(--text2);
@@ -1667,7 +1662,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   transition: width .6s ease;
 }
 .evre-bar-label {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 11px;
   color: var(--text2);
   white-space: nowrap;
@@ -1684,7 +1679,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border: 1px solid rgba(138,163,146,.3);
   border-radius: 20px;
   padding: 6px 14px;
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -1721,7 +1716,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   opacity: 1;
 }
 .sr-selamlama {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .25em;
   text-transform: uppercase;
@@ -1731,7 +1726,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .6s ease .3s forwards;
 }
 .sr-dun-label {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -1741,7 +1736,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .6s ease .5s forwards;
 }
 .sr-dun-bolum {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 13px;
   color: #CDBFAE;
   margin-bottom: 24px;
@@ -1749,7 +1744,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .7s ease 1.1s forwards;
 }
 .sr-kapanis {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(18px, 4vw, 26px);
   font-style: italic;
   color: #C9A86A;
@@ -1763,7 +1758,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .7s ease 1.3s forwards;
 }
 .sr-soru {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(15px, 2.5vw, 19px);
   color: #F3ECE2;
   line-height: 1.6;
@@ -1787,7 +1782,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 14px 20px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 14px;
   color: #CDBFAE;
   cursor: pointer;
@@ -1805,12 +1800,12 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   background: rgba(201,168,106,.1);
 }
 .sr-devam-btn {
-  background: linear-gradient(135deg, #C9A86A, #C9A86A);
+  background: #C9A86A;
   color: #191613;
   border: none;
   border-radius: 10px;
   padding: 14px 36px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -1826,7 +1821,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .sr-atla {
   background: none;
   border: none;
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -1844,7 +1839,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border: 1px solid rgba(201,168,106,.2);
   border-radius: 20px;
   padding: 6px 16px;
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 11px;
   color: #C9A86A;
   margin-bottom: 28px;
@@ -1878,7 +1873,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 #kimlik-screen.visible { opacity: 1; }
 
 .ks-ust {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .25em;
   text-transform: uppercase;
@@ -1888,7 +1883,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .6s ease .2s forwards;
 }
 .ks-baslik {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(22px, 5vw, 32px);
   font-weight: 500;
   color: #F3ECE2;
@@ -1899,7 +1894,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .6s ease .4s forwards;
 }
 .ks-alt {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 15px;
   font-style: italic;
   color: #CDBFAE;
@@ -1945,7 +1940,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   text-align: center;
 }
 .ks-secenek-metin {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 15px;
   color: #CDBFAE;
   line-height: 1.4;
@@ -1956,12 +1951,12 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 
 .ks-devam-btn {
   margin-top: 28px;
-  background: linear-gradient(135deg, #C9A86A, #C9A86A);
+  background: #C9A86A;
   color: #191613;
   border: none;
   border-radius: 10px;
   padding: 14px 40px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -1985,7 +1980,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 }
 .kimlik-yanki.visible { display: block; }
 .ky-label {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 9px;
   letter-spacing: .15em;
   text-transform: uppercase;
@@ -1993,7 +1988,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 8px;
 }
 .ky-metin {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 14px;
   font-style: italic;
   color: #CDBFAE;
@@ -2028,7 +2023,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 #damga-koleksiyon.visible { opacity: 1; }
 
 .dk-baslik {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -2036,7 +2031,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 12px;
 }
 .dk-altyazi {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 18px;
   color: #F3ECE2;
   margin-bottom: 40px;
@@ -2080,7 +2075,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 }
 .dk-damga-icon:hover.earned { transform: scale(1.1); }
 .dk-damga-label {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 9px;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -2091,9 +2086,9 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .dk-kapat {
   background: none;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 10px 28px;
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 11px;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -2158,7 +2153,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .damga-mini.earned { animation: damgaGlow 3s ease-in-out infinite; }
 .damga-mini.locked { background: rgba(243,236,226,.03); border: 2px dashed #2e2820; opacity:.3; filter: grayscale(1); }
 .damga-satir-label {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -2192,7 +2187,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 #gunluk-soru-ekran.visible { opacity: 1; }
 
 .gs-tarih {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -2202,7 +2197,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .7s ease .3s forwards;
 }
 .gs-ust {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -2212,7 +2207,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .7s ease .5s forwards;
 }
 .gs-bolum {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 11px;
   color: #3a3028;
   margin-bottom: 8px;
@@ -2220,7 +2215,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .7s ease .7s forwards;
 }
 .gs-kapanis {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 14px;
   font-style: italic;
   color: #C9A86A;
@@ -2236,7 +2231,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   animation: srFadeUp .7s ease .9s forwards;
 }
 .gs-soru {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(18px, 3.5vw, 24px);
   color: #F3ECE2;
   line-height: 1.55;
@@ -2259,7 +2254,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 16px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 14px;
   color: #F3ECE2;
   line-height: 1.7;
@@ -2282,12 +2277,12 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 }
 .gs-kaydet-btn {
   flex: 1;
-  background: linear-gradient(135deg, #C9A86A, #C9A86A);
+  background: #C9A86A;
   color: #191613;
   border: none;
   border-radius: 10px;
   padding: 13px 20px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
@@ -2299,7 +2294,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 13px 20px;
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 11px;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -2350,7 +2345,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   opacity: .6;
 }
 .pw-eyebrow {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -2358,7 +2353,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 16px;
 }
 .pw-title {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(22px, 5vw, 30px);
   font-weight: 500;
   color: #F3ECE2;
@@ -2367,7 +2362,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   max-width: 400px;
 }
 .pw-sub {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 15px;
   font-style: italic;
   color: #CDBFAE;
@@ -2388,7 +2383,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 14px;
   color: #CDBFAE;
 }
@@ -2400,14 +2395,14 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .pw-price-box {
   background: rgba(201,168,106,.08);
   border: 1px solid rgba(201,168,106,.3);
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 24px 32px;
   margin-bottom: 20px;
   width: 100%;
   max-width: 320px;
 }
 .pw-price-label {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .15em;
   text-transform: uppercase;
@@ -2415,7 +2410,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 8px;
 }
 .pw-price {
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 42px;
   font-weight: 600;
   color: #C9A86A;
@@ -2423,19 +2418,19 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   margin-bottom: 4px;
 }
 .pw-price-note {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .1em;
   color: #6e6458;
   text-transform: uppercase;
 }
 .pw-btn-primary {
-  background: linear-gradient(135deg, #C9A86A, #C9A86A);
+  background: #C9A86A;
   color: #191613;
   border: none;
   border-radius: 10px;
   padding: 16px 40px;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
@@ -2451,7 +2446,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .pw-btn-back {
   background: none;
   border: none;
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -2462,11 +2457,57 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 }
 .pw-btn-back:hover { color: #CDBFAE; }
 .pw-guarantee {
-  font-family: monospace;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   color: #3a3028;
   letter-spacing: .08em;
   margin-top: 16px;
+}
+
+
+/* ════ TİPOGRAFİ SİSTEMİ ════ */
+.editorial-title,
+.ch-title,
+.cover-eyebrow,
+h1, h2, h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -.01em;
+}
+
+.ch-body,
+.ch-devam,
+.ch-kapanis,
+.ch-sahne {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 2;
+}
+
+.label,
+.tb-label,
+.meta,
+.eyebrow,
+.nav-label {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Premium okuma alanı */
+.reader-area {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 64px 48px;
+}
+
+/* Sessiz sınır stili */
+hr, .divider {
+  border: none;
+  border-top: 1px solid rgba(243,236,226,.08);
+  margin: 48px 0;
 }
 
 </style>
@@ -2499,7 +2540,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
     </button>
     <button id="cover-btn-devam" class="cover-btn-devam" style="display:none;
       background:none;border:1px solid rgba(201,168,106,.4);border-radius:40px;
-      padding:12px 28px;font-family:monospace;font-size:12px;letter-spacing:.1em;
+      padding:12px 28px;font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.1em;
       text-transform:uppercase;color:#C9A86A;cursor:pointer;margin-top:8px;
       transition:all .3s ease">
       Devam Et →
@@ -2522,7 +2563,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   <div class="sb-list" id="sb-list"></div>
   <div style="padding:12px 14px;border-top:1px solid #ddd5c6">
     <button onclick="closeSidebar();document.getElementById('intro-overlay').style.display='flex'" 
-            style="background:none;border:none;font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8e8478;cursor:pointer;padding:6px 0;width:100%;text-align:left">
+            style="background:none;border:none;font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8e8478;cursor:pointer;padding:6px 0;width:100%;text-align:left">
       ← Önsöz
     </button>
   </div>
@@ -3022,27 +3063,27 @@ window.addEventListener('DOMContentLoaded', function() {
     <div style="display:flex;flex-direction:column;justify-content:flex-start;padding-top:clamp(48px,8vw,80px);padding-bottom:52px;border-bottom:1px solid rgba(243,236,226,.08);margin-bottom:52px">
       <div style="position:absolute;bottom:0;left:0;width:48px;height:2px;background:#C9A86A"></div>
       
-      <div style="font-family:Georgia,serif;font-size:clamp(48px,10vw,80px);font-weight:500;line-height:1;color:#F3ECE2;margin-bottom:20px;letter-spacing:-.03em">İki Ses,<br>Bir Yön</div>
-      <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#CDBFAE;line-height:1.75;max-width:480px;margin-bottom:32px">Kur'an ve Nutuk'tan 89 bölüm. Her bölümde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(48px,10vw,80px);font-weight:500;line-height:1;color:#F3ECE2;margin-bottom:20px;letter-spacing:-.03em">İki Ses,<br>Bir Yön</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;font-style:italic;color:#CDBFAE;line-height:1.75;max-width:480px;margin-bottom:32px">Kur'an ve Nutuk'tan 89 bölüm. Her bölümde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px">
-        <span style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#6e6458">📖 Kur'an · Elmalılı Meali</span>
-        <span style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#6e6458">🇹🇷 Nutuk · Atatürk</span>
-        <span style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#6e6458">89 Bölüm</span>
-        <span style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#6e6458"></span>
+        <span style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:5px 14px;font-family:"Inter",sans-serif;font-size:11px;color:#6e6458">📖 Kur'an · Elmalılı Meali</span>
+        <span style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:5px 14px;font-family:"Inter",sans-serif;font-size:11px;color:#6e6458">🇹🇷 Nutuk · Atatürk</span>
+        <span style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:5px 14px;font-family:"Inter",sans-serif;font-size:11px;color:#6e6458">89 Bölüm</span>
+        <span style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:5px 14px;font-family:"Inter",sans-serif;font-size:11px;color:#6e6458"></span>
       </div>
     </div>
 
     <!-- İKİ KAYNAK ÖZETİ -->
-    <div style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:12px;padding:20px 24px;margin-bottom:52px">
-      <div style="font-family:Georgia,serif;font-size:14px;font-weight:500;color:#F3ECE2;margin-bottom:8px">İki Ses, Bir Yön</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#CDBFAE;line-height:1.7;margin-bottom:16px">Biri evrensel, biri tarihsel. İkisi birlikte soruyorlar:<br><em style="color:#F3ECE2">Zor bir anda, insan ne yapar?</em></div>
+    <div style="background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:3px;padding:20px 24px;margin-bottom:52px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:500;color:#F3ECE2;margin-bottom:8px">İki Ses, Bir Yön</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#CDBFAE;line-height:1.7;margin-bottom:16px">Biri evrensel, biri tarihsel. İkisi birlikte soruyorlar:<br><em style="color:#F3ECE2">Zor bir anda, insan ne yapar?</em></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div style="background:#1e2030;border-radius:8px;padding:12px 14px;border:1px solid rgba(106,95,160,.3)">
-          <div style="font-family:monospace;font-size:10px;font-weight:600;color:#889B8B;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase">Kur'an · Elmalılı Meali</div>
+        <div style="background:#1e2030;border-radius:2px;padding:12px 14px;border:1px solid rgba(106,95,160,.3)">
+          <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;color:#889B8B;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase">Kur'an · Elmalılı Meali</div>
           <div style="font-size:11px;color:#6e6458;line-height:1.55">İçsel değerler, evrensel sorular, insan doğasının sınavı</div>
         </div>
-        <div style="background:#1e1a12;border-radius:8px;padding:12px 14px;border:1px solid rgba(201,168,106,.25)">
-          <div style="font-family:monospace;font-size:10px;font-weight:600;color:#C9A86A;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase">Nutuk · Atatürk</div>
+        <div style="background:#1e1a12;border-radius:2px;padding:12px 14px;border:1px solid rgba(201,168,106,.25)">
+          <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;color:#C9A86A;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase">Nutuk · Atatürk</div>
           <div style="font-size:11px;color:#6e6458;line-height:1.55">Tarihsel gerçeklik, somut kararlar, çöküş içinde direniş</div>
         </div>
       </div>
@@ -3050,69 +3091,69 @@ window.addEventListener('DOMContentLoaded', function() {
 
     <!-- ÖNSÖZ -->
     <div style="padding-bottom:48px;border-bottom:1px solid rgba(243,236,226,.08);margin-bottom:48px">
-      <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:32px">Önsöz</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:32px">Önsöz</div>
 
-      <div style="font-family:Georgia,serif;font-size:18px;font-weight:500;color:#F3ECE2;line-height:1.7;margin-bottom:28px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:500;color:#F3ECE2;line-height:1.7;margin-bottom:28px">
         İki ses var.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
         Biri binlerce yıl önce söylendi — ama hâlâ soruyor.<br>
         Biri yüz yıl önce yaşandı — ama hâlâ cevap bekliyor.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
         Kur'an, iniş sırasıyla. Alak'tan Nasr'a.<br>
         Nutuk, Ekim 1927'den. Altı gün, 36 saat, sekiz yıl.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:28px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:28px">
         İki çağ. İki dil. Aynı soru:<br>
         <em style="color:#F3ECE2;font-size:17px">Zor bir anda, insan ne yapar?</em>
       </div>
 
       <div style="width:40px;height:2px;background:#C9A86A;margin-bottom:28px"></div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
         89 bölüm. Her birinde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
         Soru sana soruluyor.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
         Bu kitap sana ne düşüneceğini söylemeyecek.<br>
         Ama bazı sorulardan kaçmanı da zorlaştıracak.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
         Okuyacaksın. Duracaksın.<br>
         Bazen not alacaksın. Bazen sadece bir soruyla oturacaksın.<br>
         Bazen bir bölümü iki kez okuyacaksın.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#F3ECE2;line-height:1.95;margin-bottom:18px">
         Bu yolculukta senden istenen tek şey:<br>
         <em style="color:#F3ECE2">Dürüst olmak.</em>
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#6e6458;line-height:1.8;margin-top:32px;padding-top:24px;border-top:1px solid rgba(243,236,226,.08)">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-style:italic;color:#6e6458;line-height:1.8;margin-top:32px;padding-top:24px;border-top:1px solid rgba(243,236,226,.08)">
         Kur'an mealleri: Elmalılı Hamdi Yazır, <em>Hak Dini Kuran Dili</em> (1935) — sadeleştirilerek · Nutuk: Mustafa Kemal Atatürk, 1927
       </div>
       <div style="margin-top:40px;padding-top:24px;border-top:1px solid rgba(243,236,226,.08);
                   display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
         <button onclick="openKvkk()" style="background:none;border:none;
-          font-family:monospace;font-size:10px;letter-spacing:.12em;
+          font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.12em;
           text-transform:uppercase;color:#6e6458;cursor:pointer;">
           Gizlilik Politikası
         </button>
         <button onclick="openKosullar()" style="background:none;border:none;
-          font-family:monospace;font-size:10px;letter-spacing:.12em;
+          font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.12em;
           text-transform:uppercase;color:#6e6458;cursor:pointer;">
           Kullanım Koşulları
         </button>
-        <span style="font-family:monospace;font-size:10px;color:#3a3028;letter-spacing:.08em;align-self:center">
+        <span style="font-family:"Inter",sans-serif;font-size:10px;color:#3a3028;letter-spacing:.08em;align-self:center">
           pixelvadisi@gmail.com
         </span>
       </div>
@@ -3120,28 +3161,28 @@ window.addEventListener('DOMContentLoaded', function() {
 
     <!-- NASIL OKUNUR -->
     <div style="padding-bottom:48px;border-bottom:1px solid rgba(243,236,226,.08);margin-bottom:48px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#c8bfb0;margin-bottom:24px">Bu Seri Nasıl Okunur</div>
+      <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#c8bfb0;margin-bottom:24px">Bu Seri Nasıl Okunur</div>
       <div style="display:flex;flex-direction:column;gap:14px">
         <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(243,236,226,.08);color:#6e6458;margin-top:2px">1</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#CDBFAE;line-height:1.7;padding-top:2px">Her bölüm bağımsız okunabilir. Sıra şart değil.</div>
+          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:"Inter",sans-serif;font-size:10px;font-weight:500;border:1px solid rgba(243,236,226,.08);color:#6e6458;margin-top:2px">1</div>
+          <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;color:#CDBFAE;line-height:1.7;padding-top:2px">Her bölüm bağımsız okunabilir. Sıra şart değil.</div>
         </div>
 
         <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(243,236,226,.08);color:#6e6458;margin-top:2px">2</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#CDBFAE;line-height:1.7;padding-top:2px">"Düşün" soruları cevap beklemez. Sadece bir an durmak için var.</div>
+          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:"Inter",sans-serif;font-size:10px;font-weight:500;border:1px solid rgba(243,236,226,.08);color:#6e6458;margin-top:2px">2</div>
+          <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;color:#CDBFAE;line-height:1.7;padding-top:2px">"Düşün" soruları cevap beklemez. Sadece bir an durmak için var.</div>
         </div>
         <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(243,236,226,.08);color:#6e6458;margin-top:2px">3</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#CDBFAE;line-height:1.7;padding-top:2px">Notlarını kaydedebilirsin. Tarayıcında kalır.</div>
+          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:"Inter",sans-serif;font-size:10px;font-weight:500;border:1px solid rgba(243,236,226,.08);color:#6e6458;margin-top:2px">3</div>
+          <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;color:#CDBFAE;line-height:1.7;padding-top:2px">Notlarını kaydedebilirsin. Tarayıcında kalır.</div>
         </div>
       </div>
     </div>
 
     <!-- BAŞLA -->
     <div style="padding-bottom:clamp(48px,7vw,72px)">
-      <button onclick="closeIntro()" style="background:#F3ECE2;color:#191613;border:none;border-radius:3px;padding:16px 40px;font-family:Georgia,serif;font-size:16px;font-weight:500;cursor:pointer;display:block;margin-bottom:12px;transition:background .2s">Bölüm 1'den Başla →</button>
-      <div style="font-family:monospace;font-size:11px;color:#c8bfb0;letter-spacing:.04em">veya sol menüden bölüm seç</div>
+      <button onclick="closeIntro()" style="background:#F3ECE2;color:#191613;border:none;border-radius:3px;padding:16px 40px;font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;font-weight:500;cursor:pointer;display:block;margin-bottom:12px;transition:background .2s">Bölüm 1'den Başla →</button>
+      <div style="font-family:"Inter",sans-serif;font-size:11px;color:#c8bfb0;letter-spacing:.04em">veya sol menüden bölüm seç</div>
     </div>
 
   </div>
@@ -3258,35 +3299,35 @@ function showB89Closing() {
     padding: 40px; text-align: center;
   `;
   overlay.innerHTML = `
-    <div style="font-family:Georgia,serif;font-size:clamp(14px,2vw,18px);
-                color:#8a7860;letter-spacing:.2em;text-transform:uppercase;
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(14px,2vw,18px);
+                color:#8a7860;letter-spacing:.25em;text-transform:uppercase;
                 margin-bottom:40px;font-style:normal">
       İki Ses, Bir Yön
     </div>
-    <div style="font-family:Georgia,serif;font-size:clamp(28px,5vw,48px);
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(28px,5vw,48px);
                 color:#191613;line-height:1.4;font-weight:500;
                 margin-bottom:24px;max-width:600px">
       Yolculuğun tamamlandı.
     </div>
-    <div style="font-family:Georgia,serif;font-size:clamp(16px,2.5vw,22px);
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(16px,2.5vw,22px);
                 color:#C9A86A;font-style:italic;line-height:1.6;
                 margin-bottom:48px;max-width:500px">
       Ama dönüşüm devam ediyor.
     </div>
-    <div style="font-family:monospace;font-size:11px;color:#6b5840;
-                letter-spacing:.15em;text-transform:uppercase;margin-bottom:48px">
+    <div style="font-family:"Inter",sans-serif;font-size:11px;color:#6b5840;
+                letter-spacing:.2em;text-transform:uppercase;margin-bottom:48px">
       89 bölüm · İki ses · Bir yön
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
       <button onclick="document.getElementById('b89-closing').remove();openFinalScreen()"
-              style="background:linear-gradient(135deg,#C9A86A,#C9A86A);color:#191613;
+              style="background:#C9A86A;color:#191613;
                      border:none;border-radius:4px;padding:14px 32px;
-                     font-family:Georgia,serif;font-size:16px;font-weight:500;cursor:pointer">
+                     font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;font-weight:500;cursor:pointer">
         Yolculuğumu Gör
       </button>
       <button onclick="document.getElementById('b89-closing').remove()"
               style="background:none;border:1px solid #2e2820;border-radius:4px;
-                     padding:14px 24px;font-family:monospace;font-size:11px;
+                     padding:14px 24px;font-family:"Inter",sans-serif;font-size:11px;
                      letter-spacing:.08em;text-transform:uppercase;color:#8a7860;cursor:pointer">
         Kapat
       </button>
@@ -3329,17 +3370,17 @@ function openFinalScreen() {
   const maxEm = emProfile[0]?.[1]||1;
   const emHTML = emProfile.slice(0,6).map(([em,n])=>`
     <div style="display:grid;grid-template-columns:100px 1fr 36px;gap:12px;align-items:center;margin-bottom:10px">
-      <span style="font-family:Georgia,serif;font-size:15px;color:#F3ECE2">${em}</span>
+      <span style="font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;color:#F3ECE2">${em}</span>
       <div style="height:5px;background:#e8e0d2;border-radius:3px;overflow:hidden">
         <div style="height:100%;width:${n/maxEm*100}%;background:${ECOL[em]||'#3a6a5a'};border-radius:3px"></div>
       </div>
-      <span style="font-family:monospace;font-size:11px;color:#6e6458;text-align:right">%${Math.round(n/(Object.values(emCount).reduce((a,b)=>a+b,1))*100)}</span>
+      <span style="font-family:"Inter",sans-serif;font-size:11px;color:#6e6458;text-align:right">%${Math.round(n/(Object.values(emCount).reduce((a,b)=>a+b,1))*100)}</span>
     </div>`).join('');
 
   const reactHTML = Object.entries(reactCount).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`
     <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:40px;border:1.5px solid ${RCOL[k]||'rgba(243,236,226,.08)'};background:${RCOL[k]||'#3a6a5a'}18;margin-bottom:8px">
-      <span style="font-family:monospace;font-size:20px;font-weight:700;color:${RCOL[k]}">${n}</span>
-      <span style="font-family:monospace;font-size:11px;color:${RCOL[k]}">${RLBL[k]}</span>
+      <span style="font-family:"Inter",sans-serif;font-size:20px;font-weight:700;color:${RCOL[k]}">${n}</span>
+      <span style="font-family:"Inter",sans-serif;font-size:11px;color:${RCOL[k]}">${RLBL[k]}</span>
     </div>`).join('');
 
   const favSet = new Set(favs);
@@ -3348,7 +3389,7 @@ function openFinalScreen() {
     const bg=r?({dusundurdu:'#1e2030',motive:'#1e1a12',uzdu:'#faf0f2',sasirtti:'#eef4f0',kararsiz:'#e8e0d2'}[r]||'#e8e0d2'):'#221D19';
     const border=r?(RCOL[r]+'44'):'rgba(243,236,226,.08)';
     const shadow=favSet.has(id)?'box-shadow:0 0 0 1.5px #C9A86A;':'';
-    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};${shadow}cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:7px;color:#6e6458"
+    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};${shadow}cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:"Inter",sans-serif;font-size:7px;color:#6e6458"
                   onclick="closeFinalScreen();render(${id})" title="B${id}">${id}</div>`;
   }).join('');
 
@@ -3358,33 +3399,33 @@ function openFinalScreen() {
 
   document.getElementById('final-content').innerHTML = `
     <div style="margin-bottom:52px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#6e6458;margin-bottom:16px">İki Ses, Bir Yön · Tamamlandı</div>
-      <div style="font-family:Georgia,serif;font-size:48px;font-weight:500;color:#F3ECE2;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px">Senin<br>Yolculuğun</div>
-      <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#CDBFAE;line-height:1.7">${introText}</div>
+      <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#6e6458;margin-bottom:16px">İki Ses, Bir Yön · Tamamlandı</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:48px;font-weight:500;color:#F3ECE2;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px">Senin<br>Yolculuğun</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;font-style:italic;color:#CDBFAE;line-height:1.7">${introText}</div>
     </div>
-    ${emProfile.length?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6e6458;margin-bottom:16px">Duygusal Profil</div>${emHTML}</div>`:''}`+`
-    ${reactTotal?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6e6458;margin-bottom:16px">Tepkilerin</div>${reactHTML}</div>`:''}`+`
-    ${peak?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6e6458;margin-bottom:12px">Öne Çıkan An</div>
-      <div style="border:1px solid rgba(243,236,226,.08);border-radius:8px;overflow:hidden;cursor:pointer" onclick="closeFinalScreen();render(${peak.id})">
+    ${emProfile.length?`<div style="margin-bottom:40px"><div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6e6458;margin-bottom:16px">Duygusal Profil</div>${emHTML}</div>`:''}`+`
+    ${reactTotal?`<div style="margin-bottom:40px"><div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6e6458;margin-bottom:16px">Tepkilerin</div>${reactHTML}</div>`:''}`+`
+    ${peak?`<div style="margin-bottom:40px"><div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6e6458;margin-bottom:12px">Öne Çıkan An</div>
+      <div style="border:1px solid rgba(243,236,226,.08);border-radius:2px;overflow:hidden;cursor:pointer" onclick="closeFinalScreen();render(${peak.id})">
         <div style="background:#1e1a12;padding:14px 18px;border-bottom:1px solid rgba(243,236,226,.08)">
-          <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#C9A86A;margin-bottom:4px">${peak.sure}</div>
-          <div style="font-family:Georgia,serif;font-size:16px;font-weight:500;color:#F3ECE2">${peak.title}</div>
+          <div style="font-family:"Inter",sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#C9A86A;margin-bottom:4px">${peak.sure}</div>
+          <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;font-weight:500;color:#F3ECE2">${peak.title}</div>
         </div>
-        <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#CDBFAE;padding:12px 18px;line-height:1.65">${peak.kapanis||''}</div>
+        <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#CDBFAE;padding:12px 18px;line-height:1.65">${peak.kapanis||''}</div>
       </div>
     </div>`:''}`+`
     <div style="margin-bottom:40px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6e6458;margin-bottom:12px">Yolculuk Haritası</div>
+      <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6e6458;margin-bottom:12px">Yolculuk Haritası</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(24px,1fr));gap:3px">${mapHTML}</div>
     </div>
-    <div style="font-family:Georgia,serif;font-size:24px;font-style:italic;color:#F3ECE2;line-height:1.6;padding:32px 0;border-top:2px solid #F3ECE2;border-bottom:1px solid rgba(243,236,226,.08);margin-bottom:32px;text-align:center">
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:24px;font-style:italic;color:#F3ECE2;line-height:1.6;padding:32px 0;border-top:2px solid #F3ECE2;border-bottom:1px solid rgba(243,236,226,.08);margin-bottom:32px;text-align:center">
       ${(FINAL_WORD[domReact]||FINAL_WORD.default)}
-      <div style="font-family:Georgia,serif;font-size:16px;color:#6e6458;margin-top:20px;font-style:normal">89 bölüm. İki ses. Bir yön.<br>Yön senin içindeydi.</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;color:#6e6458;margin-top:20px;font-style:normal">89 bölüm. İki ses. Bir yön.<br>Yön senin içindeydi.</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button onclick="closeFinalScreen();openSystem('kitabim')" style="background:#F3ECE2;color:#191613;border:none;border-radius:8px;padding:13px 28px;font-family:Georgia,serif;font-size:15px;font-weight:500;cursor:pointer">Benim Kitabım'ı Gör</button>
-      <button onclick="closeFinalScreen();render(1)" style="background:none;border:1px solid rgba(243,236,226,.08);border-radius:8px;padding:13px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;cursor:pointer">Baştan Oku</button>
-      <button onclick="closeFinalScreen()" style="background:none;border:1px solid rgba(243,236,226,.08);border-radius:8px;padding:13px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;cursor:pointer">Kapat</button>
+      <button onclick="closeFinalScreen();openSystem('kitabim')" style="background:#F3ECE2;color:#191613;border:none;border-radius:2px;padding:13px 28px;font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:500;cursor:pointer">Benim Kitabım'ı Gör</button>
+      <button onclick="closeFinalScreen();render(1)" style="background:none;border:1px solid rgba(243,236,226,.08);border-radius:2px;padding:13px 20px;font-family:"Inter",sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;cursor:pointer">Baştan Oku</button>
+      <button onclick="closeFinalScreen()" style="background:none;border:1px solid rgba(243,236,226,.08);border-radius:2px;padding:13px 20px;font-family:"Inter",sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;cursor:pointer">Kapat</button>
     </div>`;
 
   document.getElementById('final-screen').style.display = 'block';
@@ -3460,9 +3501,9 @@ function renderKitabim() {
   const RDOT2={violet:'#3a6a5a',gold:'#C9A86A',sage:'#3a6048',rose:'#8a3a50'};
 
   if(!favs.length&&!notes.length&&!answers.length&&!reactTotal) {
-    el.innerHTML=`<div style="padding:20px 0 24px;border-bottom:1px solid rgba(243,236,226,.08);margin-bottom:20px"><div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:4px">Benim Kitabım</div><div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#6e6458">Kişisel yolculuğun burada birikir.</div></div>
-    <div style="padding:40px 0;text-align:center"><div style="font-size:32px;margin-bottom:12px;opacity:.4">✦</div><div style="font-family:Georgia,serif;font-size:15px;font-style:italic;color:#c8bfb0;line-height:1.7;margin-bottom:16px">Henüz iz bırakmadın.<br>Bölümlerdeki yıldıza tıkla, sorulara cevap ver,<br>notlar ekle — hepsi burada seni bekler.</div>
-    <button onclick="closeSystem()" style="background:none;border:1.5px solid rgba(243,236,226,.08);border-radius:8px;padding:8px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;cursor:pointer">Okumaya Başla</button></div>`;
+    el.innerHTML=`<div style="padding:20px 0 24px;border-bottom:1px solid rgba(243,236,226,.08);margin-bottom:20px"><div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:4px">Benim Kitabım</div><div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#6e6458">Kişisel yolculuğun burada birikir.</div></div>
+    <div style="padding:40px 0;text-align:center"><div style="font-size:32px;margin-bottom:12px;opacity:.4">✦</div><div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-style:italic;color:#c8bfb0;line-height:1.7;margin-bottom:16px">Henüz iz bırakmadın.<br>Bölümlerdeki yıldıza tıkla, sorulara cevap ver,<br>notlar ekle — hepsi burada seni bekler.</div>
+    <button onclick="closeSystem()" style="background:none;border:1.5px solid rgba(243,236,226,.08);border-radius:2px;padding:8px 20px;font-family:"Inter",sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;cursor:pointer">Okumaya Başla</button></div>`;
     return;
   }
 
@@ -3470,51 +3511,51 @@ function renderKitabim() {
     const c=CHAPTERS.find(x=>x.id===fid); if(!c) return '';
     const kap=(c.kapanis||'').replace(/"/g,'').substring(0,80);
     const react=allReacts[fid]; const dot=RDOT2[c.theme]||'#3a6a5a';
-    return `<div style="border:1px solid rgba(243,236,226,.08);border-radius:8px;overflow:hidden;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${fid})">
+    return `<div style="border:1px solid rgba(243,236,226,.08);border-radius:2px;overflow:hidden;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${fid})">
       <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#221D19">
-        <span style="font-family:monospace;font-size:11px;color:#c8bfb0;margin-top:2px;min-width:22px">${String(fid).padStart(2,'0')}</span>
-        <div style="flex:1"><div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:2px">${c.sure}</div>
-        <div style="font-family:Georgia,serif;font-size:14px;font-weight:500;color:#F3ECE2">${c.title}</div></div>
+        <span style="font-family:"Inter",sans-serif;font-size:11px;color:#c8bfb0;margin-top:2px;min-width:22px">${String(fid).padStart(2,'0')}</span>
+        <div style="flex:1"><div style="font-family:"Inter",sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:2px">${c.sure}</div>
+        <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:500;color:#F3ECE2">${c.title}</div></div>
         <div style="width:6px;height:6px;border-radius:50%;background:${dot};flex-shrink:0;margin-top:5px"></div>
         <button onclick="event.stopPropagation();Store.toggleFav(${fid});renderKitabim()" style="background:none;border:none;cursor:pointer;color:#c8bfb0;font-size:13px;padding:2px 4px">✕</button>
       </div>
-      ${kap?`<div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#CDBFAE;padding:8px 14px 10px 46px;line-height:1.55;border-top:1px solid rgba(243,236,226,.08)">${kap}…</div>`:''}</div>`;
-  }).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz favori bölüm yok.</div>';
+      ${kap?`<div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:12px;font-style:italic;color:#CDBFAE;padding:8px 14px 10px 46px;line-height:1.55;border-top:1px solid rgba(243,236,226,.08)">${kap}…</div>`:''}</div>`;
+  }).join('') : '<div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz favori bölüm yok.</div>';
 
   const noteHTML = notes.length ? notes.map(n=>`
-    <div style="border:1px solid rgba(243,236,226,.08);border-radius:8px;padding:12px 14px;background:#221D19;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${n.id})">
-      <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:6px">${String(n.id).padStart(2,'0')} · ${n.sure}</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#F3ECE2;line-height:1.65">${n.text}</div>
-    </div>`).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz not yok.</div>';
+    <div style="border:1px solid rgba(243,236,226,.08);border-radius:2px;padding:12px 14px;background:#221D19;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${n.id})">
+      <div style="font-family:"Inter",sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:6px">${String(n.id).padStart(2,'0')} · ${n.sure}</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#F3ECE2;line-height:1.65">${n.text}</div>
+    </div>`).join('') : '<div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz not yok.</div>';
 
   const ansHTML = answers.length ? answers.map(a=>`
-    <div style="border:1px solid rgba(243,236,226,.08);border-radius:8px;padding:12px 14px;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${a.id})">
-      <div style="font-family:Georgia,serif;font-size:13px;color:#CDBFAE;margin-bottom:6px;line-height:1.5">${a.q}</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#F3ECE2;padding-left:12px;border-left:2px solid #c89848;line-height:1.6">${a.ans}</div>
-      <div style="font-family:monospace;font-size:9px;color:#c8bfb0;margin-top:6px">${String(a.id).padStart(2,'0')} · ${a.sure}</div>
-    </div>`).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz yanıt yok.</div>';
+    <div style="border:1px solid rgba(243,236,226,.08);border-radius:2px;padding:12px 14px;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${a.id})">
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;color:#CDBFAE;margin-bottom:6px;line-height:1.5">${a.q}</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#F3ECE2;padding-left:12px;border-left:2px solid #c89848;line-height:1.6">${a.ans}</div>
+      <div style="font-family:"Inter",sans-serif;font-size:9px;color:#c8bfb0;margin-top:6px">${String(a.id).padStart(2,'0')} · ${a.sure}</div>
+    </div>`).join('') : '<div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz yanıt yok.</div>';
 
   const maxR=Math.max(...Object.values(reactCounts),1);
   const reactBarHTML = Object.entries(reactCounts).map(([k,n])=>`
     <div style="display:grid;grid-template-columns:90px 1fr 24px;gap:8px;align-items:center;margin-bottom:7px">
-      <span style="font-family:monospace;font-size:11px;color:#F3ECE2">${RLBL2[k]}</span>
+      <span style="font-family:"Inter",sans-serif;font-size:11px;color:#F3ECE2">${RLBL2[k]}</span>
       <div style="height:4px;background:#e8e0d2;border-radius:2px;overflow:hidden"><div style="height:100%;width:${n/maxR*100}%;background:${RCOL2[k]};border-radius:2px"></div></div>
-      <span style="font-family:monospace;font-size:10px;color:#6e6458;text-align:right">${n}</span>
+      <span style="font-family:"Inter",sans-serif;font-size:10px;color:#6e6458;text-align:right">${n}</span>
     </div>`).join('');
 
   el.innerHTML = `
     <div style="padding:20px 0 16px;border-bottom:1px solid rgba(243,236,226,.08);margin-bottom:20px">
-      <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:4px">Benim Kitabım</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#6e6458;margin-bottom:18px">Kendi sesini buraya bıraktın.</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:4px">Benim Kitabım</div>
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#6e6458;margin-bottom:18px">Kendi sesini buraya bıraktın.</div>
       <div style="display:flex;flex-wrap:wrap;gap:16px">
         ${[['Bölüm',readCount],['Favori',favs.length],['Not',notes.length],['Yanıt',answers.length],['Tepki',reactTotal]].map(([l,n])=>`
-          <div><div style="font-family:monospace;font-size:22px;font-weight:600;color:#F3ECE2;line-height:1">${n}</div><div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#c8bfb0">${l}</div></div>`).join('')}
+          <div><div style="font-family:"Inter",sans-serif;font-size:22px;font-weight:600;color:#F3ECE2;line-height:1">${n}</div><div style="font-family:"Inter",sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#c8bfb0">${l}</div></div>`).join('')}
       </div>
     </div>
     <div style="display:flex;gap:2px;margin-bottom:20px;border-bottom:1px solid rgba(243,236,226,.08)">
       ${['favori','notlar','cevaplar','tepkiler'].map(t=>`
         <button class="kb-tab ${_kbTab===t?'on':''}" data-tab="${t}" onclick="kbTab('${t}')" 
-                style="background:none;border:none;border-bottom:2px solid ${_kbTab===t?'#C9A86A':'transparent'};padding:8px 12px 9px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:${_kbTab===t?'#F3ECE2':'#6e6458'};cursor:pointer;margin-bottom:-1px">
+                style="background:none;border:none;border-bottom:2px solid ${_kbTab===t?'#C9A86A':'transparent'};padding:8px 12px 9px;font-family:"Inter",sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:${_kbTab===t?'#F3ECE2':'#6e6458'};cursor:pointer;margin-bottom:-1px">
           ${t.charAt(0).toUpperCase()+t.slice(1)}
         </button>`).join('')}
     </div>
@@ -3541,25 +3582,25 @@ function renderHarita() {
     const id=i+1, r=allReacts[id]||allReacts[String(id)];
     const c=CHAPTERS.find(x=>x.id===id);
     const bg=r?RBGL[r]:'#221D19', border=r?(RCOL[r]+'44'):'rgba(243,236,226,.08)';
-    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:7px;color:#6e6458"
+    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:"Inter",sans-serif;font-size:7px;color:#6e6458"
                   onclick="closeSystem();render(${id})" title="B${id}${c?' · '+c.sure:''}${r?' · '+RLBL[r]:''} ">${id}</div>`;
   }).join('');
 
   el.innerHTML=`
-    <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:4px">Duygu Haritası</div>
-    <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#6e6458;margin-bottom:20px">89 bölüm boyunca kişisel yolculuğun.</div>
-    ${total?`<div style="font-family:monospace;font-size:11px;color:#6e6458;margin-bottom:16px">${total} / 89 bölüm değerlendirildi · %${Math.round(total/89*100)}</div>`:''}
-    <div style="background:#fff;border:1px solid rgba(243,236,226,.08);border-radius:8px;padding:14px 18px;margin-bottom:14px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:12px">Tepki Dağılımı</div>
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:4px">Duygu Haritası</div>
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#6e6458;margin-bottom:20px">89 bölüm boyunca kişisel yolculuğun.</div>
+    ${total?`<div style="font-family:"Inter",sans-serif;font-size:11px;color:#6e6458;margin-bottom:16px">${total} / 89 bölüm değerlendirildi · %${Math.round(total/89*100)}</div>`:''}
+    <div style="background:#fff;border:1px solid rgba(243,236,226,.08);border-radius:2px;padding:14px 18px;margin-bottom:14px">
+      <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:12px">Tepki Dağılımı</div>
       ${Object.entries(counts).map(([k,n])=>`
         <div style="display:grid;grid-template-columns:90px 1fr 24px;gap:8px;align-items:center;margin-bottom:7px">
-          <span style="font-family:monospace;font-size:11px;color:#F3ECE2">${RLBL[k]}</span>
+          <span style="font-family:"Inter",sans-serif;font-size:11px;color:#F3ECE2">${RLBL[k]}</span>
           <div style="height:4px;background:#e8e0d2;border-radius:2px;overflow:hidden"><div style="height:100%;width:${n/maxC*100}%;background:${RCOL[k]};border-radius:2px"></div></div>
-          <span style="font-family:monospace;font-size:10px;color:#6e6458;text-align:right">${n}</span>
+          <span style="font-family:"Inter",sans-serif;font-size:10px;color:#6e6458;text-align:right">${n}</span>
         </div>`).join('')}
     </div>
-    <div style="background:#fff;border:1px solid rgba(243,236,226,.08);border-radius:8px;padding:14px 18px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:12px">Bölüm Haritası</div>
+    <div style="background:#fff;border:1px solid rgba(243,236,226,.08);border-radius:2px;padding:14px 18px">
+      <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:12px">Bölüm Haritası</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(28px,1fr));gap:4px">${cellsHTML}</div>
     </div>`;
 }
@@ -3575,16 +3616,16 @@ function renderLab() {
   
   const quickItems=CHAPTERS.filter(c=>c.nutuk&&c.nutuk.length>20).slice(0,12);
   el.innerHTML=`
-    <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:4px">⚗ İki Ses Laboratuvarı</div>
-    <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#6e6458;margin-bottom:20px">Bir Nutuk alıntısı gir. Sistem temaları ve Kur'an bağlantılarını keşfeder.</div>
-    <textarea id="lab-input" style="width:100%;min-height:100px;padding:14px;font-family:Georgia,serif;font-size:14px;font-style:italic;line-height:1.75;color:#F3ECE2;background:#221D19;border:1.5px solid rgba(243,236,226,.08);border-radius:8px;resize:vertical;outline:none;margin-bottom:10px" placeholder="Buraya bir Nutuk cümlesi gir…"></textarea>
-    <div style="font-family:monospace;font-size:10px;color:#6e6458;margin-bottom:8px;letter-spacing:.04em">Hızlı seç:</div>
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:500;color:#F3ECE2;margin-bottom:4px">⚗ İki Ses Laboratuvarı</div>
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#6e6458;margin-bottom:20px">Bir Nutuk alıntısı gir. Sistem temaları ve Kur'an bağlantılarını keşfeder.</div>
+    <textarea id="lab-input" style="width:100%;min-height:100px;padding:14px;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-style:italic;line-height:1.75;color:#F3ECE2;background:#221D19;border:1.5px solid rgba(243,236,226,.08);border-radius:2px;resize:vertical;outline:none;margin-bottom:10px" placeholder="Buraya bir Nutuk cümlesi gir…"></textarea>
+    <div style="font-family:"Inter",sans-serif;font-size:10px;color:#6e6458;margin-bottom:8px;letter-spacing:.04em">Hızlı seç:</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
-      ${quickItems.map(c=>`<button onclick="document.getElementById('lab-input').value=CHAPTERS.find(x=>x.id==${c.id}).nutuk" style="font-family:monospace;font-size:10px;color:#6e6458;background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:4px 10px;cursor:pointer">${c.sure}</button>`).join('')}
+      ${quickItems.map(c=>`<button onclick="document.getElementById('lab-input').value=CHAPTERS.find(x=>x.id==${c.id}).nutuk" style="font-family:"Inter",sans-serif;font-size:10px;color:#6e6458;background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:20px;padding:4px 10px;cursor:pointer">${c.sure}</button>`).join('')}
     </div>
     <div style="display:flex;gap:8px;margin-bottom:20px">
-      <button onclick="labAnalyze()" style="background:#F3ECE2;color:#191613;border:none;border-radius:8px;padding:10px 24px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer">Analiz Et</button>
-      <button onclick="document.getElementById('lab-input').value='';document.getElementById('lab-result').innerHTML=''" style="background:none;border:1px solid rgba(243,236,226,.08);border-radius:8px;padding:10px 16px;font-family:monospace;font-size:11px;color:#6e6458;cursor:pointer">Temizle</button>
+      <button onclick="labAnalyze()" style="background:#F3ECE2;color:#191613;border:none;border-radius:2px;padding:10px 24px;font-family:"Inter",sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer">Analiz Et</button>
+      <button onclick="document.getElementById('lab-input').value='';document.getElementById('lab-result').innerHTML=''" style="background:none;border:1px solid rgba(243,236,226,.08);border-radius:2px;padding:10px 16px;font-family:"Inter",sans-serif;font-size:11px;color:#6e6458;cursor:pointer">Temizle</button>
     </div>
     <div id="lab-result"></div>`;
 }
@@ -3619,21 +3660,21 @@ function labAnalyze() {
 
   const themeHTML=detected.length
     ? detected.map(em=>`<div style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;background:${EBGL[em]||'#221D19'};border:1.5px solid ${ECOL[em]||'#3a6a5a'}44;margin-bottom:7px">
-        <span style="font-family:Georgia,serif;font-size:13px;color:${ECOL[em]||'#3a6a5a'}">${em}</span>
+        <span style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;color:${ECOL[em]||'#3a6a5a'}">${em}</span>
       </div>`).join('')
-    : '<p style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#6e6458">Belirgin tema tespit edilemedi.</p>';
+    : '<p style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-style:italic;color:#6e6458">Belirgin tema tespit edilemedi.</p>';
 
   const bridgeHTML=detected.map(em=>{
     const tm=LAB_THEME_MAP[em]; if(!tm) return '';
     return `<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:start;margin-bottom:12px">
-      <div style="background:#1e1a12;border-radius:8px;padding:12px 14px;border-left:2px solid #C9A86A">
-        <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#C9A86A;margin-bottom:6px">Nutuk'ta</div>
-        <div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#C9A86A;line-height:1.65">${tm.nutuk}</div>
+      <div style="background:#1e1a12;border-radius:2px;padding:12px 14px;border-left:2px solid #C9A86A">
+        <div style="font-family:"Inter",sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#C9A86A;margin-bottom:6px">Nutuk'ta</div>
+        <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:12px;font-style:italic;color:#C9A86A;line-height:1.65">${tm.nutuk}</div>
       </div>
       <div style="color:#6e6458;font-size:16px;padding-top:14px;text-align:center">↔</div>
-      <div style="background:#1e2030;border-radius:8px;padding:12px 14px;border-left:2px solid #3a6a5a">
-        <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#3a6a5a;margin-bottom:6px">Kur'an'da</div>
-        <div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#3a6a5a;line-height:1.65">${tm.kuran}</div>
+      <div style="background:#1e2030;border-radius:2px;padding:12px 14px;border-left:2px solid #3a6a5a">
+        <div style="font-family:"Inter",sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#3a6a5a;margin-bottom:6px">Kur'an'da</div>
+        <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:12px;font-style:italic;color:#3a6a5a;line-height:1.65">${tm.kuran}</div>
       </div>
     </div>`;
   }).join('');
@@ -3648,10 +3689,10 @@ function labAnalyze() {
   const relHTML=related.map(r=>{
     const c=CHAPTERS.find(x=>x.id===r.id); if(!c) return '';
     const dot={violet:'#3a6a5a',gold:'#C9A86A',sage:'#3a6048',rose:'#8a3a50'}[c.theme]||'#3a6a5a';
-    return `<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:8px;cursor:pointer;margin-bottom:6px" onclick="closeSystem();render(${r.id})">
-      <span style="font-family:monospace;font-size:10px;color:#6e6458;min-width:20px">${String(r.id).padStart(2,'0')}</span>
-      <span style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;min-width:60px">${c.sure}</span>
-      <span style="font-family:Georgia,serif;font-size:13px;color:#F3ECE2;flex:1">${c.title}</span>
+    return `<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:#221D19;border:1px solid rgba(243,236,226,.08);border-radius:2px;cursor:pointer;margin-bottom:6px" onclick="closeSystem();render(${r.id})">
+      <span style="font-family:"Inter",sans-serif;font-size:10px;color:#6e6458;min-width:20px">${String(r.id).padStart(2,'0')}</span>
+      <span style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;min-width:60px">${c.sure}</span>
+      <span style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;color:#F3ECE2;flex:1">${c.title}</span>
       <div style="width:5px;height:5px;border-radius:50%;background:${dot}"></div>
     </div>`;
   }).join('');
@@ -3661,15 +3702,15 @@ function labAnalyze() {
 
   document.getElementById('lab-result').innerHTML=`
     <div style="margin-bottom:20px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:10px">Tespit Edilen Temalar</div>
+      <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:10px">Tespit Edilen Temalar</div>
       ${themeHTML}
     </div>
-    ${detected.length?`<div style="margin-bottom:20px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:10px">Kavram Köprüsü</div>${bridgeHTML}</div>`:''}`+`
-    ${related.length?`<div style="margin-bottom:20px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:10px">İlgili Bölümler</div>${relHTML}</div>`:''}`+`
+    ${detected.length?`<div style="margin-bottom:20px"><div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:10px">Kavram Köprüsü</div>${bridgeHTML}</div>`:''}`+`
+    ${related.length?`<div style="margin-bottom:20px"><div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:10px">İlgili Bölümler</div>${relHTML}</div>`:''}`+`
     <div style="margin-bottom:20px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:10px">Yorumun</div>
-      <textarea id="lab-note" style="width:100%;min-height:80px;padding:12px;font-family:Georgia,serif;font-size:13px;line-height:1.7;color:#F3ECE2;background:#221D19;border:1.5px solid rgba(243,236,226,.08);border-radius:8px;resize:vertical;outline:none" placeholder="Bu alıntı hakkında düşüncelerini yaz…">${savedNote}</textarea>
-      <button onclick="const v=document.getElementById('lab-note').value;Store.setLabNote('${hash}',v);this.textContent='✓ Kaydedildi';this.style.color='#3a6048'" style="margin-top:6px;background:none;border:1px solid rgba(243,236,226,.08);border-radius:4px;padding:5px 14px;font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;cursor:pointer">${savedNote?'✓ Kaydedildi':'Kaydet'}</button>
+      <div style="font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6e6458;margin-bottom:10px">Yorumun</div>
+      <textarea id="lab-note" style="width:100%;min-height:80px;padding:12px;font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;line-height:1.7;color:#F3ECE2;background:#221D19;border:1.5px solid rgba(243,236,226,.08);border-radius:2px;resize:vertical;outline:none" placeholder="Bu alıntı hakkında düşüncelerini yaz…">${savedNote}</textarea>
+      <button onclick="const v=document.getElementById('lab-note').value;Store.setLabNote('${hash}',v);this.textContent='✓ Kaydedildi';this.style.color='#3a6048'" style="margin-top:6px;background:none;border:1px solid rgba(243,236,226,.08);border-radius:4px;padding:5px 14px;font-family:"Inter",sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6e6458;cursor:pointer">${savedNote?'✓ Kaydedildi':'Kaydet'}</button>
     </div>`;
 }
 
@@ -4180,16 +4221,16 @@ function showB1Intro() {
     opacity: 0; transition: opacity .8s ease;
   `;
   overlay.innerHTML = `
-    <div style="font-family:monospace;font-size:11px;letter-spacing:.25em;
+    <div style="font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.25em;
                 color:#C9A86A;text-transform:uppercase;margin-bottom:32px">
       BÖLÜM 01
     </div>
-    <div style="font-family:Georgia,serif;font-size:clamp(56px,12vw,96px);
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(56px,12vw,96px);
                 font-weight:600;color:#F3ECE2;line-height:1;
                 margin-bottom:24px;letter-spacing:-.02em">
       1919
     </div>
-    <div style="font-family:Georgia,serif;font-size:clamp(16px,2.5vw,22px);
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(16px,2.5vw,22px);
                 color:#CDBFAE;font-style:italic;line-height:1.7;
                 max-width:440px;margin-bottom:48px">
       Atatürk'ün önünde<br>üç farklı yol vardı.<br><br>
@@ -4198,7 +4239,7 @@ function showB1Intro() {
     <button onclick="closeB1Intro()"
             style="background:none;border:1px solid rgba(201,168,106,.4);
                    border-radius:40px;padding:14px 32px;
-                   font-family:monospace;font-size:12px;letter-spacing:.15em;
+                   font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.2em;
                    text-transform:uppercase;color:#C9A86A;cursor:pointer;
                    transition:all .3s ease"
             onmouseover="this.style.background='rgba(201,168,106,.1)'"
@@ -4262,11 +4303,11 @@ function showFirstInteractionNudge() {
     transform: translateX(-50%);
     background: #221D19; border: 1px solid #C9A86A;
     border-radius: 12px; padding: 16px 24px;
-    font-family: Georgia, serif; font-size: 14px;
+    font-family: "Cormorant Garamond", Georgia, serif; font-size: 14px;
     color: #F3ECE2; text-align: center;
     z-index: 300; max-width: 300px;
     animation: nudgeFadeIn .5s ease forwards;
-    box-shadow: 0 8px 32px rgba(0,0,0,.4);
+    box-shadow: none;
   `;
   nudge.innerHTML = `
     <div style="color:#C9A86A;margin-bottom:8px;font-size:18px">✦</div>
@@ -4290,7 +4331,7 @@ function showToast(msg) {
     transform: translateX(-50%);
     background: #C9A86A; color: #191613;
     border-radius: 40px; padding: 10px 24px;
-    font-family: monospace; font-size: 12px;
+    font-family: "Inter", sans-serif; font-size: 12px;
     letter-spacing: .1em; z-index: 400;
     animation: toastIn .4s ease forwards;
     white-space: nowrap;
@@ -4766,17 +4807,17 @@ function _disabled_showEvreCelebration(evre) {
   `;
   overlay.innerHTML = `
     <div style="font-size:48px;margin-bottom:20px;animation:celebPulse 1s ease infinite">${evre.icon}</div>
-    <div style="font-family:monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    <div style="font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;
                 color:${evre.color};margin-bottom:16px">EVRE TAMAMLANDI</div>
-    <div style="font-family:Georgia,serif;font-size:32px;font-weight:500;color:#F3ECE2;
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:32px;font-weight:500;color:#F3ECE2;
                 margin-bottom:12px">${evre.label}</div>
-    <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#CDBFAE;
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:16px;font-style:italic;color:#CDBFAE;
                 max-width:360px;margin-bottom:40px;line-height:1.7">${evre.his}</div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
       <button onclick="this.closest('div[style*=fixed]').remove();updateEvreMini()"
               style="background:linear-gradient(135deg,${evre.color},${evre.color}99);
-                     color:#191613;border:none;border-radius:8px;padding:14px 28px;
-                     font-family:Georgia,serif;font-size:15px;font-weight:500;cursor:pointer">
+                     color:#191613;border:none;border-radius:2px;padding:14px 28px;
+                     font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:500;cursor:pointer">
         Devam Et →
       </button>
     </div>
@@ -5452,7 +5493,7 @@ if (_prevBuildJournal) {
 
     const gsHTML = `
       <div style="padding:0 32px 20px;border-bottom:1px solid var(--border);margin-bottom:8px">
-        <div style="font-family:monospace;font-size:10px;letter-spacing:.15em;
+        <div style="font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.2em;
                     text-transform:uppercase;color:#C9A86A;margin-bottom:16px">
           Günlük Sorular
         </div>
@@ -5462,25 +5503,25 @@ if (_prevBuildJournal) {
             day:'numeric', month:'long'
           });
           return `
-            <div style="border:1px solid var(--border);border-radius:10px;
+            <div style="border:1px solid var(--border);border-radius:3px;
                         padding:16px 18px;margin-bottom:10px;cursor:pointer"
                  onclick="closeSysPanel();render(${gs.chapterId})">
               <div style="display:flex;justify-content:space-between;
                           align-items:center;margin-bottom:10px">
-                <span style="font-family:monospace;font-size:10px;
+                <span style="font-family:"Inter",sans-serif;font-size:10px;
                              color:#C9A86A;letter-spacing:.08em">
                   ${c ? `B${c.id} · ${c.sure}` : ''}
                 </span>
-                <span style="font-family:monospace;font-size:10px;color:#3a3028">
+                <span style="font-family:"Inter",sans-serif;font-size:10px;color:#3a3028">
                   ${tarihStr}
                 </span>
               </div>
-              <div style="font-family:Georgia,serif;font-size:12px;
+              <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:12px;
                           color:var(--text2);font-style:italic;
                           margin-bottom:10px;line-height:1.6">
                 ${gs.soru}
               </div>
-              <div style="font-family:Georgia,serif;font-size:14px;
+              <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;
                           color:var(--text);line-height:1.7;
                           padding-left:12px;
                           border-left:2px solid rgba(201,168,106,.3)">
@@ -5544,14 +5585,14 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="pw-guarantee">✓ Güvenli ödeme · Shopier</div>
     <div style="margin-top:32px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
       <button onclick="openKvkk()" style="background:none;border:none;
-        font-family:monospace;font-size:10px;letter-spacing:.12em;
+        font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.12em;
         text-transform:uppercase;color:#3a3028;cursor:pointer;
         transition:color .2s" onmouseover="this.style.color='#CDBFAE'"
         onmouseout="this.style.color='#3a3028'">
         Gizlilik Politikası
       </button>
       <button onclick="openKosullar()" style="background:none;border:none;
-        font-family:monospace;font-size:10px;letter-spacing:.12em;
+        font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.12em;
         text-transform:uppercase;color:#3a3028;cursor:pointer;
         transition:color .2s" onmouseover="this.style.color='#CDBFAE'"
         onmouseout="this.style.color='#3a3028'">
@@ -5644,18 +5685,18 @@ function renderLockedChapters() {
       border-radius: 10px;
       text-align: center;
     ">
-      <div style="font-family:monospace;font-size:10px;letter-spacing:.12em;
+      <div style="font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.12em;
                   text-transform:uppercase;color:#C9A86A;margin-bottom:8px">
         🔒 ${89 - FREE_LIMIT} Bölüm Daha
       </div>
-      <div style="font-family:Georgia,serif;font-size:13px;
+      <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;
                   color:#CDBFAE;margin-bottom:12px;font-style:italic">
         B11'den B89'a kadar erişmek için
       </div>
       <button onclick="showPaywall(11)" style="
-        background:linear-gradient(135deg,#C9A86A,#C9A86A);
-        color:#191613;border:none;border-radius:8px;
-        padding:10px 24px;font-family:Georgia,serif;
+        background:#C9A86A;
+        color:#191613;border:none;border-radius:2px;
+        padding:10px 24px;font-family:"Cormorant Garamond",Georgia,serif;
         font-size:14px;font-weight:500;cursor:pointer
       ">Erişim Satın Al — 149 ₺</button>
     </div>`;
@@ -5694,25 +5735,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <button onclick="closeKvkk()" style="
       background:none;border:none;
-      font-family:monospace;font-size:10px;letter-spacing:.15em;
+      font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.2em;
       text-transform:uppercase;color:#6e6458;cursor:pointer;
       margin-bottom:40px;display:block;
     ">← Geri dön</button>
 
-    <div style="font-family:monospace;font-size:10px;letter-spacing:.2em;
+    <div style="font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.25em;
                 text-transform:uppercase;color:#C9A86A;margin-bottom:12px">
       Gizlilik & KVKK
     </div>
-    <h1 style="font-family:Georgia,serif;font-size:28px;font-weight:500;
+    <h1 style="font-family:"Cormorant Garamond",Georgia,serif;font-size:28px;font-weight:500;
                color:#F3ECE2;margin-bottom:8px;line-height:1.3">
       Gizlilik Politikası
     </h1>
-    <div style="font-family:monospace;font-size:11px;color:#6e6458;
+    <div style="font-family:"Inter",sans-serif;font-size:11px;color:#6e6458;
                 margin-bottom:48px">
       Son güncelleme: Haziran 2025 · Pixel Vadisi
     </div>
 
-    <div style="font-family:Georgia,serif;font-size:15px;color:#CDBFAE;
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;color:#CDBFAE;
                 line-height:1.9;">
 
       <h2 style="font-size:17px;color:#F3ECE2;margin:32px 0 12px">1. Veri Sorumlusu</h2>
@@ -5748,7 +5789,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <div style="margin-top:48px;padding-top:32px;
                   border-top:1px solid rgba(243,236,226,.08);
-                  font-family:monospace;font-size:10px;
+                  font-family:"Inter",sans-serif;font-size:10px;
                   color:#3a3028;letter-spacing:.08em">
         Bu politika gerektiğinde güncellenebilir. Önemli değişiklikler uygulama içinde duyurulur.
       </div>
@@ -5767,25 +5808,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <button onclick="closeKosullar()" style="
       background:none;border:none;
-      font-family:monospace;font-size:10px;letter-spacing:.15em;
+      font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.2em;
       text-transform:uppercase;color:#6e6458;cursor:pointer;
       margin-bottom:40px;display:block;
     ">← Geri dön</button>
 
-    <div style="font-family:monospace;font-size:10px;letter-spacing:.2em;
+    <div style="font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.25em;
                 text-transform:uppercase;color:#C9A86A;margin-bottom:12px">
       Yasal
     </div>
-    <h1 style="font-family:Georgia,serif;font-size:28px;font-weight:500;
+    <h1 style="font-family:"Cormorant Garamond",Georgia,serif;font-size:28px;font-weight:500;
                color:#F3ECE2;margin-bottom:8px;line-height:1.3">
       Kullanım Koşulları
     </h1>
-    <div style="font-family:monospace;font-size:11px;color:#6e6458;
+    <div style="font-family:"Inter",sans-serif;font-size:11px;color:#6e6458;
                 margin-bottom:48px">
       Son güncelleme: Haziran 2025 · Pixel Vadisi
     </div>
 
-    <div style="font-family:Georgia,serif;font-size:15px;color:#CDBFAE;line-height:1.9;">
+    <div style="font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;color:#CDBFAE;line-height:1.9;">
 
       <h2 style="font-size:17px;color:#F3ECE2;margin:32px 0 12px">1. Hizmet</h2>
       <p>İki Ses, Bir Yön, Pixel Vadisi tarafından sunulan interaktif bir dijital okuma deneyimidir. 89 bölümden oluşur ve kişisel gelişim amaçlıdır.</p>
