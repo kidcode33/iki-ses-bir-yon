@@ -1714,7 +1714,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   padding: 40px 24px;
   text-align: center;
   opacity: 0;
-  transition: opacity 1.2s ease;
+  transition: opacity 1.4s ease;
 }
 #sabah-ritual.open {
   display: flex;
@@ -1874,7 +1874,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   padding: 40px 24px;
   text-align: center;
   opacity: 0;
-  transition: opacity .8s ease;
+  transition: opacity 1.2s ease;
 }
 #kimlik-screen.open    { display: flex; }
 #kimlik-screen.visible { opacity: 1; }
@@ -2541,10 +2541,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
     Kitabım
   </button>
-  <button class="tb-btn tb-audio-btn" onclick="audioPlay(cur||1)" title="Dinle">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-    Dinle
-  </button>
+  
 </div>
 
 <div id="reader"></div>
@@ -4904,7 +4901,7 @@ function selectSabahCevap(btn, idx) {
 
   // Devam butonunu göster
   const devamBtn = document.getElementById('sr-devam-btn');
-  setTimeout(() => devamBtn.classList.add('visible'), 200);
+  setTimeout(() => devamBtn.classList.add('visible'), 600);
 }
 
 function closeSabahRitual() {
@@ -5050,13 +5047,20 @@ function selectKimlik(btn, kimlik) {
 
   // Devam butonu
   const devamBtn = document.getElementById('ks-devam-btn');
-  setTimeout(() => devamBtn.classList.add('visible'), 200);
+  setTimeout(() => devamBtn.classList.add('visible'), 600);
 }
 
 function closeKimlikScreen() {
-  if (_selectedKimlik) {
-    Store.set('kimlik', _selectedKimlik);
-  } else {
+  if (!_selectedKimlik) {
+    // Seçim yapılmadan geçilemez — hafifçe vurgula
+    document.querySelectorAll('.ks-secenek').forEach(b => {
+      b.style.animation = 'none';
+      setTimeout(() => b.style.animation = '', 10);
+    });
+    return;
+  }
+  Store.set('kimlik', _selectedKimlik);
+  if (false) {
     Store.set('kimlik', 'merak'); // default
   }
 
