@@ -4756,7 +4756,7 @@ function checkEvreCompletion(chapterId) {
   }
 }
 
-function showEvreCelebration(evre) {
+function _disabled_showEvreCelebration(evre) {
   const overlay = document.createElement('div');
   overlay.style.cssText = `
     position: fixed; inset: 0; z-index: 600;
@@ -4836,11 +4836,7 @@ const SABAH_SORULARI = [
 ];
 
 function shouldShowSabahRitual() {
-  // Bugün zaten gösterildi mi?
-  const today = new Date().toISOString().slice(0, 10);
-  if (Store.get('sabah_shown_date', '') === today) return false;
-
-  return true;
+  return false; // MVP — devre dışı
 }
 
 function showSabahRitual() {
@@ -4927,7 +4923,7 @@ function closeSabahRitual() {
     el.classList.remove('open');
     // Sabah ritüeli tamamen kapandıktan sonra günlük soruyu göster
     setTimeout(() => {
-      if (typeof showGunlukSoru === 'function') showGunlukSoru();
+      // Günlük soru devre dışı
     }, 400);
   }, 700);
 
@@ -4967,34 +4963,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <!-- KİMLİK SORUSU -->
-<div id="kimlik-screen">
-  <div class="ks-ust">Bu yolculuk sana özel</div>
-  <div class="ks-baslik">Bu yolculuğa neden başlıyorsun?</div>
-  <div class="ks-alt">
-    Cevabın bölümlerde seninle yankılanacak.
-  </div>
-  <div class="ks-secenekler">
-    <div class="ks-secenek" onclick="selectKimlik(this, 'kendim')">
-      <span class="ks-secenek-icon">🪞</span>
-      <span class="ks-secenek-metin">Kendimi anlamak için</span>
-    </div>
-    <div class="ks-secenek" onclick="selectKimlik(this, 'tarih')">
-      <span class="ks-secenek-icon">📜</span>
-      <span class="ks-secenek-metin">Tarihle bağ kurmak için</span>
-    </div>
-    <div class="ks-secenek" onclick="selectKimlik(this, 'karar')">
-      <span class="ks-secenek-icon">⚖️</span>
-      <span class="ks-secenek-metin">Bir şeye karar vermem gerekiyor</span>
-    </div>
-    <div class="ks-secenek" onclick="selectKimlik(this, 'merak')">
-      <span class="ks-secenek-icon">✦</span>
-      <span class="ks-secenek-metin">Sadece merak ettim</span>
-    </div>
-  </div>
-  <button class="ks-devam-btn" id="ks-devam-btn" onclick="closeKimlikScreen()">
-    Yolculuğa Başla →
-  </button>
-</div>
+
 
 <script>
 
@@ -5331,7 +5300,7 @@ function shouldShowGunlukSoru() {
   return true;
 }
 
-function showGunlukSoru() {
+function _disabled_showGunlukSoru() {
   if (!shouldShowGunlukSoru()) {
     updateGsTbDot();
     return;
