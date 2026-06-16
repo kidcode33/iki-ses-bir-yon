@@ -2934,7 +2934,7 @@ window.addEventListener('DOMContentLoaded', function() {
   if (_initLast && _initRead > 0) {
     // Geri dönen kullanıcı — karşılama kartı
     render((_initLast>=1&&_initLast<=89)?_initLast:1);
-    if (typeof showWelcomeBack === 'function') showWelcomeBack(_initLast, _initRead);
+    // showWelcomeBack devre dışı
   } else if (!_introDone) {
     // İlk kez — onboarding göster
     render(1); // arka planda hazırla
@@ -3168,7 +3168,7 @@ function showIntro() {
   const last = Store.get('last', null);
   const readCount = Store.getReadCount();
   if (last && readCount > 0) {
-    showWelcomeBack(last, readCount);
+    // showWelcomeBack devre dışı
   } else {
     document.getElementById('intro-overlay').style.display = 'flex';
   }
@@ -3181,7 +3181,7 @@ function closeIntro() {
   render(1);
 }
 
-function showWelcomeBack(lastId, readCount) {
+function _disabled_showWelcomeBack(lastId, readCount) {
   const c = CHAPTERS.find(x=>x.id===lastId);
   if (!c) return;
   const favCount = Store.getFavs().length;
