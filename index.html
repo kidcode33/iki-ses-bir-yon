@@ -17,7 +17,7 @@
   --gold:#D4B06A;
   --quran:#8AA392;
   --nutuk:#586D88;
-  --rose:#8a3a50;
+  --rose:#A06A76;
   --line:rgba(255,255,255,.08);
   --radius:4px;
   --transition:.2s ease;
@@ -2317,6 +2317,227 @@ body {
 @media (max-width: 480px) {
   #toolbar { padding: 0 12px; }
 }
+
+/* === LEGAL (KVKK / KOŞULLAR) === */
+.legal-overlay {
+  display:none; position:fixed; inset:0; z-index:700;
+  background:var(--bg); overflow-y:auto;
+  padding: 40px clamp(20px,5vw,80px);
+  opacity:0; transition: opacity .5s ease;
+}
+.legal-overlay.open { display:block; }
+.legal-overlay.visible { opacity:1; }
+.legal-inner { max-width:680px; margin:0 auto; }
+.legal-back {
+  background:none; border:none;
+  font-family:monospace; font-size:10px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--text-soft); cursor:pointer;
+  margin-bottom:40px; display:block;
+}
+.legal-eyebrow {
+  font-family:monospace; font-size:10px; letter-spacing:.25em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:12px;
+}
+.legal-title {
+  font-family:Georgia,serif; font-size:28px; font-weight:500;
+  color:var(--title); margin-bottom:8px; line-height:1.3;
+}
+.legal-meta {
+  font-family:monospace; font-size:11px; color:var(--text-soft);
+  margin-bottom:48px;
+}
+.legal-body {
+  font-family:Georgia,serif; font-size:15px; color:var(--text);
+  line-height:1.9;
+}
+.legal-body h2 { font-size:17px; color:var(--title); margin:32px 0 12px; }
+.legal-body p { margin-bottom: 14px; }
+.legal-body strong { color:var(--title); }
+.legal-body ul { padding-left:20px; line-height:2.2; margin-bottom: 14px; }
+.legal-accent { color:var(--gold); }
+.legal-footer {
+  margin-top:48px; padding-top:32px;
+  border-top:1px solid var(--line);
+  font-family:monospace; font-size:10px;
+  color:var(--text-soft); letter-spacing:.08em;
+}
+
+
+/* === ÖNSÖZ / INTRO === */
+#intro-overlay { overflow-y:auto; padding:0 clamp(20px,5vw,48px); background:var(--bg); }
+.intro-inner { max-width:580px; width:100%; }
+
+.intro-cover {
+  display:flex; flex-direction:column; justify-content:flex-start;
+  padding-top:clamp(48px,8vw,80px); padding-bottom:52px;
+  border-bottom:1px solid var(--line); margin-bottom:52px;
+  position: relative;
+}
+.intro-cover::after {
+  content:''; position:absolute; bottom:0; left:0;
+  width:48px; height:2px; background:var(--gold);
+}
+.intro-h1 {
+  font-family:Georgia,serif; font-size:clamp(48px,10vw,80px);
+  font-weight:500; line-height:1; color:var(--title);
+  margin-bottom:20px; letter-spacing:-.03em;
+}
+.intro-tagline {
+  font-family:Georgia,serif; font-size:16px; font-style:italic;
+  color:var(--text); line-height:1.75; max-width:480px; margin-bottom:32px;
+}
+.intro-tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:36px; }
+.intro-tag {
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:20px; padding:5px 14px;
+  font-family:monospace; font-size:11px; color:var(--text-soft);
+}
+
+.intro-summary {
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:3px; padding:20px 24px; margin-bottom:52px;
+}
+.intro-summary-title {
+  font-family:Georgia,serif; font-size:14px; font-weight:500;
+  color:var(--title); margin-bottom:8px;
+}
+.intro-summary-sub {
+  font-family:Georgia,serif; font-size:13px; font-style:italic;
+  color:var(--text); line-height:1.7; margin-bottom:16px;
+}
+.intro-summary-sub em { color:var(--title); }
+.intro-summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.intro-card { border-radius:2px; padding:12px 14px; }
+.intro-card.quran { background:rgba(138,163,146,.08); border:1px solid rgba(138,163,146,.3); }
+.intro-card.nutuk { background:rgba(88,109,136,.08); border:1px solid rgba(212,176,106,.25); }
+.intro-card-label {
+  font-family:monospace; font-size:10px; font-weight:600;
+  margin-bottom:4px; letter-spacing:.06em; text-transform:uppercase;
+}
+.intro-card.quran .intro-card-label { color:var(--quran); }
+.intro-card.nutuk .intro-card-label { color:var(--gold); }
+.intro-card-text { font-size:11px; color:var(--text-soft); line-height:1.55; }
+
+.intro-onsoz { padding-bottom:48px; border-bottom:1px solid var(--line); margin-bottom:48px; }
+.intro-onsoz-title { font-family:Georgia,serif; font-size:22px; font-weight:500; color:var(--title); margin-bottom:32px; }
+.intro-lead { font-family:Georgia,serif; font-size:18px; font-weight:500; color:var(--title); line-height:1.7; margin-bottom:28px; }
+.intro-p { font-family:Georgia,serif; font-size:16px; color:var(--text); line-height:1.95; margin-bottom:18px; }
+.intro-p em { color:var(--title); }
+.intro-p.spaced { margin-bottom:28px; }
+.intro-p.spaced em { font-size:17px; }
+.intro-divider { width:40px; height:2px; background:var(--gold); margin-bottom:28px; }
+.intro-attrib {
+  font-family:Georgia,serif; font-size:14px; font-style:italic;
+  color:var(--text-soft); line-height:1.8; margin-top:32px;
+  padding-top:24px; border-top:1px solid var(--line);
+}
+.intro-legal-row {
+  margin-top:40px; padding-top:24px; border-top:1px solid var(--line);
+  display:flex; gap:24px; justify-content:center; flex-wrap:wrap;
+}
+.intro-legal-btn {
+  background:none; border:none;
+  font-family:monospace; font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--text-soft); cursor:pointer;
+  transition:color .2s;
+}
+.intro-legal-btn:hover { color:var(--text); }
+.intro-legal-email {
+  font-family:monospace; font-size:10px; color:var(--text-soft);
+  letter-spacing:.08em; align-self:center;
+}
+
+.intro-howto-title {
+  font-family:monospace; font-size:10px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--text-soft); margin-bottom:24px;
+}
+.intro-howto-step { display:flex; gap:14px; align-items:flex-start; }
+.intro-howto-num {
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:monospace; font-size:10px; font-weight:500;
+  border:1px solid var(--line); color:var(--text-soft); margin-top:2px;
+}
+.intro-howto-text { font-family:Georgia,serif; font-size:14px; color:var(--text); line-height:1.7; padding-top:2px; }
+
+.intro-start-wrap { padding-bottom:clamp(48px,7vw,72px); }
+.intro-start-btn {
+  background:var(--title); color:var(--bg); border:none;
+  border-radius:3px; padding:16px 40px;
+  font-family:Georgia,serif; font-size:16px; font-weight:500;
+  cursor:pointer; display:block; margin-bottom:12px;
+  transition:background .2s;
+}
+.intro-start-hint { font-family:monospace; font-size:11px; color:var(--text-soft); letter-spacing:.04em; }
+
+/* === KİTABIM PANELİ === */
+.kb-header { padding:20px 0 16px; border-bottom:1px solid var(--line); margin-bottom:20px; }
+.kb-header.empty { padding:20px 0 24px; margin-bottom:20px; }
+.kb-title { font-family:Georgia,serif; font-size:22px; font-weight:500; color:var(--title); margin-bottom:4px; }
+.kb-subtitle { font-family:Georgia,serif; font-size:13px; font-style:italic; color:var(--text-soft); }
+.kb-subtitle.spaced { margin-bottom:18px; }
+.kb-stats { display:flex; flex-wrap:wrap; gap:16px; }
+.kb-stat-num { font-family:monospace; font-size:22px; font-weight:600; color:var(--title); line-height:1; }
+.kb-stat-label { font-family:monospace; font-size:9px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--text-soft); }
+
+.kb-empty-wrap { padding:40px 0; text-align:center; }
+.kb-empty-icon { font-size:32px; margin-bottom:12px; opacity:.4; }
+.kb-empty-text { font-family:Georgia,serif; font-size:15px; font-style:italic; color:var(--text-soft); line-height:1.7; margin-bottom:16px; }
+.kb-empty-btn {
+  background:none; border:1.5px solid var(--line); border-radius:2px;
+  padding:8px 20px; font-family:monospace; font-size:11px; font-weight:600;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--text-soft); cursor:pointer;
+}
+
+.kb-tabs-row { display:flex; gap:2px; margin-bottom:20px; border-bottom:1px solid var(--line); }
+.kb-tab {
+  background:none; border:none; border-bottom:2px solid transparent;
+  padding:8px 12px 9px; font-family:monospace; font-size:11px; font-weight:600;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--text-soft);
+  cursor:pointer; margin-bottom:-1px;
+}
+.kb-tab.on { border-bottom-color:var(--gold); color:var(--title); }
+
+.kb-fav-card { border:1px solid var(--line); border-radius:2px; overflow:hidden; margin-bottom:8px; cursor:pointer; }
+.kb-fav-top { display:flex; align-items:flex-start; gap:10px; padding:12px 14px; background:var(--surface); }
+.kb-fav-num { font-family:monospace; font-size:11px; color:var(--text-soft); margin-top:2px; min-width:22px; }
+.kb-fav-sure { font-family:monospace; font-size:9px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--text-soft); margin-bottom:2px; }
+.kb-fav-title { font-family:Georgia,serif; font-size:14px; font-weight:500; color:var(--title); }
+.kb-fav-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+.kb-fav-remove { background:none; border:none; cursor:pointer; color:var(--text-soft); font-size:13px; padding:2px 4px; }
+.kb-fav-kapanis { font-family:Georgia,serif; font-size:12px; font-style:italic; color:var(--text); padding:8px 14px 10px 46px; line-height:1.55; border-top:1px solid var(--line); }
+
+.kb-note-card { border:1px solid var(--line); border-radius:2px; padding:12px 14px; background:var(--surface); margin-bottom:8px; cursor:pointer; }
+.kb-note-meta { font-family:monospace; font-size:9px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--text-soft); margin-bottom:6px; }
+.kb-note-text { font-family:Georgia,serif; font-size:13px; font-style:italic; color:var(--title); line-height:1.65; }
+
+.kb-answer-card { border:1px solid var(--line); border-radius:2px; padding:12px 14px; margin-bottom:8px; cursor:pointer; }
+.kb-answer-q { font-family:Georgia,serif; font-size:13px; color:var(--text); margin-bottom:6px; line-height:1.5; }
+.kb-answer-a { font-family:Georgia,serif; font-size:13px; font-style:italic; color:var(--title); padding-left:12px; border-left:2px solid var(--gold); line-height:1.6; }
+.kb-answer-meta { font-family:monospace; font-size:9px; color:var(--text-soft); margin-top:6px; }
+
+.kb-empty-row { font-family:Georgia,serif; font-size:14px; font-style:italic; color:var(--text-soft); padding:20px 0; }
+
+.kb-react-row { display:grid; grid-template-columns:90px 1fr 24px; gap:8px; align-items:center; margin-bottom:7px; }
+.kb-react-label { font-family:monospace; font-size:11px; color:var(--title); }
+.kb-react-track { height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; }
+.kb-react-fill { height:100%; border-radius:2px; }
+.kb-react-count { font-family:monospace; font-size:10px; color:var(--text-soft); text-align:right; }
+
+/* === HARİTA PANELİ === */
+.harita-title { font-family:Georgia,serif; font-size:22px; font-weight:500; color:var(--title); margin-bottom:4px; }
+.harita-subtitle { font-family:Georgia,serif; font-size:13px; font-style:italic; color:var(--text-soft); margin-bottom:20px; }
+.harita-progress { font-family:monospace; font-size:11px; color:var(--text-soft); margin-bottom:16px; }
+.harita-card { background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:14px 18px; margin-bottom:14px; }
+.harita-card-label { font-family:monospace; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--text-soft); margin-bottom:12px; }
+.harita-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(28px,1fr)); gap:4px; }
+.harita-cell {
+  aspect-ratio:1; border-radius:3px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-family:monospace; font-size:7px; color:var(--text-soft);
+}
+
 </style>
 
   <!-- PWA -->
@@ -2868,142 +3089,124 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </div>
 
-<div id="intro-overlay" style="overflow-y:auto;padding:0 clamp(20px,5vw,48px);background:#1B1511">
-  <div style="max-width:580px;width:100%">
+<div id="intro-overlay">
+  <div class="intro-inner">
 
     <!-- KAPAK -->
-    <div style="display:flex;flex-direction:column;justify-content:flex-start;padding-top:clamp(48px,8vw,80px);padding-bottom:52px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:52px">
-      <div style="position:absolute;bottom:0;left:0;width:48px;height:2px;background:#D4B06A"></div>
-      
-      <div style="font-family:Georgia,serif;font-size:clamp(48px,10vw,80px);font-weight:500;line-height:1;color:#F3E7D2;margin-bottom:20px;letter-spacing:-.03em">İki Ses,<br>Bir Yön</div>
-      <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#D7C9B5;line-height:1.75;max-width:480px;margin-bottom:32px">Kur'an ve Nutuk'tan 89 bölüm. Her bölümde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px">
-        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#8A7B67">📖 Kur'an · Elmalılı Meali</span>
-        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#8A7B67">🇹🇷 Nutuk · Atatürk</span>
-        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#8A7B67">89 Bölüm</span>
-        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#8A7B67"></span>
+    <div class="intro-cover">
+      <div class="intro-h1">İki Ses,<br>Bir Yön</div>
+      <div class="intro-tagline">Kur'an ve Nutuk'tan 89 bölüm. Her bölümde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.</div>
+      <div class="intro-tags">
+        <span class="intro-tag">📖 Kur'an · Elmalılı Meali</span>
+        <span class="intro-tag">🇹🇷 Nutuk · Atatürk</span>
+        <span class="intro-tag">89 Bölüm</span>
+        <span class="intro-tag"></span>
       </div>
     </div>
 
     <!-- İKİ KAYNAK ÖZETİ -->
-    <div style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:20px 24px;margin-bottom:52px">
-      <div style="font-family:Georgia,serif;font-size:14px;font-weight:500;color:#F3E7D2;margin-bottom:8px">İki Ses, Bir Yön</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#D7C9B5;line-height:1.7;margin-bottom:16px">Biri evrensel, biri tarihsel. İkisi birlikte soruyorlar:<br><em style="color:#F3E7D2">Zor bir anda, insan ne yapar?</em></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div style="background:#1e2030;border-radius:2px;padding:12px 14px;border:1px solid rgba(106,95,160,.3)">
-          <div style="font-family:monospace;font-size:10px;font-weight:600;color:#8AA392;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase">Kur'an · Elmalılı Meali</div>
-          <div style="font-size:11px;color:#8A7B67;line-height:1.55">İçsel değerler, evrensel sorular, insan doğasının sınavı</div>
+    <div class="intro-summary">
+      <div class="intro-summary-title">İki Ses, Bir Yön</div>
+      <div class="intro-summary-sub">Biri evrensel, biri tarihsel. İkisi birlikte soruyorlar:<br><em>Zor bir anda, insan ne yapar?</em></div>
+      <div class="intro-summary-grid">
+        <div class="intro-card quran">
+          <div class="intro-card-label">Kur'an · Elmalılı Meali</div>
+          <div class="intro-card-text">İçsel değerler, evrensel sorular, insan doğasının sınavı</div>
         </div>
-        <div style="background:#1e1a12;border-radius:2px;padding:12px 14px;border:1px solid rgba(212,176,106,.25)">
-          <div style="font-family:monospace;font-size:10px;font-weight:600;color:#D4B06A;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase">Nutuk · Atatürk</div>
-          <div style="font-size:11px;color:#8A7B67;line-height:1.55">Tarihsel gerçeklik, somut kararlar, çöküş içinde direniş</div>
+        <div class="intro-card nutuk">
+          <div class="intro-card-label">Nutuk · Atatürk</div>
+          <div class="intro-card-text">Tarihsel gerçeklik, somut kararlar, çöküş içinde direniş</div>
         </div>
       </div>
     </div>
 
     <!-- ÖNSÖZ -->
-    <div style="padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:48px">
-      <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:32px">Önsöz</div>
+    <div class="intro-onsoz">
+      <div class="intro-onsoz-title">Önsöz</div>
 
-      <div style="font-family:Georgia,serif;font-size:18px;font-weight:500;color:#F3E7D2;line-height:1.7;margin-bottom:28px">
-        İki ses var.
-      </div>
+      <div class="intro-lead">İki ses var.</div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
+      <div class="intro-p">
         Biri binlerce yıl önce söylendi — ama hâlâ soruyor.<br>
         Biri yüz yıl önce yaşandı — ama hâlâ cevap bekliyor.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
+      <div class="intro-p">
         Kur'an, iniş sırasıyla. Alak'tan Nasr'a.<br>
         Nutuk, Ekim 1927'den. Altı gün, 36 saat, sekiz yıl.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:28px">
+      <div class="intro-p spaced">
         İki çağ. İki dil. Aynı soru:<br>
-        <em style="color:#F3E7D2;font-size:17px">Zor bir anda, insan ne yapar?</em>
+        <em>Zor bir anda, insan ne yapar?</em>
       </div>
 
-      <div style="width:40px;height:2px;background:#B88A3B;margin-bottom:28px"></div>
+      <div class="intro-divider"></div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
+      <div class="intro-p">
         89 bölüm. Her birinde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
+      <div class="intro-p">
         Soru sana soruluyor.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
+      <div class="intro-p">
         Bu kitap sana ne düşüneceğini söylemeyecek.<br>
         Ama bazı sorulardan kaçmanı da zorlaştıracak.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
+      <div class="intro-p">
         Okuyacaksın. Duracaksın.<br>
         Bazen not alacaksın. Bazen sadece bir soruyla oturacaksın.<br>
         Bazen bir bölümü iki kez okuyacaksın.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
+      <div class="intro-p">
         Bu yolculukta senden istenen tek şey:<br>
-        <em style="color:#F3E7D2">Dürüst olmak.</em>
+        <em>Dürüst olmak.</em>
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#8A7B67;line-height:1.8;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08)">
+      <div class="intro-attrib">
         Kur'an mealleri: Elmalılı Hamdi Yazır, <em>Hak Dini Kuran Dili</em> (1935) — sadeleştirilerek · Nutuk: Mustafa Kemal Atatürk, 1927
       </div>
 
-      <div style="margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);
-                  display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
-        <button onclick="openKvkk()" style="background:none;border:none;
-          font-family:monospace;font-size:10px;letter-spacing:.12em;
-          text-transform:uppercase;color:#8A7B67;cursor:pointer;
-          transition:color .2s" onmouseover="this.style.color='#D7C9B5'"
-          onmouseout="this.style.color='#8A7B67'">
-          Gizlilik Politikası
-        </button>
-        <button onclick="openKosullar()" style="background:none;border:none;
-          font-family:monospace;font-size:10px;letter-spacing:.12em;
-          text-transform:uppercase;color:#8A7B67;cursor:pointer;
-          transition:color .2s" onmouseover="this.style.color='#D7C9B5'"
-          onmouseout="this.style.color='#8A7B67'">
-          Kullanım Koşulları
-        </button>
-        <span style="font-family:monospace;font-size:10px;color:#8A7B67;letter-spacing:.08em;align-self:center">
-          pixelvadisi@gmail.com
-        </span>
+      <div class="intro-legal-row">
+        <button onclick="openKvkk()" class="intro-legal-btn">Gizlilik Politikası</button>
+        <button onclick="openKosullar()" class="intro-legal-btn">Kullanım Koşulları</button>
+        <span class="intro-legal-email">pixelvadisi@gmail.com</span>
       </div>
     </div>
 
-    <!-- NASIL OKUNUR -->
-    <div style="padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:48px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-soft);margin-bottom:24px">Bu Seri Nasıl Okunur</div>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#8A7B67;margin-top:2px">1</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#D7C9B5;line-height:1.7;padding-top:2px">Her bölüm bağımsız okunabilir. Sıra şart değil.</div>
-        </div>
 
-        <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#8A7B67;margin-top:2px">2</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#D7C9B5;line-height:1.7;padding-top:2px">"Düşün" soruları cevap beklemez. Sadece bir an durmak için var.</div>
+    <!-- NASIL OKUNUR -->
+    <div class="intro-onsoz">
+      <div class="intro-howto-title">Bu Seri Nasıl Okunur</div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="intro-howto-step">
+          <div class="intro-howto-num">1</div>
+          <div class="intro-howto-text">Her bölüm bağımsız okunabilir. Sıra şart değil.</div>
         </div>
-        <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#8A7B67;margin-top:2px">3</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#D7C9B5;line-height:1.7;padding-top:2px">Notlarını kaydedebilirsin. Tarayıcında kalır.</div>
+        <div class="intro-howto-step">
+          <div class="intro-howto-num">2</div>
+          <div class="intro-howto-text">"Düşün" soruları cevap beklemez. Sadece bir an durmak için var.</div>
+        </div>
+        <div class="intro-howto-step">
+          <div class="intro-howto-num">3</div>
+          <div class="intro-howto-text">Notlarını kaydedebilirsin. Tarayıcında kalır.</div>
         </div>
       </div>
     </div>
 
     <!-- BAŞLA -->
-    <div style="padding-bottom:clamp(48px,7vw,72px)">
-      <button onclick="closeIntro()" style="background:#F3E7D2;color:#1B1511;border:none;border-radius:3px;padding:16px 40px;font-family:Georgia,serif;font-size:16px;font-weight:500;cursor:pointer;display:block;margin-bottom:12px;transition:background .2s">Bölüm 1'den Başla →</button>
-      <div style="font-family:monospace;font-size:11px;color:var(--text-soft);letter-spacing:.04em">veya sol menüden bölüm seç</div>
+    <div class="intro-start-wrap">
+      <button onclick="closeIntro()" class="intro-start-btn">Bölüm 1'den Başla →</button>
+      <div class="intro-start-hint">veya sol menüden bölüm seç</div>
     </div>
 
   </div>
 </div>
+
 
 <script>
 
@@ -3181,7 +3384,7 @@ function openFinalScreen() {
   const peak = CHAPTERS.find(x=>x.id===peakId);
 
   const ECOL = {kararlılık:'var(--quran)',cesaret:'var(--rose)',sabır:'var(--quran)',yüzleşme:'#D4B06A',ihanet:'var(--rose)',umut:'var(--quran)',şükür:'#D4B06A',yalnızlık:'var(--quran)'};
-  const RCOL = {dusundurdu:'var(--quran)',motive:'#D4B06A',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'#8A7B67'};
+  const RCOL = {dusundurdu:'var(--quran)',motive:'var(--gold)',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'var(--text-soft)'};
   const RLBL = {dusundurdu:'Düşündürdü',motive:'Motive etti',uzdu:'Üzdü',sasirtti:'Şaşırttı',kararsiz:'Kararsız'};
 
   const maxEm = emProfile[0]?.[1]||1;
@@ -3314,13 +3517,13 @@ function renderKitabim() {
   Object.values(allReacts).forEach(v=>{if(v&&reactCounts[v]!==undefined)reactCounts[v]++;});
   const reactTotal = Object.values(reactCounts).reduce((a,b)=>a+b,0);
   const RLBL2={dusundurdu:'Düşündürdü',motive:'Motive etti',uzdu:'Üzdü',sasirtti:'Şaşırttı',kararsiz:'Kararsız'};
-  const RCOL2={dusundurdu:'var(--quran)',motive:'#D4B06A',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'#8A7B67'};
-  const RDOT2={violet:'var(--quran)',gold:'#D4B06A',sage:'var(--quran)',rose:'var(--rose)'};
+  const RCOL2={dusundurdu:'var(--quran)',motive:'var(--gold)',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'var(--text-soft)'};
+  const RDOT2={violet:'var(--quran)',gold:'var(--gold)',sage:'var(--quran)',rose:'var(--rose)'};
 
   if(!favs.length&&!notes.length&&!answers.length&&!reactTotal) {
-    el.innerHTML=`<div style="padding:20px 0 24px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:20px"><div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:4px">Benim Kitabım</div><div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#8A7B67">Kişisel yolculuğun burada birikir.</div></div>
-    <div style="padding:40px 0;text-align:center"><div style="font-size:32px;margin-bottom:12px;opacity:.4">✦</div><div style="font-family:Georgia,serif;font-size:15px;font-style:italic;color:var(--text-soft);line-height:1.7;margin-bottom:16px">Henüz iz bırakmadın.<br>Bölümlerdeki yıldıza tıkla, sorulara cevap ver,<br>notlar ekle — hepsi burada seni bekler.</div>
-    <button onclick="closeSystem()" style="background:none;border:1.5px solid rgba(255,255,255,.08);border-radius:2px;padding:8px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A7B67;cursor:pointer">Okumaya Başla</button></div>`;
+    el.innerHTML=`<div class="kb-header empty"><div class="kb-title">Benim Kitabım</div><div class="kb-subtitle">Kişisel yolculuğun burada birikir.</div></div>
+    <div class="kb-empty-wrap"><div class="kb-empty-icon">✦</div><div class="kb-empty-text">Henüz iz bırakmadın.<br>Bölümlerdeki yıldıza tıkla, sorulara cevap ver,<br>notlar ekle — hepsi burada seni bekler.</div>
+    <button onclick="closeSystem()" class="kb-empty-btn">Okumaya Başla</button></div>`;
     return;
   }
 
@@ -3328,58 +3531,57 @@ function renderKitabim() {
     const c=CHAPTERS.find(x=>x.id===fid); if(!c) return '';
     const kap=(c.kapanis||'').replace(/"/g,'').substring(0,80);
     const react=allReacts[fid]; const dot=RDOT2[c.theme]||'var(--quran)';
-    return `<div style="border:1px solid rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${fid})">
-      <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#231C17">
-        <span style="font-family:monospace;font-size:11px;color:var(--text-soft);margin-top:2px;min-width:22px">${String(fid).padStart(2,'0')}</span>
-        <div style="flex:1"><div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:2px">${c.sure}</div>
-        <div style="font-family:Georgia,serif;font-size:14px;font-weight:500;color:#F3E7D2">${c.title}</div></div>
-        <div style="width:6px;height:6px;border-radius:50%;background:${dot};flex-shrink:0;margin-top:5px"></div>
-        <button onclick="event.stopPropagation();Store.toggleFav(${fid});renderKitabim()" style="background:none;border:none;cursor:pointer;color:var(--text-soft);font-size:13px;padding:2px 4px">✕</button>
+    return `<div class="kb-fav-card" onclick="closeSystem();render(${fid})">
+      <div class="kb-fav-top">
+        <span class="kb-fav-num">${String(fid).padStart(2,'0')}</span>
+        <div style="flex:1"><div class="kb-fav-sure">${c.sure}</div>
+        <div class="kb-fav-title">${c.title}</div></div>
+        <div class="kb-fav-dot" style="background:${dot}"></div>
+        <button onclick="event.stopPropagation();Store.toggleFav(${fid});renderKitabim()" class="kb-fav-remove">✕</button>
       </div>
-      ${kap?`<div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#D7C9B5;padding:8px 14px 10px 46px;line-height:1.55;border-top:1px solid rgba(255,255,255,.08)">${kap}…</div>`:''}</div>`;
-  }).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:var(--text-soft);padding:20px 0">Henüz favori bölüm yok.</div>';
+      ${kap?`<div class="kb-fav-kapanis">${kap}…</div>`:''}</div>`;
+  }).join('') : '<div class="kb-empty-row">Henüz favori bölüm yok.</div>';
 
   const noteHTML = notes.length ? notes.map(n=>`
-    <div style="border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:12px 14px;background:#231C17;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${n.id})">
-      <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:6px">${String(n.id).padStart(2,'0')} · ${n.sure}</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#F3E7D2;line-height:1.65">${n.text}</div>
-    </div>`).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:var(--text-soft);padding:20px 0">Henüz not yok.</div>';
+    <div class="kb-note-card" onclick="closeSystem();render(${n.id})">
+      <div class="kb-note-meta">${String(n.id).padStart(2,'0')} · ${n.sure}</div>
+      <div class="kb-note-text">${n.text}</div>
+    </div>`).join('') : '<div class="kb-empty-row">Henüz not yok.</div>';
 
   const ansHTML = answers.length ? answers.map(a=>`
-    <div style="border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:12px 14px;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${a.id})">
-      <div style="font-family:Georgia,serif;font-size:13px;color:#D7C9B5;margin-bottom:6px;line-height:1.5">${a.q}</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#F3E7D2;padding-left:12px;border-left:2px solid #c89848;line-height:1.6">${a.ans}</div>
-      <div style="font-family:monospace;font-size:9px;color:var(--text-soft);margin-top:6px">${String(a.id).padStart(2,'0')} · ${a.sure}</div>
-    </div>`).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:var(--text-soft);padding:20px 0">Henüz yanıt yok.</div>';
+    <div class="kb-answer-card" onclick="closeSystem();render(${a.id})">
+      <div class="kb-answer-q">${a.q}</div>
+      <div class="kb-answer-a">${a.ans}</div>
+      <div class="kb-answer-meta">${String(a.id).padStart(2,'0')} · ${a.sure}</div>
+    </div>`).join('') : '<div class="kb-empty-row">Henüz yanıt yok.</div>';
 
   const maxR=Math.max(...Object.values(reactCounts),1);
   const reactBarHTML = Object.entries(reactCounts).map(([k,n])=>`
-    <div style="display:grid;grid-template-columns:90px 1fr 24px;gap:8px;align-items:center;margin-bottom:7px">
-      <span style="font-family:monospace;font-size:11px;color:#F3E7D2">${RLBL2[k]}</span>
-      <div style="height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden"><div style="height:100%;width:${n/maxR*100}%;background:${RCOL2[k]};border-radius:2px"></div></div>
-      <span style="font-family:monospace;font-size:10px;color:#8A7B67;text-align:right">${n}</span>
+    <div class="kb-react-row">
+      <span class="kb-react-label">${RLBL2[k]}</span>
+      <div class="kb-react-track"><div class="kb-react-fill" style="width:${n/maxR*100}%;background:${RCOL2[k]}"></div></div>
+      <span class="kb-react-count">${n}</span>
     </div>`).join('');
 
   el.innerHTML = `
-    <div style="padding:20px 0 16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:20px">
-      <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:4px">Benim Kitabım</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#8A7B67;margin-bottom:18px">Kendi sesini buraya bıraktın.</div>
-      <div style="display:flex;flex-wrap:wrap;gap:16px">
+    <div class="kb-header">
+      <div class="kb-title">Benim Kitabım</div>
+      <div class="kb-subtitle spaced">Kendi sesini buraya bıraktın.</div>
+      <div class="kb-stats">
         ${[['Bölüm',readCount],['Favori',favs.length],['Not',notes.length],['Yanıt',answers.length],['Tepki',reactTotal]].map(([l,n])=>`
-          <div><div style="font-family:monospace;font-size:22px;font-weight:600;color:#F3E7D2;line-height:1">${n}</div><div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft)">${l}</div></div>`).join('')}
+          <div><div class="kb-stat-num">${n}</div><div class="kb-stat-label">${l}</div></div>`).join('')}
       </div>
     </div>
-    <div style="display:flex;gap:2px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,.08)">
+    <div class="kb-tabs-row">
       ${['favori','notlar','cevaplar','tepkiler'].map(t=>`
-        <button class="kb-tab ${_kbTab===t?'on':''}" data-tab="${t}" onclick="kbTab('${t}')" 
-                style="background:none;border:none;border-bottom:2px solid ${_kbTab===t?'#D4B06A':'transparent'};padding:8px 12px 9px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:${_kbTab===t?'#F3E7D2':'#8A7B67'};cursor:pointer;margin-bottom:-1px">
+        <button class="kb-tab ${_kbTab===t?'on':''}" data-tab="${t}" onclick="kbTab('${t}')">
           ${t.charAt(0).toUpperCase()+t.slice(1)}
         </button>`).join('')}
     </div>
     <div id="kbp-favori"   class="kb-pane" style="display:${_kbTab==='favori'?'block':'none'}">${favHTML}</div>
     <div id="kbp-notlar"   class="kb-pane" style="display:${_kbTab==='notlar'?'block':'none'}">${noteHTML}</div>
     <div id="kbp-cevaplar" class="kb-pane" style="display:${_kbTab==='cevaplar'?'block':'none'}">${ansHTML}</div>
-    <div id="kbp-tepkiler" class="kb-pane" style="display:${_kbTab==='tepkiler'?'block':'none'}">${reactTotal?reactBarHTML:'<div style="font-family:Lora,serif;font-size:14px;font-style:italic;color:var(--text-soft);padding:20px 0">Henüz tepki yok.</div>'}</div>`;
+    <div id="kbp-tepkiler" class="kb-pane" style="display:${_kbTab==='tepkiler'?'block':'none'}">${reactTotal?reactBarHTML:'<div class="kb-empty-row">Henüz tepki yok.</div>'}</div>`;
 }
 
 /* ── DUYGU HARİTASI ── */
@@ -3387,9 +3589,9 @@ function renderHarita() {
   const el=document.getElementById('sysp-harita');
   const allReacts=Store.getAllReacts();
   const total=Object.keys(allReacts).length;
-  const RCOL={dusundurdu:'var(--quran)',motive:'#D4B06A',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'#8A7B67'};
+  const RCOL={dusundurdu:'var(--quran)',motive:'var(--gold)',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'var(--text-soft)'};
   const RLBL={dusundurdu:'Düşündürdü',motive:'Motive etti',uzdu:'Üzdü',sasirtti:'Şaşırttı',kararsiz:'Kararsız'};
-  const RBGL={dusundurdu:'#1e2030',motive:'#1e1a12',uzdu:'#faf0f2',sasirtti:'#eef4f0',kararsiz:'#e8e0d2'};
+  const RBGL={dusundurdu:'rgba(88,109,136,.15)',motive:'rgba(212,176,106,.15)',uzdu:'rgba(138,58,80,.15)',sasirtti:'rgba(138,163,146,.15)',kararsiz:'rgba(138,123,103,.15)'};
   
   const counts={dusundurdu:0,motive:0,uzdu:0,sasirtti:0,kararsiz:0};
   Object.values(allReacts).forEach(v=>{if(v&&counts[v]!==undefined)counts[v]++;});
@@ -3398,27 +3600,27 @@ function renderHarita() {
   const cellsHTML=Array.from({length:89},(_,i)=>{
     const id=i+1, r=allReacts[id]||allReacts[String(id)];
     const c=CHAPTERS.find(x=>x.id===id);
-    const bg=r?RBGL[r]:'#231C17', border=r?(RCOL[r]+'44'):'rgba(255,255,255,.08)';
-    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:7px;color:#8A7B67"
+    const bg=r?RBGL[r]:'var(--surface)', border=r?(RCOL[r]+'44'):'var(--line)';
+    return `<div class="harita-cell" style="background:${bg};border:1px solid ${border}"
                   onclick="closeSystem();render(${id})" title="B${id}${c?' · '+c.sure:''}${r?' · '+RLBL[r]:''} ">${id}</div>`;
   }).join('');
 
   el.innerHTML=`
-    <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:4px">Duygu Haritası</div>
-    <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#8A7B67;margin-bottom:20px">89 bölüm boyunca kişisel yolculuğun.</div>
-    ${total?`<div style="font-family:monospace;font-size:11px;color:#8A7B67;margin-bottom:16px">${total} / 89 bölüm değerlendirildi · %${Math.round(total/89*100)}</div>`:''}
-    <div style="background:#fff;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:14px 18px;margin-bottom:14px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:12px">Tepki Dağılımı</div>
+    <div class="harita-title">Duygu Haritası</div>
+    <div class="harita-subtitle">89 bölüm boyunca kişisel yolculuğun.</div>
+    ${total?`<div class="harita-progress">${total} / 89 bölüm değerlendirildi · %${Math.round(total/89*100)}</div>`:''}
+    <div class="harita-card">
+      <div class="harita-card-label">Tepki Dağılımı</div>
       ${Object.entries(counts).map(([k,n])=>`
-        <div style="display:grid;grid-template-columns:90px 1fr 24px;gap:8px;align-items:center;margin-bottom:7px">
-          <span style="font-family:monospace;font-size:11px;color:#F3E7D2">${RLBL[k]}</span>
-          <div style="height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden"><div style="height:100%;width:${n/maxC*100}%;background:${RCOL[k]};border-radius:2px"></div></div>
-          <span style="font-family:monospace;font-size:10px;color:#8A7B67;text-align:right">${n}</span>
+        <div class="kb-react-row">
+          <span class="kb-react-label">${RLBL[k]}</span>
+          <div class="kb-react-track"><div class="kb-react-fill" style="width:${n/maxC*100}%;background:${RCOL[k]}"></div></div>
+          <span class="kb-react-count">${n}</span>
         </div>`).join('')}
     </div>
-    <div style="background:#fff;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:14px 18px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:12px">Bölüm Haritası</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(28px,1fr));gap:4px">${cellsHTML}</div>
+    <div class="harita-card">
+      <div class="harita-card-label">Bölüm Haritası</div>
+      <div class="harita-grid">${cellsHTML}</div>
     </div>`;
 }
 
@@ -5542,72 +5744,49 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <!-- KVKK / GİZLİLİK POLİTİKASI SAYFASI -->
-<div id="kvkk-screen" style="
-  display:none; position:fixed; inset:0; z-index:700;
-  background:#1B1511; overflow-y:auto;
-  padding: 40px clamp(20px,5vw,80px);
-  opacity:0; transition: opacity .5s ease;
-">
-  <div style="max-width:680px;margin:0 auto;">
+<div id="kvkk-screen" class="legal-overlay">
+  <div class="legal-inner">
 
-    <button onclick="closeKvkk()" style="
-      background:none;border:none;
-      font-family:monospace;font-size:10px;letter-spacing:.2em;
-      text-transform:uppercase;color:#8A7B67;cursor:pointer;
-      margin-bottom:40px;display:block;
-    ">← Geri dön</button>
+    <button onclick="closeKvkk()" class="legal-back">← Geri dön</button>
 
-    <div style="font-family:monospace;font-size:10px;letter-spacing:.25em;
-                text-transform:uppercase;color:#D4B06A;margin-bottom:12px">
-      Gizlilik & KVKK
-    </div>
-    <h1 style="font-family:Georgia,serif;font-size:28px;font-weight:500;
-               color:#F3E7D2;margin-bottom:8px;line-height:1.3">
-      Gizlilik Politikası
-    </h1>
-    <div style="font-family:monospace;font-size:11px;color:#8A7B67;
-                margin-bottom:48px">
-      Son güncelleme: Haziran 2025 · Pixel Vadisi
-    </div>
+    <div class="legal-eyebrow">Gizlilik & KVKK</div>
+    <h1 class="legal-title">Gizlilik Politikası</h1>
+    <div class="legal-meta">Son güncelleme: Haziran 2025 · Pixel Vadisi</div>
 
-    <div style="font-family:Georgia,serif;font-size:15px;color:#D7C9B5;
-                line-height:1.9;">
+    <div class="legal-body">
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">1. Veri Sorumlusu</h2>
-      <p>Bu uygulama <strong style="color:#F3E7D2">Pixel Vadisi</strong> tarafından işletilmektedir. KVKK kapsamında veri sorumlusu sıfatıyla hareket edilmektedir.</p>
+      <h2>1. Veri Sorumlusu</h2>
+      <p>Bu uygulama <strong>Pixel Vadisi</strong> tarafından işletilmektedir. KVKK kapsamında veri sorumlusu sıfatıyla hareket edilmektedir.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">2. Toplanan Veriler</h2>
-      <p><strong style="color:#F3E7D2">Yerel veriler (cihazınızda):</strong> Uygulama notlarınızı, ilerlemenizi, soru yanıtlarınızı ve okuma geçmişinizi yalnızca cihazınızın yerel depolama alanında (localStorage) saklar. Bu veriler sunucularımıza iletilmez, üçüncü taraflarla paylaşılmaz.</p>
-      <p><strong style="color:#F3E7D2">Ödeme verileri:</strong> Ödeme işlemleri Shopier altyapısı üzerinden gerçekleştirilir. Kart bilgileriniz tarafımızca görülmez veya saklanmaz. Shopier'ın gizlilik politikası geçerlidir.</p>
-      <p><strong style="color:#F3E7D2">Teknik veriler:</strong> Sunucularımız standart erişim kayıtları tutabilir (IP adresi, tarayıcı türü). Bu veriler güvenlik amacıyla kullanılır ve 30 gün içinde silinir.</p>
+      <h2>2. Toplanan Veriler</h2>
+      <p><strong>Yerel veriler (cihazınızda):</strong> Uygulama notlarınızı, ilerlemenizi, soru yanıtlarınızı ve okuma geçmişinizi yalnızca cihazınızın yerel depolama alanında (localStorage) saklar. Bu veriler sunucularımıza iletilmez, üçüncü taraflarla paylaşılmaz.</p>
+      <p><strong>Ödeme verileri:</strong> Ödeme işlemleri Shopier altyapısı üzerinden gerçekleştirilir. Kart bilgileriniz tarafımızca görülmez veya saklanmaz. Shopier'ın gizlilik politikası geçerlidir.</p>
+      <p><strong>Teknik veriler:</strong> Sunucularımız standart erişim kayıtları tutabilir (IP adresi, tarayıcı türü). Bu veriler güvenlik amacıyla kullanılır ve 30 gün içinde silinir.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">3. Çerezler</h2>
+      <h2>3. Çerezler</h2>
       <p>Bu uygulama çerez (cookie) kullanmamaktadır. İlerleme ve notlar yalnızca localStorage aracılığıyla cihazınızda saklanır.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">4. Verilerinizin Silinmesi</h2>
+      <h2>4. Verilerinizin Silinmesi</h2>
       <p>Cihazınızdaki tüm verileri silmek için tarayıcı ayarlarından "Site Verilerini Temizle" seçeneğini kullanabilirsiniz. Bu işlem ilerlemenizi, notlarınızı ve tüm kayıtlarınızı kalıcı olarak siler.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">5. Üçüncü Taraf Hizmetler</h2>
-      <p>Uygulama GitHub Pages üzerinde barındırılmaktadır. GitHub'ın gizlilik politikası için: <span style="color:#D4B06A">github.com/privacy</span></p>
-      <p>Ödeme altyapısı için Shopier kullanılmaktadır. Shopier'ın politikası için: <span style="color:#D4B06A">shopier.com/privacy</span></p>
+      <h2>5. Üçüncü Taraf Hizmetler</h2>
+      <p>Uygulama GitHub Pages üzerinde barındırılmaktadır. GitHub'ın gizlilik politikası için: <span class="legal-accent">github.com/privacy</span></p>
+      <p>Ödeme altyapısı için Shopier kullanılmaktadır. Shopier'ın politikası için: <span class="legal-accent">shopier.com/privacy</span></p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">6. KVKK Kapsamındaki Haklarınız</h2>
+      <h2>6. KVKK Kapsamındaki Haklarınız</h2>
       <p>6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca aşağıdaki haklara sahipsiniz:</p>
-      <ul style="padding-left:20px;line-height:2.2">
+      <ul>
         <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
         <li>İşlenmişse buna ilişkin bilgi talep etme</li>
         <li>Verilerin silinmesini veya yok edilmesini isteme</li>
         <li>İşlemenin kanuna aykırı olması halinde zararın giderilmesini talep etme</li>
       </ul>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">7. İletişim</h2>
+      <h2>7. İletişim</h2>
       <p>KVKK kapsamındaki talepleriniz için:</p>
-      <p style="color:#D4B06A">pixelvadisi@gmail.com</p>
+      <p class="legal-accent">pixelvadisi@gmail.com</p>
 
-      <div style="margin-top:48px;padding-top:32px;
-                  border-top:1px solid rgba(255,255,255,.08);
-                  font-family:monospace;font-size:10px;
-                  color:#8A7B67;letter-spacing:.08em">
+      <div class="legal-footer">
         Bu politika gerektiğinde güncellenebilir. Önemli değişiklikler uygulama içinde duyurulur.
       </div>
     </div>
@@ -5615,54 +5794,35 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- KULLANIM KOŞULLARI SAYFASI -->
-<div id="kosullar-screen" style="
-  display:none; position:fixed; inset:0; z-index:700;
-  background:#1B1511; overflow-y:auto;
-  padding: 40px clamp(20px,5vw,80px);
-  opacity:0; transition: opacity .5s ease;
-">
-  <div style="max-width:680px;margin:0 auto;">
+<div id="kosullar-screen" class="legal-overlay">
+  <div class="legal-inner">
 
-    <button onclick="closeKosullar()" style="
-      background:none;border:none;
-      font-family:monospace;font-size:10px;letter-spacing:.2em;
-      text-transform:uppercase;color:#8A7B67;cursor:pointer;
-      margin-bottom:40px;display:block;
-    ">← Geri dön</button>
+    <button onclick="closeKosullar()" class="legal-back">← Geri dön</button>
 
-    <div style="font-family:monospace;font-size:10px;letter-spacing:.25em;
-                text-transform:uppercase;color:#D4B06A;margin-bottom:12px">
-      Yasal
-    </div>
-    <h1 style="font-family:Georgia,serif;font-size:28px;font-weight:500;
-               color:#F3E7D2;margin-bottom:8px;line-height:1.3">
-      Kullanım Koşulları
-    </h1>
-    <div style="font-family:monospace;font-size:11px;color:#8A7B67;
-                margin-bottom:48px">
-      Son güncelleme: Haziran 2025 · Pixel Vadisi
-    </div>
+    <div class="legal-eyebrow">Yasal</div>
+    <h1 class="legal-title">Kullanım Koşulları</h1>
+    <div class="legal-meta">Son güncelleme: Haziran 2025 · Pixel Vadisi</div>
 
-    <div style="font-family:Georgia,serif;font-size:15px;color:#D7C9B5;line-height:1.9;">
+    <div class="legal-body">
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">1. Hizmet</h2>
+      <h2>1. Hizmet</h2>
       <p>İki Ses, Bir Yön, Pixel Vadisi tarafından sunulan interaktif bir dijital okuma deneyimidir. 89 bölümden oluşur ve kişisel gelişim amaçlıdır.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">2. Satın Alma</h2>
+      <h2>2. Satın Alma</h2>
       <p>Tam erişim tek seferlik ödeme ile sağlanır. Ödeme tamamlandıktan sonra içeriğe ömür boyu erişim hakkı kazanılır. Dijital içerik niteliğinde olduğundan iade yapılmamaktadır.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">3. Telif Hakkı</h2>
+      <h2>3. Telif Hakkı</h2>
       <p>Uygulama içeriği (bölüm metinleri, sorular, kapanışlar, sahne anlatıları) Pixel Vadisi'na aittir ve Türkiye Cumhuriyeti telif hukuku kapsamında korunmaktadır.</p>
       <p>Kur'an mealleri Elmalılı Hamdi Yazır'ın <em>Hak Dini Kuran Dili</em> (1935) eserinden sadeleştirilerek alınmıştır. Nutuk, Mustafa Kemal Atatürk, 1927 — kamu malıdır.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">4. Kullanım Sınırları</h2>
+      <h2>4. Kullanım Sınırları</h2>
       <p>İçerikler kişisel kullanım içindir. İzinsiz çoğaltma, dağıtım veya ticari kullanım yasaktır.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">5. Sorumluluk Reddi</h2>
+      <h2>5. Sorumluluk Reddi</h2>
       <p>Bu uygulama kişisel gelişim amaçlıdır. Dini, hukuki veya tıbbi tavsiye niteliği taşımaz.</p>
 
-      <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">6. İletişim</h2>
-      <p style="color:#D4B06A">pixelvadisi@gmail.com</p>
+      <h2>6. İletişim</h2>
+      <p class="legal-accent">pixelvadisi@gmail.com</p>
 
     </div>
   </div>
@@ -5671,23 +5831,23 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
 function openKvkk() {
   const el = document.getElementById('kvkk-screen');
-  el.style.display = 'block';
-  requestAnimationFrame(() => requestAnimationFrame(() => el.style.opacity = '1'));
+  el.classList.add('open');
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
 }
 function closeKvkk() {
   const el = document.getElementById('kvkk-screen');
-  el.style.opacity = '0';
-  setTimeout(() => el.style.display = 'none', 500);
+  el.classList.remove('visible');
+  setTimeout(() => el.classList.remove('open'), 500);
 }
 function openKosullar() {
   const el = document.getElementById('kosullar-screen');
-  el.style.display = 'block';
-  requestAnimationFrame(() => requestAnimationFrame(() => el.style.opacity = '1'));
+  el.classList.add('open');
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
 }
 function closeKosullar() {
   const el = document.getElementById('kosullar-screen');
-  el.style.opacity = '0';
-  setTimeout(() => el.style.display = 'none', 500);
+  el.classList.remove('visible');
+  setTimeout(() => el.classList.remove('open'), 500);
 }
 </script>
 <script>
