@@ -7,52 +7,88 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+:root{
+  --bg:#1B1511;
+  --surface:#231C17;
+  --surface-2:#2A221D;
+  --title:#F3E7D2;
+  --text:#D7C9B5;
+  --text-soft:#8A7B67;
+  --gold:#D4B06A;
+  --quran:#8AA392;
+  --nutuk:#586D88;
+  --rose:#8a3a50;
+  --line:rgba(255,255,255,.08);
+  --radius:4px;
+  --transition:.2s ease;
+}
 
+
+
+/* ════════════════════════════════════════════
+   2. LAYOUT
+   Sayfa iskeleti — toolbar, sidebar, reader kapsayıcı
+   ════════════════════════════════════════════ */
 
 /* === RESET === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 15px; }
-body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; min-height: 100vh; }
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
 
 /* === TOOLBAR === */
-#toolbar {
+#toolbar{
+  background:var(--surface);
+  border-bottom:1px solid var(--line);
   position: sticky; top: 0; z-index: 100;
-  background: #1B1511; border-bottom: 1px solid rgba(255,255,255,.08);
   display: flex; align-items: center; gap: 4px;
   padding: 0 16px; height: 48px;
 }
-.tb-btn {
+.tb-btn{
+  color:var(--text-soft);
   background: none; border: none; cursor: pointer;
   display: flex; align-items: center; gap: 5px;
-  padding: 6px 10px; border-radius: 4px;
+  padding: 6px 10px; border-radius: var(--radius);
   font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
-  color: #9e9484;
+  transition: color var(--transition);
 }
-.tb-btn:hover { background: rgba(212,176,106,.1); color: #D4B06A; }
-.tb-btn.on { background: rgba(212,176,106,.15); color: #F3E7D2; }
-.tb-sep { width: 1px; height: 18px; background: #2e2820; margin: 0 4px; }
-.tb-title { font-family: 'DM Mono', monospace; font-size: 11px; color: #9e9484; flex: 1; padding: 0 8px; letter-spacing: .04em; }
+.tb-btn:hover{
+  color:var(--gold);
+}
+.tb-btn.on { background: rgba(212,176,106,.15); color: var(--title); }
+.tb-sep { width: 1px; height: 18px; background: var(--line); margin: 0 4px; }
+.tb-title { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-soft); flex: 1; padding: 0 8px; letter-spacing: .04em; }
 
 /* === SIDEBAR === */
-#sidebar {
+#sidebar{
+  background:var(--surface);
+  border-right:1px solid var(--line);
   position: fixed; left: 0; top: 0; bottom: 0; width: 280px;
-  background: #f0eade; border-right: 1px solid #ddd5c6;
   display: flex; flex-direction: column; z-index: 200;
-  transform: translateX(-100%); transition: transform .3s ease;
+  transform: translateX(-100%); transition: transform var(--transition);
 }
 #sidebar.open { transform: translateX(0); }
-.sb-top { padding: 16px; border-bottom: 1px solid #ddd5c6; display: flex; align-items: center; gap: 10px; }
-.sb-logo { font-family: 'Lora', serif; font-size: 13px; color: #D4B06A; flex: 1; }
-.sb-close { background: none; border: none; color: #9e9484; cursor: pointer; font-size: 18px; padding: 4px; }
+.sb-top { padding: 16px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
+.sb-logo { font-family: 'Lora', serif; font-size: 13px; color: var(--gold); flex: 1; }
+.sb-close { background: none; border: none; color: var(--text-soft); cursor: pointer; font-size: 18px; padding: 4px; }
 .sb-list { flex: 1; overflow-y: auto; padding: 6px 0; }
-.sb-item { display: flex; align-items: center; gap: 8px; padding: 7px 14px; cursor: pointer; border-left: 2px solid transparent; }
-.sb-item:hover { background: #e8e0d2; }
-.sb-item.on { background: #e8e0d2; border-left-color: #D4B06A; }
-.si-num { font-family: 'DM Mono', monospace; font-size: 10px; color: #c8bfb0; min-width: 22px; }
-.si-sure { font-size: 12px; color: #6b6454; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sb-item { display: flex; align-items: center; gap: 8px; padding: 7px 14px; cursor: pointer; border-left: 2px solid transparent; transition: background var(--transition); }
+.sb-item:hover{
+  background:var(--surface-2);
+}
+.sb-item.on{
+  border-left:2px solid var(--gold);
+  background: var(--surface-2);
+}
+.si-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-soft); min-width: 22px; }
+.si-sure { font-size: 12px; color: var(--text-soft); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .si-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-.dot-violet { background: #3a6a5a; } .dot-gold { background: #D4B06A; }
-.dot-sage { background: #3a6048; } .dot-rose { background: #8a3a50; }
+.dot-violet { background: var(--quran); } .dot-gold { background: var(--gold); }
+.dot-sage { background: var(--quran); } .dot-rose { background: var(--rose); }
 
 #sb-overlay { display: none; position: fixed; inset: 0; background: rgba(28,26,22,.4); z-index: 190; }
 #sb-overlay.on { display: block; }
@@ -60,54 +96,61 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
 /* === READER === */
 #reader { max-width: 708px; margin: 0 auto; }
 
+/* ════════════════════════════════════════════
+   3. COMPONENTS
+   Bölüm içerikleri — sahne, paneller, sorular, nav
+   ════════════════════════════════════════════ */
+
 /* === CHAPTER === */
 .ch-header {
   padding: 56px 32px 40px;
-  border-bottom: 1px solid #ddd5c6;
+  border-bottom: 1px solid rgba(255,255,255,.08);
   position: relative;
 }
 .ch-header::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
 }
-.theme-violet .ch-header::before { background: #3a6a5a; }
+.theme-violet .ch-header::before { background: var(--quran); }
 .theme-gold   .ch-header::before { background: #D4B06A; }
-.theme-sage   .ch-header::before { background: #3a6048; }
-.theme-rose   .ch-header::before { background: #8a3a50; }
+.theme-sage   .ch-header::before { background: var(--quran); }
+.theme-rose   .ch-header::before { background: var(--rose); }
 
-.ch-number {
+.ch-number{
+  color:rgba(255,255,255,.08);
   font-family: 'DM Mono', monospace; font-size: 96px; font-weight: 500;
-  line-height: .85; letter-spacing: -.04em; color: #ddd3c4;
+  line-height: .85; letter-spacing: -.04em;
   margin-bottom: 16px; display: block; user-select: none;
 }
 .ch-eyebrow {
   font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase; color: #8a7860;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft);
   margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
 }
 .ch-eyebrow-dot { width: 4px; height: 4px; border-radius: 50%; }
-.theme-violet .ch-eyebrow-dot { background: #3a6a5a; }
+.theme-violet .ch-eyebrow-dot { background: var(--quran); }
 .theme-gold   .ch-eyebrow-dot { background: #D4B06A; }
-.theme-sage   .ch-eyebrow-dot { background: #3a6048; }
-.theme-rose   .ch-eyebrow-dot { background: #8a3a50; }
+.theme-sage   .ch-eyebrow-dot { background: var(--quran); }
+.theme-rose   .ch-eyebrow-dot { background: var(--rose); }
 .ch-title {
   font-family: 'Lora', serif; font-size: 32px; font-weight: 500;
-  line-height: 1.15; color: #f7f3ec; letter-spacing: -.02em;
+  line-height: 1.15; color: var(--title); letter-spacing: -.02em;
 }
 .ch-meta { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
 .ch-intensity { display: flex; gap: 2px; }
-.ch-pip { width: 12px; height: 3px; border-radius: 2px; background: #ddd3c4; }
-.ch-pip.on { background: #9e9484; }
+.ch-pip { width: 12px; height: 3px; border-radius: 2px; background: var(--line); }
+.ch-pip.on { background: #8A7B67; }
 .ch-role-badge {
   font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600;
-  letter-spacing: .08em; text-transform: uppercase; color: #9e9484;
-  padding: 2px 7px; border: 1px solid #ddd5c6; border-radius: 20px;
+  letter-spacing: .08em; text-transform: uppercase; color: #8A7B67;
+  padding: 2px 7px; border: 1px solid rgba(255,255,255,.08); border-radius: 20px;
 }
 
 /* === SAHNE === */
-.ch-sahne {
+.ch-sahne{
+  color:var(--text);
   font-family: 'Lora', serif; font-size: 17px; line-height: 2;
-  color: #1c1a16; padding: 36px 32px;
-  border-bottom: 1px solid #ddd5c6;
+  padding: 36px 32px;
+  border-bottom: 1px solid var(--line);
 }
 .ch-sahne p { margin-bottom: 14px; }
 .ch-sahne p:last-child { margin-bottom: 0; }
@@ -115,53 +158,71 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
 /* === PANELS === */
 .ch-panel {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: #2e2820; border-bottom: 1px solid #ddd5c6;
+  gap: 1px; background: #2e2820; border-bottom: 1px solid rgba(255,255,255,.08);
 }
 @media(max-width:560px) { .ch-panel { grid-template-columns: 1fr; } }
 .pbox { padding: 20px; }
-.pbox-q { background: #f0eef8; }
-.pbox-n { background: #faf4e8; }
+.pbox-q{
+  background:rgba(138,163,146,.08);
+  border-left:3px solid var(--quran);
+}
+.pbox-n{
+  background:rgba(88,109,136,.08);
+  border-left:3px solid var(--nutuk);
+}
 .pbox-label {
   font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600;
   letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px;
 }
-.pbox-q .pbox-label { color: #6a5fa0; }
-.pbox-n .pbox-label { color: #D4B06A; }
+.pbox-q .pbox-label{
+  color:var(--quran);
+}
+.pbox-n .pbox-label{
+  color:var(--nutuk);
+}
 .pbox-text { font-family: 'Lora', serif; font-size: 13px; font-style: italic; line-height: 1.75; }
-.pbox-q .pbox-text { color: #3a6a5a; }
-.pbox-n .pbox-text { color: #D4B06A; }
+.pbox-q .pbox-text{
+  color:#b8d1c0;
+}
+.pbox-n .pbox-text{
+  color:#aabed8;
+}
 
 /* === DEVAM === */
-.ch-devam {
+.ch-devam{
+  color:var(--text-soft);
   font-family: 'Lora', serif; font-size: 14px; font-style: italic;
-  color: #3a3628; line-height: 1.95; padding: 28px 32px;
-  border-bottom: 1px solid #ddd5c6;
+  line-height: 1.95; padding: 28px 32px;
+  border-bottom: 1px solid var(--line);
 }
 .ch-devam p { margin-bottom: 14px; }
 .ch-devam p:last-child { margin-bottom: 0; }
 
 /* === KAPANIS === */
-.ch-kapanis {
-  font-family: 'Lora', serif; font-size: 19px; font-style: italic;
-  color: #D4B06A; line-height: 1.5; padding: 32px 32px;
-  border-bottom: 1px solid #2e2820; letter-spacing: -.01em;
+.ch-kapanis{
+  color:var(--gold);
+  font-size:22px;
+  line-height:1.7;
+  font-family: 'Lora', serif; font-style: italic;
+  padding: 32px 32px;
+  border-bottom: 1px solid var(--line); letter-spacing: -.01em;
 }
 
 /* === TEPKİ === */
-.ch-react { padding: 24px 32px; border-bottom: 1px solid #ddd5c6; }
-.ch-react-q { font-family: 'Lora', serif; font-size: 14px; font-style: italic; color: #6b6454; margin-bottom: 14px; }
+.ch-react { padding: 24px 32px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.ch-react-q { font-family: 'Lora', serif; font-size: 14px; font-style: italic; color: #8A7B67; margin-bottom: 14px; }
 .ch-react-opts { display: flex; flex-wrap: wrap; gap: 8px; }
 .react-opt {
-  padding: 7px 14px; border-radius: 40px; border: 1.5px solid #ddd5c6;
-  background: #f0eade; font-family: 'DM Mono', monospace; font-size: 11px;
-  font-weight: 500; color: #9e9484; cursor: pointer; transition: all .2s;
+  padding: 7px 14px; border-radius: 40px; border: 1.5px solid rgba(255,255,255,.08);
+  background: var(--surface-2); font-family: 'DM Mono', monospace; font-size: 11px;
+  font-weight: 500; color: #8A7B67; cursor: pointer; transition: all .2s;
 }
-.react-opt:hover { border-color: #cfc5b4; color: #1c1a16; }
-.react-opt.sel-dusundurdu { background: #f0eef8; border-color: #6a5fa0; color: #3a6a5a; }
+.react-opt:hover { border-color: #cfc5b4; color: var(--title); }
+.react-opt.sel-dusundurdu { background: #f0eef8; border-color: var(--nutuk); color: var(--quran); }
 .react-opt.sel-motive     { background: #faf4e8; border-color: #c89848; color: #D4B06A; }
-.react-opt.sel-uzdu       { background: #faf0f2; border-color: #b05868; color: #8a3a50; }
-.react-opt.sel-sasirtti   { background: #eef4f0; border-color: #5a8060; color: #3a6048; }
-.react-opt.sel-kararsiz   { background: #e8e0d2; border-color: #9e9484; color: #3a3628; }
+.react-opt.sel-uzdu       { background: #faf0f2; border-color: #b05868; color: var(--rose); }
+.react-opt.sel-sasirtti   { background: #eef4f0; border-color: #5a8060; color: var(--quran); }
+.react-opt.sel-kararsiz   { background: var(--surface-2); border-color: #8A7B67; color: #D7C9B5; }
 
 /* === SORULAR === */
 .ch-sorular { padding: 24px 32px; border-bottom: 1px solid #2e2820; }
@@ -169,59 +230,67 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
 .sor-item { padding: 10px 0; border-bottom: 1px solid #2e2820; display: flex; align-items: baseline; gap: 10px; }
 .sor-item:last-child { border-bottom: none; }
 .sor-arrow { color: #6b5840; font-size: 11px; font-family: 'DM Mono', monospace; flex-shrink: 0; }
-.sor-text { font-family: 'Lora', serif; font-size: 14px; color: #B8AA96; line-height: 1.65; }
+.sor-text{
+  color:var(--text-soft);
+  font-family: 'Lora', serif; font-size: 14px; line-height: 1.65;
+}
 
 /* === NOT === */
 .ch-notes { padding: 14px 32px; border-bottom: 1px solid #2e2820; }
 .note-toggle { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: #6b5840; background: none; border: none; cursor: pointer; letter-spacing: .04em; }
-.note-toggle:hover { color: #6b6454; }
+.note-toggle:hover { color: #8A7B67; }
 .note-area { margin-top: 10px; display: none; }
 .note-area.open { display: block; }
-.note-area textarea { width: 100%; min-height: 80px; padding: 12px; font-family: 'Lora', serif; font-size: 13px; line-height: 1.7; color: #1c1a16; background: #f0eade; border: 1.5px solid #ddd5c6; border-radius: 2px; resize: vertical; outline: none; }
+.note-area textarea { width: 100%; min-height: 80px; padding: 12px; font-family: 'Lora', serif; font-size: 13px; line-height: 1.7; color: var(--title); background: var(--surface-2); border: 1.5px solid rgba(255,255,255,.08); border-radius: 2px; resize: vertical; outline: none; }
 .note-area textarea:focus { border-color: #D4B06A; }
-.note-save { margin-top: 6px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; color: #f7f3ec; background: #1c1a16; border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; }
-.note-save.saved { background: #3a6048; }
+.note-save { margin-top: 6px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; color: var(--title); background: #1c1a16; border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; }
+.note-save.saved { background: var(--quran); }
 
 /* === ÖNERİLER === */
-.ch-recs { padding: 20px 32px; border-bottom: 1px solid #ddd5c6; }
-.ch-recs-hdr { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #c8bfb0; margin-bottom: 12px; }
-.rec-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 2px; cursor: pointer; margin-bottom: 6px; transition: background .15s; }
-.rec-item:hover { background: #e8e0d2; }
-.rec-num { font-family: 'DM Mono', monospace; font-size: 10px; color: #c8bfb0; min-width: 22px; }
-.rec-sure { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #9e9484; min-width: 60px; }
-.rec-title { font-family: 'Lora', serif; font-size: 13px; color: #1c1a16; flex: 1; }
+.ch-recs { padding: 20px 32px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.ch-recs-hdr { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 12px; }
+.rec-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--surface-2); border: 1px solid rgba(255,255,255,.08); border-radius: 2px; cursor: pointer; margin-bottom: 6px; transition: background .15s; }
+.rec-item:hover { background: var(--surface-2); }
+.rec-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-soft); min-width: 22px; }
+.rec-sure { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #8A7B67; min-width: 60px; }
+.rec-title { font-family: 'Lora', serif; font-size: 13px; color: var(--title); flex: 1; }
 .rec-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
 /* === FAVORİ === */
-.ch-fav-row { padding: 12px 32px; border-bottom: 1px solid #ddd5c6; }
+.ch-fav-row { padding: 12px 32px; border-bottom: 1px solid rgba(255,255,255,.08); }
 .fav-btn {
   display: flex; align-items: center; gap: 7px; background: none;
-  border: 1.5px solid #ddd5c6; border-radius: 4px; padding: 5px 12px;
+  border: 1.5px solid rgba(255,255,255,.08); border-radius: 4px; padding: 5px 12px;
   font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600;
-  letter-spacing: .06em; text-transform: uppercase; color: #9e9484; cursor: pointer;
+  letter-spacing: .06em; text-transform: uppercase; color: #8A7B67; cursor: pointer;
 }
 .fav-btn:hover { border-color: #c89848; color: #D4B06A; }
 .fav-btn.on { background: #faf4e8; border-color: #c89848; color: #D4B06A; }
 
 /* === NAV === */
 .ch-nav { display: flex; border-bottom: 1px solid #2e2820; }
-.ch-nav-btn { flex: 1; background: none; border: none; border-right: 1px solid #2e2820; padding: 20px 32px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: #8a7860; cursor: pointer; text-align: left; transition: background .15s; }
+.ch-nav-btn { flex: 1; background: none; border: none; border-right: 1px solid #2e2820; padding: 20px 32px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text-soft); cursor: pointer; text-align: left; transition: background .15s; }
 .ch-nav-btn:last-child { border-right: none; text-align: right; }
 .ch-nav-btn:hover { background: #231C17; color: #D4B06A; }
-.ch-nav-btn span { display: block; font-size: 10px; font-family: 'DM Mono', monospace; color: #c8bfb0; margin-bottom: 3px; letter-spacing: .06em; text-transform: uppercase; }
+.ch-nav-btn span { display: block; font-size: 10px; font-family: 'DM Mono', monospace; color: var(--text-soft); margin-bottom: 3px; letter-spacing: .06em; text-transform: uppercase; }
 
 /* === FLOAT NAV === */
-#float-nav {
+#float-nav{
+  background:var(--surface);
+  border:1px solid var(--line);
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
   z-index: 150; display: flex; align-items: center; gap: 2px;
-  background: #f7f3ec; border: 1px solid #cfc5b4; border-radius: 40px;
-  padding: 5px 8px; box-shadow: none;
+  border-radius: 40px;
+  padding: 5px 8px;
 }
-.nav-btn { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: none; border: none; color: #8a7860; cursor: pointer; }
-.nav-btn:hover { background: #e8e0d2; color: #1c1a16; }
+.nav-btn { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: none; border: none; color: var(--text-soft); cursor: pointer; }
+.nav-btn:hover{
+  color:var(--gold);
+  background: var(--surface-2);
+}
 .nav-btn:disabled { opacity: .25; cursor: default; }
 .nav-counter { font-family: 'DM Mono', monospace; font-size: 11px; color: #6b5840; padding: 0 8px; }
-.nav-sep { width: 1px; height: 18px; background: #ddd5c6; margin: 0 3px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,.08); margin: 0 3px; }
 
 /* === YOLCULUK HAR. === */
 #journey-rail {
@@ -229,37 +298,37 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
   z-index: 150; display: flex; flex-direction: column; align-items: flex-end; gap: 0;
 }
 .jr-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer; position: relative; justify-content: flex-end; }
-.jr-item:not(:last-child)::after { content: ''; position: absolute; right: 4px; top: 20px; width: 1px; height: 10px; background: #ddd5c6; }
-.jr-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #9e9484; white-space: nowrap; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .3s, opacity .2s; }
+.jr-item:not(:last-child)::after { content: ''; position: absolute; right: 4px; top: 20px; width: 1px; height: 10px; background: rgba(255,255,255,.08); }
+.jr-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #8A7B67; white-space: nowrap; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .3s, opacity .2s; }
 .jr-item:hover .jr-label, .jr-item.active .jr-label { max-width: 100px; opacity: 1; }
-.jr-item.active .jr-label { color: #1c1a16; }
-.jr-dot { width: 7px; height: 7px; border-radius: 50%; background: #2e2820; border: 1.5px solid #4a3a2a; flex-shrink: 0; transition: all .3s; }
-.jr-item.passed .jr-dot { background: #9e9484; border-color: #9e9484; opacity: .5; width: 5px; height: 5px; }
-.jr-item.active .jr-dot { width: 11px; height: 11px; border-color: #f7f3ec; }
-.jr-violet .jr-dot { background: #3a6a5a; box-shadow: 0 0 0 2.5px #3a6a5a; }
+.jr-item.active .jr-label { color: var(--title); }
+.jr-dot { width: 7px; height: 7px; border-radius: 50%; background: #2e2820; border: 1.5px solid #8A7B67; flex-shrink: 0; transition: all .3s; }
+.jr-item.passed .jr-dot { background: #8A7B67; border-color: #8A7B67; opacity: .5; width: 5px; height: 5px; }
+.jr-item.active .jr-dot { width: 11px; height: 11px; border-color: var(--title); }
+.jr-violet .jr-dot { background: var(--quran); box-shadow: 0 0 0 2.5px var(--quran); }
 .jr-gold   .jr-dot { background: #D4B06A; box-shadow: 0 0 0 2.5px #D4B06A; }
-.jr-sage   .jr-dot { background: #3a6048; box-shadow: 0 0 0 2.5px #3a6048; }
-.jr-rose   .jr-dot { background: #8a3a50; box-shadow: 0 0 0 2.5px #8a3a50; }
+.jr-sage   .jr-dot { background: var(--quran); box-shadow: 0 0 0 2.5px var(--quran); }
+.jr-rose   .jr-dot { background: var(--rose); box-shadow: 0 0 0 2.5px var(--rose); }
 
 @media(max-width:680px) { #journey-rail { display: none; } }
 
 /* === PROGRESS === */
-#prog { position: fixed; top: 0; left: 0; height: 2px; z-index: 1000; background: linear-gradient(90deg,#D4B06A,#3a6a5a); pointer-events: none; transition: width .1s; }
+#prog { position: fixed; top: 0; left: 0; height: 2px; z-index: 1000; background: linear-gradient(90deg,#D4B06A,var(--quran)); pointer-events: none; transition: width .1s; }
 
 #sys-overlay { display:none; position:fixed; inset:0; background:rgba(28,26,22,.6); z-index:300; align-items:stretch; justify-content:flex-end; }
-#sys-panel { width:min(860px,100vw); background:#f0eade; border-left:1px solid #ddd5c6; display:flex; flex-direction:column; animation:sysIn .3s ease; }
+#sys-panel { width:min(860px,100vw); background:var(--surface-2); border-left:1px solid rgba(255,255,255,.08); display:flex; flex-direction:column; animation:sysIn .3s ease; }
 @keyframes sysIn { from{transform:translateX(100%)} to{transform:translateX(0)} }
-.sys-top { display:flex; align-items:center; gap:4px; padding:0 16px; height:52px; border-bottom:1px solid #ddd5c6; flex-shrink:0; overflow-x:auto; }
-.sys-tab { background:none; border:none; height:52px; padding:0 12px; font-family:monospace; font-size:11px; font-weight:500; letter-spacing:.04em; text-transform:uppercase; color:#9e9484; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
-.sys-tab:hover { color:#1c1a16; }
-.sys-tab.on { color:#1c1a16; border-bottom-color:#D4B06A; }
-.sys-close { margin-left:auto; background:none; border:1px solid #ddd5c6; border-radius:4px; padding:5px 10px; font-family:monospace; font-size:11px; color:#9e9484; cursor:pointer; white-space:nowrap; }
+.sys-top { display:flex; align-items:center; gap:4px; padding:0 16px; height:52px; border-bottom:1px solid rgba(255,255,255,.08); flex-shrink:0; overflow-x:auto; }
+.sys-tab { background:none; border:none; height:52px; padding:0 12px; font-family:monospace; font-size:11px; font-weight:500; letter-spacing:.04em; text-transform:uppercase; color:#8A7B67; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
+.sys-tab:hover { color:var(--title); }
+.sys-tab.on { color:var(--title); border-bottom-color:#D4B06A; }
+.sys-close { margin-left:auto; background:none; border:1px solid rgba(255,255,255,.08); border-radius:4px; padding:5px 10px; font-family:monospace; font-size:11px; color:#8A7B67; cursor:pointer; white-space:nowrap; }
 .sys-body { flex:1; overflow-y:auto; padding:20px 24px; }
 .sys-pnl { display:none; }
 #onboard-toast { position:fixed; bottom:88px; left:50%; transform:translateX(-50%) translateY(16px); z-index:200; background:#1c1a16; color:#f7f3ec; border-radius:40px; padding:14px 28px; font-family:Georgia,serif; font-size:13px; font-style:italic; max-width:min(360px,90vw); text-align:center; box-shadow: none; opacity:0; pointer-events:none; transition:opacity .4s,transform .4s; }
 #onboard-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 #welcome-back { display:none; position:fixed; inset:0; z-index:250; background:rgba(28,26,22,.55); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:24px; }
-.wb-card { background:#f7f3ec; border:1px solid #ddd5c6; border-radius:14px; padding:36px 32px; max-width:400px; width:100%; box-shadow: none; }
+.wb-card { background:#f7f3ec; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:36px 32px; max-width:400px; width:100%; box-shadow: none; }
 #final-screen { display:none; position:fixed; inset:0; z-index:500; background:#f7f3ec; overflow-y:auto; }
 #final-content { max-width:600px; margin:0 auto; padding:clamp(48px,8vw,80px) clamp(20px,5vw,48px); }
 #intro-overlay { display:none; position:fixed; inset:0; z-index:250; background:#1B1511; flex-direction:column; align-items:center; justify-content:flex-start; overflow-y:auto; }
@@ -270,24 +339,24 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
 .sor-response textarea {
   width: 100%; min-height: 72px; padding: 10px 12px;
   font-family: Georgia, serif; font-size: 13px; line-height: 1.6;
-  color: #1c1a16; background: #f0eade;
-  border: 1px solid #ddd5c6; border-radius: 2px;
+  color: var(--title); background: var(--surface-2);
+  border: 1px solid rgba(255,255,255,.08); border-radius: 2px;
   resize: vertical; outline: none;
 }
 .sor-response textarea:focus { border-color: #c89848; }
 .sor-save {
   margin-top: 5px; font-family: monospace; font-size: 10px;
-  color: #9e9484; background: none; border: 1px solid #ddd5c6;
+  color: #8A7B67; background: none; border: 1px solid rgba(255,255,255,.08);
   border-radius: 4px; padding: 4px 10px; cursor: pointer;
 }
 .sor-save:hover { border-color: #c89848; color: #D4B06A; }
-.sor-save.saved { color: #3a6048; border-color: #5a8060; }
+.sor-save.saved { color: var(--quran); border-color: #5a8060; }
 .sor-toggle {
   display: inline-block; margin-left: 8px; font-size: 10px;
-  color: #c8bfb0; cursor: pointer; font-family: monospace;
+  color: var(--text-soft); cursor: pointer; font-family: monospace;
   font-weight: 500; user-select: none;
 }
-.sor-toggle:hover { color: #3a6a5a; }
+.sor-toggle:hover { color: var(--quran); }
 
 
 /* ════════════════════════════════════════════════
@@ -419,7 +488,7 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
 }
 .ob-dot {
   width: 6px; height: 6px; border-radius: 50%;
-  background: #ddd5c6; transition: all .3s;
+  background: rgba(255,255,255,.08); transition: all .3s;
 }
 .ob-dot.on { background: #1c1a16; width: 20px; border-radius: 3px; }
 
@@ -440,38 +509,38 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
   line-height: 1.8; max-width: 480px;
   margin-bottom: 48px;
 }
-.ob-text strong { font-style: normal; color: #1c1a16; font-weight: 500; }
+.ob-text strong { font-style: normal; color: var(--title); font-weight: 500; }
 
 .ob-btn-primary {
-  background: #1c1a16; color: #f7f3ec;
+  background: #1c1a16; color: var(--title);
   border: none; border-radius: 3px;
   padding: 16px 48px;
   font-family: Georgia, serif; font-size: 17px; font-weight: 500;
   cursor: pointer; transition: background .2s;
   margin-bottom: 12px; display: block;
 }
-.ob-btn-primary:hover { background: #3a3628; }
+.ob-btn-primary:hover { background: #D7C9B5; }
 .ob-btn-skip {
   background: none; border: none;
   font-family: monospace; font-size: 11px;
-  color: #c8bfb0; cursor: pointer; padding: 8px;
+  color: var(--text-soft); cursor: pointer; padding: 8px;
   letter-spacing: .06em; text-transform: uppercase;
 }
-.ob-btn-skip:hover { color: #9e9484; }
+.ob-btn-skip:hover { color: #8A7B67; }
 
 /* Ekran 1 — koyu arka plan */
 #ob-1 { background: #1c1a16; }
-#ob-1 .ob-title { color: #f7f3ec; }
-#ob-1 .ob-text  { color: #9e9484; }
-#ob-1 .ob-dot   { background: #3a3628; }
+#ob-1 .ob-title { color: var(--title); }
+#ob-1 .ob-text  { color: #8A7B67; }
+#ob-1 .ob-dot   { background: #D7C9B5; }
 #ob-1 .ob-dot.on { background: #f7f3ec; }
-#ob-1 .ob-btn-primary { background: #f7f3ec; color: #1c1a16; }
-#ob-1 .ob-btn-primary:hover { background: #e8e0d2; }
-#ob-1 .ob-btn-skip { color: #3a3628; }
-#ob-1 .ob-btn-skip:hover { color: #9e9484; }
+#ob-1 .ob-btn-primary { background: #f7f3ec; color: var(--title); }
+#ob-1 .ob-btn-primary:hover { background: var(--surface-2); }
+#ob-1 .ob-btn-skip { color: #D7C9B5; }
+#ob-1 .ob-btn-skip:hover { color: #8A7B67; }
 
 /* Ekran 2 — açık */
-#ob-2 { background: #f0eade; }
+#ob-2 { background: var(--surface-2); }
 
 /* Ekran 3 — kapak */
 #ob-3 { background: #f7f3ec; }
@@ -484,7 +553,7 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
   position: fixed; bottom: 72px; left: 50%;
   transform: translateX(-50%);
   z-index: 160;
-  background: #1c1a16; color: #f7f3ec;
+  background: #1c1a16; color: var(--title);
   border-radius: 40px; padding: 8px 16px;
   display: none; align-items: center; gap: 10px;
   box-shadow: none;
@@ -493,7 +562,7 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
 }
 #audio-bar.show { display: flex; }
 .ab-btn {
-  background: none; border: none; color: #f7f3ec;
+  background: none; border: none; color: var(--title);
   cursor: pointer; padding: 4px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   width: 28px; height: 28px; flex-shrink: 0;
@@ -513,21 +582,21 @@ body { font-family: 'DM Sans', sans-serif; background: #1B1511; color: #1c1a16; 
 #audio-settings {
   display: none; position: fixed; bottom: 130px; left: 50%;
   transform: translateX(-50%); z-index: 161;
-  background: #f7f3ec; border: 1px solid #ddd5c6;
+  background: #f7f3ec; border: 1px solid rgba(255,255,255,.08);
   border-radius: 12px; padding: 20px 24px;
   box-shadow: none;
   min-width: 300px;
 }
 #audio-settings.show { display: block; }
-.as-title { font-family: monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #9e9484; margin-bottom: 14px; }
+.as-title { font-family: monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8A7B67; margin-bottom: 14px; }
 .as-row { margin-bottom: 12px; }
-.as-label { font-family: monospace; font-size: 11px; color: #6b6454; margin-bottom: 6px; display: block; }
-.as-input { width: 100%; padding: 8px 10px; font-family: monospace; font-size: 12px; color: #1c1a16; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 6px; outline: none; }
+.as-label { font-family: monospace; font-size: 11px; color: #8A7B67; margin-bottom: 6px; display: block; }
+.as-input { width: 100%; padding: 8px 10px; font-family: monospace; font-size: 12px; color: var(--title); background: var(--surface-2); border: 1px solid rgba(255,255,255,.08); border-radius: 6px; outline: none; }
 .as-input:focus { border-color: #D4B06A; }
-.as-select { width: 100%; padding: 8px 10px; font-family: monospace; font-size: 12px; color: #1c1a16; background: #f0eade; border: 1px solid #ddd5c6; border-radius: 6px; outline: none; cursor: pointer; }
-.as-save { background: #1c1a16; color: #f7f3ec; border: none; border-radius: 6px; padding: 9px 20px; font-family: monospace; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 4px; }
-.as-save:hover { background: #3a3628; }
-.as-close { position: absolute; top: 12px; right: 14px; background: none; border: none; color: #9e9484; cursor: pointer; font-size: 16px; }
+.as-select { width: 100%; padding: 8px 10px; font-family: monospace; font-size: 12px; color: var(--title); background: var(--surface-2); border: 1px solid rgba(255,255,255,.08); border-radius: 6px; outline: none; cursor: pointer; }
+.as-save { background: #1c1a16; color: var(--title); border: none; border-radius: 6px; padding: 9px 20px; font-family: monospace; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 4px; }
+.as-save:hover { background: #D7C9B5; }
+.as-close { position: absolute; top: 12px; right: 14px; background: none; border: none; color: #8A7B67; cursor: pointer; font-size: 16px; }
 
 /* Toolbar ses butonu */
 .tb-audio-btn { position: relative; }
@@ -573,76 +642,21 @@ body {
   background-repeat: repeat;
 }
 
-/* Bölüm kartı — kitap sayfası görünümü */
-#reader > div {
-  background: #faf7f2;
-  
-  background-repeat: repeat;
-  max-width: 708px;
-  margin: 24px auto;
-  border-radius: 2px;
-  box-shadow: none;
-  border-left: 1px solid rgba(0,0,0,.08);
-  border-right: 1px solid rgba(0,0,0,.08);
-  border-top: 1px solid rgba(0,0,0,.05);
-  border-bottom: 2px solid rgba(0,0,0,.08);
+/* Bölüm kartı */
+#reader > div{
+  background:var(--bg);
+  border:1px solid var(--line);
+  margin:24px auto;
 }
 
-/* Sol kenar — kitap cilt çizgisi */
-#reader > div::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: linear-gradient(to right, rgba(0,0,0,.08), transparent);
-  border-radius: 2px 0 0 2px;
-  pointer-events: none;
-}
-
-/* Sağ kenar — sayfa gölgesi */
-#reader > div::after {
-  content: '';
-  position: absolute;
-  right: 0; top: 10%; bottom: 10%;
-  width: 2px;
-  background: linear-gradient(to left, rgba(0,0,0,.06), transparent);
-  pointer-events: none;
-}
-
-/* Bölüm numarası — eski baskı hissi */
 .ch-number {
   font-family: 'DM Mono', monospace;
-  color: #ddd3c4 !important;
   opacity: .7;
 }
-
-/* Başlık altı ince çizgi — kitap stili */
-.ch-header {
-  border-bottom: 1px solid rgba(0,0,0,.08) !important;
-}
-
-/* Metinler — hafif sarı ton üzerinde */
-.ch-sahne, .ch-devam {
-  color: #1c1a16 !important;
-}
-
-/* Kapanış — italik ve zarif */
-.ch-kapanis {
-  color: #1c1a16 !important;
-  border-top: 1px solid rgba(0,0,0,.1) !important;
-}
-
-/* Paneller — kağıt üzerinde hafif ayrım */
-.pbox-q { background: #f0eef8 !important; }
-.pbox-n { background: #faf4e8 !important; }
-
-/* Satır altı çizgiler — elle çizilmiş his */
 
 .ch-sahne p:last-child {
   border-bottom: none;
 }
-
-/* Fade geçiş için JS kullanacağız */
 
 
 /* ════════════════════════════════════════════
@@ -651,7 +665,7 @@ body {
 #notif-prompt {
   display: none; position: fixed;
   bottom: 88px; left: 50%; transform: translateX(-50%);
-  z-index: 200; background: #1c1a16; color: #f7f3ec;
+  z-index: 200; background: #1c1a16; color: var(--title);
   border-radius: 12px; padding: 16px 20px;
   max-width: min(360px, 90vw); width: 100%;
   box-shadow: none;
@@ -668,36 +682,36 @@ body {
 }
 .np-text {
   font-family: Georgia, serif; font-size: 12px;
-  font-style: italic; color: #9e9484;
+  font-style: italic; color: #8A7B67;
   margin-bottom: 14px; line-height: 1.6;
 }
 .np-btns { display: flex; gap: 8px; }
 .np-yes {
-  flex: 1; background: #f7f3ec; color: #1c1a16;
+  flex: 1; background: #f7f3ec; color: var(--title);
   border: none; border-radius: 6px; padding: 9px;
   font-family: monospace; font-size: 11px;
   font-weight: 600; letter-spacing: .06em;
   text-transform: uppercase; cursor: pointer;
 }
-.np-yes:hover { background: #e8e0d2; }
+.np-yes:hover { background: var(--surface-2); }
 .np-no {
-  background: none; border: 1px solid #3a3628;
+  background: none; border: 1px solid #D7C9B5;
   border-radius: 6px; padding: 9px 14px;
   font-family: monospace; font-size: 11px;
-  color: #6b6454; cursor: pointer;
+  color: #8A7B67; cursor: pointer;
 }
-.np-no:hover { border-color: #6b6454; }
+.np-no:hover { border-color: #8A7B67; }
 
 /* Bildirim ayarları — sistem panelinde */
-.notif-settings { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd5c6; }
+.notif-settings { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); }
 .notif-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.notif-label { font-family: monospace; font-size: 11px; color: #6b6454; }
+.notif-label { font-family: monospace; font-size: 11px; color: #8A7B67; }
 .notif-toggle {
   width: 36px; height: 20px; border-radius: 10px;
-  background: #ddd5c6; border: none; cursor: pointer;
+  background: rgba(255,255,255,.08); border: none; cursor: pointer;
   position: relative; transition: background .2s;
 }
-.notif-toggle.on { background: #3a6048; }
+.notif-toggle.on { background: var(--quran); }
 .notif-toggle::after {
   content: ''; position: absolute;
   width: 14px; height: 14px; border-radius: 50%;
@@ -707,8 +721,8 @@ body {
 .notif-toggle.on::after { left: 19px; }
 .notif-time {
   font-family: monospace; font-size: 12px;
-  color: #1c1a16; background: #f0eade;
-  border: 1px solid #ddd5c6; border-radius: 6px;
+  color: var(--title); background: var(--surface-2);
+  border: 1px solid rgba(255,255,255,.08); border-radius: 6px;
   padding: 5px 10px; width: 90px; outline: none;
 }
 
@@ -736,7 +750,7 @@ body {
 }
 @media (max-width: 600px) {
   .cover-bg {
-    background-position: center top !important;
+    background-position: center top;
   }
 }
 @keyframes coverFadeIn {
@@ -780,18 +794,7 @@ body {
   margin-bottom: 28px;
 }
 
-/* Özellik ikonları */
-
-
-
-
-
-
-
-  to   { opacity:1; transform:translateY(0); }
-}
-
-
+/* Özellik ikonları kaldırıldı — kullanılmıyor */
 
 /* Bilgi satırı */
 .cover-info {
@@ -833,7 +836,7 @@ body {
   width: 100%; max-width: 320px;
   background: rgba(255,255,255,.05);
   color: rgba(255,255,255,.6);
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 6px;
   padding: clamp(12px,2.5vw,15px) 32px;
   font-family: monospace; font-size: 12px;
@@ -918,11 +921,11 @@ body {
 }
 .evre-sonu-baslik {
   font-family: Georgia, serif; font-size: 24px; font-weight: 500;
-  color: #f7f3ec; margin-bottom: 12px; letter-spacing: -.01em;
+  color: var(--title); margin-bottom: 12px; letter-spacing: -.01em;
 }
 .evre-sonu-metin {
   font-family: Georgia, serif; font-size: 14px; font-style: italic;
-  color: #9e9484; line-height: 1.8; max-width: 380px; margin: 0 auto 24px;
+  color: #8A7B67; line-height: 1.8; max-width: 380px; margin: 0 auto 24px;
 }
 .evre-sonu-stats {
   display: flex; justify-content: center; gap: 24px; margin-bottom: 24px;
@@ -934,11 +937,11 @@ body {
 }
 .evre-sonu-stat-l {
   font-family: monospace; font-size: 9px; letter-spacing: .1em;
-  text-transform: uppercase; color: #6b6454; margin-top: 4px;
+  text-transform: uppercase; color: #8A7B67; margin-top: 4px;
 }
 .evre-sonu-devam {
   display: inline-block; background: #D4B06A;
-  color: #1c1a16; border: none; border-radius: 4px;
+  color: var(--title); border: none; border-radius: 4px;
   padding: 12px 28px; font-family: Georgia, serif;
   font-size: 15px; font-weight: 500; cursor: pointer;
   transition: opacity .2s;
@@ -953,203 +956,10 @@ body {
 /* Kapak responsive */
 @media (max-width: 600px) {
   .cover-bg {
-    background-image: url('kapak_mobil.jpg') !important;
-    background-position: center top !important;
+    background-image: url('kapak_mobil.jpg');
+    background-position: center top;
   }
 }
-
-
-/* ════ KOYU TEMA — EK DÜZELTMELER ════ */
-.ch-header { border-bottom: 1px solid #2e2820 !important; }
-.ch-number { color: #2e2820 !important; }
-.ch-eyebrow { color: #6b6454 !important; }
-.ch-role-badge { color: #8a7860 !important; border-color: #2e2820 !important; }
-.ch-sahne { color: #1c1a16 !important; border-bottom-color: #2e2820 !important; }
-.ch-devam { color: #3a3628 !important; border-bottom-color: #2e2820 !important; }
-.ch-kapanis { border-bottom-color: #2e2820 !important; }
-.sb-top { border-bottom-color: #2e2820 !important; }
-.sys-tab { color: #8a7860 !important; }
-.sys-tab:hover { color: #D4B06A !important; }
-.sys-tab.on { color: #D4B06A !important; border-bottom-color: #D4B06A !important; }
-.sys-body { background: #2A221D; }
-.ob-title { color: #F3E7D2 !important; }
-.ob-text { color: #8a7860 !important; }
-.ob-dot { background: #2e2820 !important; }
-.ob-dot.on { background: #D4B06A !important; width: 20px !important; border-radius: 3px !important; }
-#ob-2 .ob-dot { background: #2e2820 !important; }
-#ob-2 .ob-dot.on { background: #D4B06A !important; }
-.ob-btn-skip { color: #6b5840 !important; }
-.sor-response textarea { background: #231C17 !important; border-color: #4a3a2a !important; color: #F3E7D2 !important; }
-.sor-save { background: none !important; border-color: #ddd5c6 !important; color: #9e9484 !important; }
-.sor-save:hover { border-color: #D4B06A !important; color: #D4B06A !important; }
-.ch-role-badge { background: transparent !important; }
-.ch-pip { background: #2e2820 !important; }
-.ch-pip.on { background: #8a7860 !important; }
-.nav-sep { background: #2e2820 !important; }
-.jr-item:not(:last-child)::after { background: #2e2820 !important; }
-.jr-label { color: #8a7860 !important; }
-.jr-item.active .jr-label { color: #D4B06A !important; }
-.jr-item.passed .jr-dot { background: #6b5840 !important; border-color: #6b5840 !important; }
-.onboard-toast { background: #D4B06A !important; color: #1B1511 !important; }
-#sys-overlay { background: rgba(0,0,0,.7) !important; }
-.sys-close { color: #8a7860 !important; border-color: #2e2820 !important; }
-.sys-close:hover { color: #D4B06A !important; }
-
-
-/* ════ KOYU TEMA — KAPAK PALETİ ════ */
-/* Arka planlar */
-body { background-color: #1B1511 !important; color: #F3E7D2 !important; }
-#toolbar { background: #2A221D !important; border-bottom-color: #2e2820 !important; }
-#sidebar { background: #2A221D !important; border-right-color: #2e2820 !important; }
-#reader > div { background: #1B1511 !important; }
-
-/* Toolbar */
-.tb-btn { color: #8a7860 !important; }
-.tb-btn:hover { background: #231C17 !important; color: #D4B06A !important; }
-.tb-btn.on { background: #231C17 !important; color: #D4B06A !important; }
-.tb-sep { background: #2e2820 !important; }
-.tb-title { color: #8a7860 !important; }
-
-/* Sidebar */
-.sb-logo { color: #D4B06A !important; }
-.sb-close { color: #8a7860 !important; }
-.sb-item:hover { background: #231C17 !important; }
-.sb-item.on { background: #231C17 !important; border-left-color: #D4B06A !important; }
-.si-num { color: #4a3a2a !important; }
-.si-sure { color: #8a7860 !important; }
-
-/* Chapter header */
-.ch-number { color: #2e2820 !important; }
-.ch-eyebrow { color: #8a7860 !important; }
-.ch-title { color: #F3E7D2 !important; }
-.ch-role-badge { color: #8a7860 !important; border-color: #2e2820 !important; }
-.ch-header { border-bottom-color: #2e2820 !important; }
-
-/* İçerik */
-.ch-sahne { color: #F3E7D2 !important; border-bottom-color: #2e2820 !important; }
-.ch-devam { color: #B8AA96 !important; border-bottom-color: #2e2820 !important; }
-.ch-kapanis { color: #D4B06A !important; border-bottom-color: #2e2820 !important; }
-
-/* Paneller */
-.ch-panel { background: #2e2820 !important; border-bottom-color: #2e2820 !important; }
-.pbox-q { background: #1a2420 !important; }
-.pbox-n { background: #111c28 !important; }
-.pbox-q .pbox-label { color: #6a8f82 !important; }
-.pbox-n .pbox-label { color: #D4B06A !important; }
-.pbox-q .pbox-text { color: #a0bfb8 !important; }
-.pbox-n .pbox-text { color: #D4B06A !important; }
-
-/* Sorular */
-.ch-sorular { border-bottom-color: #2e2820 !important; }
-.sor-hdr { color: #4a3a2a !important; }
-.sor-item { border-bottom-color: #2e2820 !important; }
-.sor-arrow { color: #4a3a2a !important; }
-.sor-text { color: #B8AA96 !important; }
-.sor-response textarea { background: #231C17 !important; border-color: #4a3a2a !important; color: #F3E7D2 !important; }
-.sor-save { border-color: #4a3a2a !important; color: #8a7860 !important; }
-.sor-save:hover { border-color: #D4B06A !important; color: #D4B06A !important; }
-
-/* Not alanı */
-.ch-notes { border-bottom-color: #2e2820 !important; }
-.note-toggle { color: #4a3a2a !important; }
-.note-area textarea { background: #231C17 !important; border-color: #4a3a2a !important; color: #F3E7D2 !important; }
-.note-save { background: #D4B06A !important; color: #1B1511 !important; }
-
-/* Nav */
-.ch-nav { border-bottom-color: #2e2820 !important; }
-.ch-nav-btn { color: #8a7860 !important; border-right-color: #2e2820 !important; }
-.ch-nav-btn:hover { background: #231C17 !important; color: #D4B06A !important; }
-#float-nav { background: #1B1511 !important; border-color: #2e2820 !important; box-shadow: none; }
-.nav-btn { color: #8a7860 !important; }
-.nav-btn:hover { background: #231C17 !important; color: #D4B06A !important; }
-.nav-counter { color: #4a3a2a !important; }
-.nav-sep { background: #2e2820 !important; }
-
-/* Evre sonu */
-.evre-sonu { background: transparent !important; border-top-color: #2e2820 !important; border-bottom-color: #2e2820 !important; color: #F3E7D2 !important; }
-.evre-sonu-label { color: #D4B06A !important; }
-.evre-sonu-baslik { color: #F3E7D2 !important; }
-.evre-sonu-metin { color: #8a7860 !important; }
-.evre-sonu-stat-n { color: #D4B06A !important; }
-.evre-sonu-stat-l { color: #4a3a2a !important; }
-
-/* Journey rail */
-.jr-dot { background: #2e2820 !important; border-color: #4a3a2a !important; }
-.jr-label { color: #8a7860 !important; }
-.jr-item.active .jr-label { color: #D4B06A !important; }
-.jr-item.passed .jr-dot { background: #6b5840 !important; border-color: #6b5840 !important; }
-
-/* Sistem paneli */
-#sys-panel { background: #2A221D !important; border-left-color: #2e2820 !important; }
-.sys-top { border-bottom-color: #2e2820 !important; }
-.sys-tab { color: #8a7860 !important; }
-.sys-tab:hover { color: #D4B06A !important; }
-.sys-tab.on { color: #D4B06A !important; border-bottom-color: #D4B06A !important; }
-.sys-body { background: #2A221D !important; }
-.sys-close { color: #8a7860 !important; border-color: #2e2820 !important; }
-
-/* Intro overlay */
-#intro-overlay { background: #1B1511 !important; }
-
-/* Welcome back */
-.wb-card { background: #1B1511 !important; border-color: #2e2820 !important; }
-
-/* Progress bar */
-#prog { background: linear-gradient(90deg,#D4B06A,#6a8f82) !important; }
-
-/* Onboarding */
-#ob-2 { background: #1B1511 !important; }
-#ob-3 { background: #1B1511 !important; }
-.ob-btn-skip { color: #6b5840 !important; }
-
-/* Final */
-#final-screen { background: #1B1511 !important; }
-
-
-/* ════ NİHAİ PALET ════ */
-:root {
-  --bg: #1B1511;
-  --surface: #231C17;
-  --surface-2: #2A221D;
-  --text: #F3E7D2;
-  --text-soft: #B8AA96;
-  --gold: #D4B06A;
-  --line: rgba(255,255,255,.08);
-  --quran: #8AA392;
-  --nutuk: #586D88;
-}
-body { background: var(--bg) !important; color: var(--text) !important; }
-#toolbar { background: var(--toolbar) !important; border-bottom-color: var(--border) !important; }
-#sidebar { background: var(--sidebar) !important; border-right-color: var(--border) !important; }
-#reader > div { background: var(--bg) !important; }
-.ch-title { color: var(--title) !important; }
-.ch-kapanis { color: var(--gold) !important; }
-.ch-sahne { color: var(--text) !important; }
-.ch-devam { color: var(--text2) !important; }
-.sor-text { color: var(--text2) !important; }
-.pbox-q { background: #1a2820 !important; }
-.pbox-n { background: #111c28 !important; }
-.pbox-q .pbox-label { color: var(--kuran) !important; }
-.pbox-n .pbox-label { color: var(--nutuk) !important; }
-.pbox-q .pbox-text { color: #a0c8b8 !important; }
-.pbox-n .pbox-text { color: #88aacc !important; }
-.tb-btn { color: var(--text2) !important; }
-.tb-btn:hover { color: var(--gold) !important; background: var(--toolbar) !important; }
-.ch-nav-btn:hover { background: var(--toolbar) !important; color: var(--gold) !important; }
-.sb-item:hover { background: var(--toolbar) !important; }
-.sb-item.on { background: var(--toolbar) !important; border-left-color: var(--gold) !important; }
-#float-nav { background: var(--toolbar) !important; border-color: var(--border) !important; }
-.nav-btn:hover { background: var(--sidebar) !important; color: var(--gold) !important; }
-.sys-body { background: var(--sidebar) !important; }
-.sys-tab.on { color: var(--gold) !important; border-bottom-color: var(--gold) !important; }
-#intro-overlay { background: var(--bg) !important; }
-.note-area textarea { background: var(--sidebar) !important; color: var(--text) !important; border-color: var(--border) !important; }
-.note-save { background: var(--gold) !important; color: var(--bg) !important; }
-.evre-sonu { background: transparent !important; }
-.evre-sonu-baslik { color: var(--title) !important; }
-.evre-sonu-metin { color: var(--text2) !important; }
-.evre-sonu-stat-n { color: var(--gold) !important; }
-.ch-panel { background: var(--border) !important; }
 
 
 /* ════ KAPAK BAŞLIK ════ */
@@ -1293,7 +1103,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .je-date {
   font-family: monospace;
   font-size: 10px;
-  color: #4a3a2a;
+  color: #8A7B67;
   margin-left: auto;
   flex-shrink: 0;
 }
@@ -1321,7 +1131,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .je-note::before {
   content: '✎';
   font-size: 10px;
-  color: #4a3a2a;
+  color: #8A7B67;
   position: absolute;
   top: 10px;
   right: 12px;
@@ -1338,7 +1148,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .je-question {
   font-family: monospace;
   font-size: 10px;
-  color: #4a3a2a;
+  color: #8A7B67;
   letter-spacing: .06em;
   margin-bottom: 4px;
   text-transform: uppercase;
@@ -1451,7 +1261,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .rc-meta {
   font-family: monospace;
   font-size: 11px;
-  color: #B8AA96;
+  color: #D7C9B5;
   margin-bottom: 16px;
   line-height: 1.6;
 }
@@ -1730,7 +1540,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: #4a3a2a;
+  color: #8A7B67;
   margin-bottom: 8px;
   opacity: 0;
   animation: srFadeUp .6s ease .5s forwards;
@@ -1738,7 +1548,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .sr-dun-bolum {
   font-family: Georgia, serif;
   font-size: 13px;
-  color: #B8AA96;
+  color: #D7C9B5;
   margin-bottom: 24px;
   opacity: 0;
   animation: srFadeUp .7s ease 1.1s forwards;
@@ -1784,7 +1594,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   padding: 14px 20px;
   font-family: Georgia, serif;
   font-size: 14px;
-  color: #B8AA96;
+  color: #D7C9B5;
   cursor: pointer;
   transition: all .2s;
   text-align: left;
@@ -1825,12 +1635,12 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: #4a3a2a;
+  color: #8A7B67;
   cursor: pointer;
   margin-top: 16px;
   transition: color .2s;
 }
-.sr-atla:hover { color: #B8AA96; }
+.sr-atla:hover { color: #D7C9B5; }
 .sr-streak {
   display: inline-flex;
   align-items: center;
@@ -1897,7 +1707,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-family: Georgia, serif;
   font-size: 15px;
   font-style: italic;
-  color: #B8AA96;
+  color: #D7C9B5;
   margin-bottom: 40px;
   max-width: 380px;
   line-height: 1.7;
@@ -1942,7 +1752,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .ks-secenek-metin {
   font-family: Georgia, serif;
   font-size: 15px;
-  color: #B8AA96;
+  color: #D7C9B5;
   line-height: 1.4;
   transition: color .25s;
 }
@@ -1991,7 +1801,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-family: Georgia, serif;
   font-size: 14px;
   font-style: italic;
-  color: #B8AA96;
+  color: #D7C9B5;
   line-height: 1.7;
 }
 .ky-metin strong { color: #D4B06A; font-style: normal; }
@@ -2191,7 +2001,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: #4a3a2a;
+  color: #8A7B67;
   margin-bottom: 24px;
   opacity: 0;
   animation: srFadeUp .7s ease .3s forwards;
@@ -2209,7 +2019,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .gs-bolum {
   font-family: monospace;
   font-size: 11px;
-  color: #4a3a2a;
+  color: #8A7B67;
   margin-bottom: 8px;
   opacity: 0;
   animation: srFadeUp .7s ease .7s forwards;
@@ -2266,7 +2076,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   outline: none;
   border-color: rgba(212,176,106,.5);
 }
-.gs-textarea::placeholder { color: #4a3a2a; }
+.gs-textarea::placeholder { color: #8A7B67; }
 .gs-aksiyonlar {
   display: flex;
   gap: 10px;
@@ -2365,7 +2175,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-family: Georgia, serif;
   font-size: 15px;
   font-style: italic;
-  color: #B8AA96;
+  color: #D7C9B5;
   line-height: 1.7;
   max-width: 380px;
   margin-bottom: 36px;
@@ -2385,7 +2195,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   gap: 12px;
   font-family: Georgia, serif;
   font-size: 14px;
-  color: #B8AA96;
+  color: #D7C9B5;
 }
 .pw-feature-icon {
   color: #D4B06A;
@@ -2421,7 +2231,7 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-family: monospace;
   font-size: 10px;
   letter-spacing: .1em;
-  color: #7a6e60;
+  color: #8A7B67;
   text-transform: uppercase;
 }
 .pw-btn-primary {
@@ -2450,16 +2260,16 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: #4a3a2a;
+  color: #8A7B67;
   cursor: pointer;
   transition: color .2s;
   margin-top: 8px;
 }
-.pw-btn-back:hover { color: #B8AA96; }
+.pw-btn-back:hover { color: #D7C9B5; }
 .pw-guarantee {
   font-family: monospace;
   font-size: 10px;
-  color: #4a3a2a;
+  color: #8A7B67;
   letter-spacing: .08em;
   margin-top: 16px;
 }
@@ -2486,12 +2296,27 @@ body { background: var(--bg) !important; color: var(--text) !important; }
   font-size: 10px;
   font-weight: 600;
   letter-spacing: .05em;
-  color: #7a6e60;
+  color: #8A7B67;
   transition: all .2s;
 }
-.lang-btn:hover { color: #B8AA96; }
+.lang-btn:hover { color: #D7C9B5; }
 .lang-btn.active { background: rgba(212,176,106,.15); color: #D4B06A; }
 
+/* ════════════════════════════════════════════
+   4. RESPONSIVE
+   Not: Component-spesifik @media sorguları ilgili
+   component bloğunun içinde tutulur (CSS-in-context).
+   Bu bölüm sadece sayfa-geneli breakpoint kurallarına
+   ayrılmıştır.
+   ════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .reader-area { padding: 32px 20px; }
+}
+
+@media (max-width: 480px) {
+  #toolbar { padding: 0 12px; }
+}
 </style>
 
   <!-- PWA -->
@@ -2543,9 +2368,9 @@ body { background: var(--bg) !important; color: var(--text) !important; }
     <button class="sb-close" onclick="closeSidebar()">✕</button>
   </div>
   <div class="sb-list" id="sb-list"></div>
-  <div style="padding:12px 14px;border-top:1px solid #ddd5c6">
+  <div style="padding:12px 14px;border-top:1px solid rgba(255,255,255,.08)">
     <button onclick="closeSidebar();document.getElementById('intro-overlay').style.display='flex'" 
-            style="background:none;border:none;font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9e9484;cursor:pointer;padding:6px 0;width:100%;text-align:left">
+            style="background:none;border:none;font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8A7B67;cursor:pointer;padding:6px 0;width:100%;text-align:left">
       ← Önsöz
     </button>
   </div>
@@ -2683,7 +2508,7 @@ const WAYPOINTS = [
 const CH_TO_WP = {};
 WAYPOINTS.forEach(wp => { for(let id=wp.start; id<=wp.end; id++) CH_TO_WP[id]=wp; });
 
-const THEME_DOT = {violet:'#3a6a5a', gold:'#D4B06A', sage:'#3a6048', rose:'#8a3a50'};
+const THEME_DOT = {violet:'var(--quran)', gold:'#D4B06A', sage:'var(--quran)', rose:'var(--rose)'};
 const ROLE_TR   = {opening:'açılış',rising:'yükseliş',drive:'ilerleme',tension:'gerilim',climax:'doruk',reflection:'yansıma',resolution:'çözüm',transition:'geçiş',closing:'kapanış'};
 const REACT_OPTS = [
   {key:'dusundurdu',label:'Düşündürdü'},
@@ -2821,7 +2646,7 @@ function render(id) {
       <span class="rec-num">${String(r.id).padStart(2,'0')}</span>
       <span class="rec-sure">${rc.sure}</span>
       <span class="rec-title">${rc.title}</span>
-      <div class="rec-dot" style="background:${THEME_DOT[rc.theme]||'#3a6a5a'}"></div>
+      <div class="rec-dot" style="background:${THEME_DOT[rc.theme]||'var(--quran)'}"></div>
     </div>`;
   }).join('');
 
@@ -3001,8 +2826,8 @@ window.addEventListener('DOMContentLoaded', function() {
       <div class="ob-dot"></div>
     </div>
     <div class="ob-icon" style="color:#D4B06A;">✦</div>
-    <div class="ob-title" style="color:#ffffff !important;font-size:clamp(24px,5vw,38px);">İki ses. İki çağ. Aynı soru.</div>
-    <div class="ob-text" style="color:#ffffff !important;">
+    <div class="ob-title" style="color:#ffffff;font-size:clamp(24px,5vw,38px);">İki ses. İki çağ. Aynı soru.</div>
+    <div class="ob-text" style="color:#ffffff;">
       İnsan zor bir anda ne yapar?
     </div>
     <button class="ob-btn-primary" onclick="obNext(2)">Devam →</button>
@@ -3017,8 +2842,8 @@ window.addEventListener('DOMContentLoaded', function() {
       <div class="ob-dot"></div>
     </div>
     <div class="ob-icon">◈</div>
-    <div class="ob-title" style="color:#ffffff !important;">Bu kitap sana ne düşüneceğini söylemeyecek.</div>
-    <div class="ob-text" style="color:#ffffff !important;">
+    <div class="ob-title" style="color:#ffffff;">Bu kitap sana ne düşüneceğini söylemeyecek.</div>
+    <div class="ob-text" style="color:#ffffff;">
       Ama bazı sorulardan kaçmanı da zorlaştıracak.
     </div>
     <button class="ob-btn-primary" onclick="obNext(3)">Anladım →</button>
@@ -3033,8 +2858,8 @@ window.addEventListener('DOMContentLoaded', function() {
       <div class="ob-dot on"></div>
     </div>
     <div class="ob-icon">→</div>
-    <div class="ob-title" style="color:#ffffff !important;">Hazır mısın?</div>
-    <div class="ob-text" style="color:#ffffff !important;">
+    <div class="ob-title" style="color:#ffffff;">Hazır mısın?</div>
+    <div class="ob-text" style="color:#ffffff;">
       89 bölüm. Alak'tan Nasr'a. "Oku"dan "Şükret"e.
     </div>
     <button class="ob-btn-primary" onclick="obFinish()">Başla →</button>
@@ -3051,27 +2876,27 @@ window.addEventListener('DOMContentLoaded', function() {
       <div style="position:absolute;bottom:0;left:0;width:48px;height:2px;background:#D4B06A"></div>
       
       <div style="font-family:Georgia,serif;font-size:clamp(48px,10vw,80px);font-weight:500;line-height:1;color:#F3E7D2;margin-bottom:20px;letter-spacing:-.03em">İki Ses,<br>Bir Yön</div>
-      <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#B8AA96;line-height:1.75;max-width:480px;margin-bottom:32px">Kur'an ve Nutuk'tan 89 bölüm. Her bölümde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.</div>
+      <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#D7C9B5;line-height:1.75;max-width:480px;margin-bottom:32px">Kur'an ve Nutuk'tan 89 bölüm. Her bölümde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px">
-        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#7a6e60">📖 Kur'an · Elmalılı Meali</span>
-        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#7a6e60">🇹🇷 Nutuk · Atatürk</span>
-        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#7a6e60">89 Bölüm</span>
-        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#7a6e60"></span>
+        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#8A7B67">📖 Kur'an · Elmalılı Meali</span>
+        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#8A7B67">🇹🇷 Nutuk · Atatürk</span>
+        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#8A7B67">89 Bölüm</span>
+        <span style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:11px;color:#8A7B67"></span>
       </div>
     </div>
 
     <!-- İKİ KAYNAK ÖZETİ -->
     <div style="background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:20px 24px;margin-bottom:52px">
       <div style="font-family:Georgia,serif;font-size:14px;font-weight:500;color:#F3E7D2;margin-bottom:8px">İki Ses, Bir Yön</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#B8AA96;line-height:1.7;margin-bottom:16px">Biri evrensel, biri tarihsel. İkisi birlikte soruyorlar:<br><em style="color:#F3E7D2">Zor bir anda, insan ne yapar?</em></div>
+      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#D7C9B5;line-height:1.7;margin-bottom:16px">Biri evrensel, biri tarihsel. İkisi birlikte soruyorlar:<br><em style="color:#F3E7D2">Zor bir anda, insan ne yapar?</em></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <div style="background:#1e2030;border-radius:2px;padding:12px 14px;border:1px solid rgba(106,95,160,.3)">
           <div style="font-family:monospace;font-size:10px;font-weight:600;color:#8AA392;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase">Kur'an · Elmalılı Meali</div>
-          <div style="font-size:11px;color:#7a6e60;line-height:1.55">İçsel değerler, evrensel sorular, insan doğasının sınavı</div>
+          <div style="font-size:11px;color:#8A7B67;line-height:1.55">İçsel değerler, evrensel sorular, insan doğasının sınavı</div>
         </div>
         <div style="background:#1e1a12;border-radius:2px;padding:12px 14px;border:1px solid rgba(212,176,106,.25)">
           <div style="font-family:monospace;font-size:10px;font-weight:600;color:#D4B06A;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase">Nutuk · Atatürk</div>
-          <div style="font-size:11px;color:#7a6e60;line-height:1.55">Tarihsel gerçeklik, somut kararlar, çöküş içinde direniş</div>
+          <div style="font-size:11px;color:#8A7B67;line-height:1.55">Tarihsel gerçeklik, somut kararlar, çöküş içinde direniş</div>
         </div>
       </div>
     </div>
@@ -3084,48 +2909,48 @@ window.addEventListener('DOMContentLoaded', function() {
         İki ses var.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#B8AA96;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
         Biri binlerce yıl önce söylendi — ama hâlâ soruyor.<br>
         Biri yüz yıl önce yaşandı — ama hâlâ cevap bekliyor.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#B8AA96;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
         Kur'an, iniş sırasıyla. Alak'tan Nasr'a.<br>
         Nutuk, Ekim 1927'den. Altı gün, 36 saat, sekiz yıl.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#B8AA96;line-height:1.95;margin-bottom:28px">
+      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:28px">
         İki çağ. İki dil. Aynı soru:<br>
         <em style="color:#F3E7D2;font-size:17px">Zor bir anda, insan ne yapar?</em>
       </div>
 
       <div style="width:40px;height:2px;background:#B88A3B;margin-bottom:28px"></div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#B8AA96;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
         89 bölüm. Her birinde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#B8AA96;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
         Soru sana soruluyor.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#B8AA96;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
         Bu kitap sana ne düşüneceğini söylemeyecek.<br>
         Ama bazı sorulardan kaçmanı da zorlaştıracak.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#B8AA96;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
         Okuyacaksın. Duracaksın.<br>
         Bazen not alacaksın. Bazen sadece bir soruyla oturacaksın.<br>
         Bazen bir bölümü iki kez okuyacaksın.
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:16px;color:#B8AA96;line-height:1.95;margin-bottom:18px">
+      <div style="font-family:Georgia,serif;font-size:16px;color:#D7C9B5;line-height:1.95;margin-bottom:18px">
         Bu yolculukta senden istenen tek şey:<br>
         <em style="color:#F3E7D2">Dürüst olmak.</em>
       </div>
 
-      <div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#7a6e60;line-height:1.8;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08)">
+      <div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#8A7B67;line-height:1.8;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08)">
         Kur'an mealleri: Elmalılı Hamdi Yazır, <em>Hak Dini Kuran Dili</em> (1935) — sadeleştirilerek · Nutuk: Mustafa Kemal Atatürk, 1927
       </div>
 
@@ -3133,19 +2958,19 @@ window.addEventListener('DOMContentLoaded', function() {
                   display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
         <button onclick="openKvkk()" style="background:none;border:none;
           font-family:monospace;font-size:10px;letter-spacing:.12em;
-          text-transform:uppercase;color:#7a6e60;cursor:pointer;
-          transition:color .2s" onmouseover="this.style.color='#B8AA96'"
-          onmouseout="this.style.color='#7a6e60'">
+          text-transform:uppercase;color:#8A7B67;cursor:pointer;
+          transition:color .2s" onmouseover="this.style.color='#D7C9B5'"
+          onmouseout="this.style.color='#8A7B67'">
           Gizlilik Politikası
         </button>
         <button onclick="openKosullar()" style="background:none;border:none;
           font-family:monospace;font-size:10px;letter-spacing:.12em;
-          text-transform:uppercase;color:#7a6e60;cursor:pointer;
-          transition:color .2s" onmouseover="this.style.color='#B8AA96'"
-          onmouseout="this.style.color='#7a6e60'">
+          text-transform:uppercase;color:#8A7B67;cursor:pointer;
+          transition:color .2s" onmouseover="this.style.color='#D7C9B5'"
+          onmouseout="this.style.color='#8A7B67'">
           Kullanım Koşulları
         </button>
-        <span style="font-family:monospace;font-size:10px;color:#4a3a2a;letter-spacing:.08em;align-self:center">
+        <span style="font-family:monospace;font-size:10px;color:#8A7B67;letter-spacing:.08em;align-self:center">
           pixelvadisi@gmail.com
         </span>
       </div>
@@ -3153,20 +2978,20 @@ window.addEventListener('DOMContentLoaded', function() {
 
     <!-- NASIL OKUNUR -->
     <div style="padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:48px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#c8bfb0;margin-bottom:24px">Bu Seri Nasıl Okunur</div>
+      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-soft);margin-bottom:24px">Bu Seri Nasıl Okunur</div>
       <div style="display:flex;flex-direction:column;gap:14px">
         <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#7a6e60;margin-top:2px">1</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#B8AA96;line-height:1.7;padding-top:2px">Her bölüm bağımsız okunabilir. Sıra şart değil.</div>
+          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#8A7B67;margin-top:2px">1</div>
+          <div style="font-family:Georgia,serif;font-size:14px;color:#D7C9B5;line-height:1.7;padding-top:2px">Her bölüm bağımsız okunabilir. Sıra şart değil.</div>
         </div>
 
         <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#7a6e60;margin-top:2px">2</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#B8AA96;line-height:1.7;padding-top:2px">"Düşün" soruları cevap beklemez. Sadece bir an durmak için var.</div>
+          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#8A7B67;margin-top:2px">2</div>
+          <div style="font-family:Georgia,serif;font-size:14px;color:#D7C9B5;line-height:1.7;padding-top:2px">"Düşün" soruları cevap beklemez. Sadece bir an durmak için var.</div>
         </div>
         <div style="display:flex;gap:14px;align-items:flex-start">
-          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#7a6e60;margin-top:2px">3</div>
-          <div style="font-family:Georgia,serif;font-size:14px;color:#B8AA96;line-height:1.7;padding-top:2px">Notlarını kaydedebilirsin. Tarayıcında kalır.</div>
+          <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:500;border:1px solid rgba(255,255,255,.08);color:#8A7B67;margin-top:2px">3</div>
+          <div style="font-family:Georgia,serif;font-size:14px;color:#D7C9B5;line-height:1.7;padding-top:2px">Notlarını kaydedebilirsin. Tarayıcında kalır.</div>
         </div>
       </div>
     </div>
@@ -3174,7 +2999,7 @@ window.addEventListener('DOMContentLoaded', function() {
     <!-- BAŞLA -->
     <div style="padding-bottom:clamp(48px,7vw,72px)">
       <button onclick="closeIntro()" style="background:#F3E7D2;color:#1B1511;border:none;border-radius:3px;padding:16px 40px;font-family:Georgia,serif;font-size:16px;font-weight:500;cursor:pointer;display:block;margin-bottom:12px;transition:background .2s">Bölüm 1'den Başla →</button>
-      <div style="font-family:monospace;font-size:11px;color:#c8bfb0;letter-spacing:.04em">veya sol menüden bölüm seç</div>
+      <div style="font-family:monospace;font-size:11px;color:var(--text-soft);letter-spacing:.04em">veya sol menüden bölüm seç</div>
     </div>
 
   </div>
@@ -3355,22 +3180,22 @@ function openFinalScreen() {
   for(let i=1;i<=89;i++) { const n=Store.getNote(i); if(n&&n.length>maxNote) { maxNote=n.length; peakId=i; } }
   const peak = CHAPTERS.find(x=>x.id===peakId);
 
-  const ECOL = {kararlılık:'#3a6a5a',cesaret:'#8a3a50',sabır:'#3a6048',yüzleşme:'#D4B06A',ihanet:'#8a3a50',umut:'#3a6048',şükür:'#D4B06A',yalnızlık:'#3a6a5a'};
-  const RCOL = {dusundurdu:'#3a6a5a',motive:'#D4B06A',uzdu:'#8a3a50',sasirtti:'#3a6048',kararsiz:'#7a6e60'};
+  const ECOL = {kararlılık:'var(--quran)',cesaret:'var(--rose)',sabır:'var(--quran)',yüzleşme:'#D4B06A',ihanet:'var(--rose)',umut:'var(--quran)',şükür:'#D4B06A',yalnızlık:'var(--quran)'};
+  const RCOL = {dusundurdu:'var(--quran)',motive:'#D4B06A',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'#8A7B67'};
   const RLBL = {dusundurdu:'Düşündürdü',motive:'Motive etti',uzdu:'Üzdü',sasirtti:'Şaşırttı',kararsiz:'Kararsız'};
 
   const maxEm = emProfile[0]?.[1]||1;
   const emHTML = emProfile.slice(0,6).map(([em,n])=>`
     <div style="display:grid;grid-template-columns:100px 1fr 36px;gap:12px;align-items:center;margin-bottom:10px">
       <span style="font-family:Georgia,serif;font-size:15px;color:#F3E7D2">${em}</span>
-      <div style="height:5px;background:#e8e0d2;border-radius:3px;overflow:hidden">
-        <div style="height:100%;width:${n/maxEm*100}%;background:${ECOL[em]||'#3a6a5a'};border-radius:3px"></div>
+      <div style="height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${n/maxEm*100}%;background:${ECOL[em]||'var(--quran)'};border-radius:3px"></div>
       </div>
-      <span style="font-family:monospace;font-size:11px;color:#7a6e60;text-align:right">%${Math.round(n/(Object.values(emCount).reduce((a,b)=>a+b,1))*100)}</span>
+      <span style="font-family:monospace;font-size:11px;color:#8A7B67;text-align:right">%${Math.round(n/(Object.values(emCount).reduce((a,b)=>a+b,1))*100)}</span>
     </div>`).join('');
 
   const reactHTML = Object.entries(reactCount).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`
-    <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:40px;border:1.5px solid ${RCOL[k]||'rgba(255,255,255,.08)'};background:${RCOL[k]||'#3a6a5a'}18;margin-bottom:8px">
+    <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:40px;border:1.5px solid ${RCOL[k]||'rgba(255,255,255,.08)'};background:${RCOL[k]||'var(--quran)'}18;margin-bottom:8px">
       <span style="font-family:monospace;font-size:20px;font-weight:700;color:${RCOL[k]}">${n}</span>
       <span style="font-family:monospace;font-size:11px;color:${RCOL[k]}">${RLBL[k]}</span>
     </div>`).join('');
@@ -3381,7 +3206,7 @@ function openFinalScreen() {
     const bg=r?({dusundurdu:'#1e2030',motive:'#1e1a12',uzdu:'#faf0f2',sasirtti:'#eef4f0',kararsiz:'#e8e0d2'}[r]||'#e8e0d2'):'#231C17';
     const border=r?(RCOL[r]+'44'):'rgba(255,255,255,.08)';
     const shadow=favSet.has(id)?'box-shadow:0 0 0 1.5px #D4B06A;':'';
-    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};${shadow}cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:7px;color:#7a6e60"
+    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};${shadow}cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:7px;color:#8A7B67"
                   onclick="closeFinalScreen();render(${id})" title="B${id}">${id}</div>`;
   }).join('');
 
@@ -3391,33 +3216,33 @@ function openFinalScreen() {
 
   document.getElementById('final-content').innerHTML = `
     <div style="margin-bottom:52px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a6e60;margin-bottom:16px">İki Ses, Bir Yön · Tamamlandı</div>
+      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:16px">İki Ses, Bir Yön · Tamamlandı</div>
       <div style="font-family:Georgia,serif;font-size:48px;font-weight:500;color:#F3E7D2;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px">Senin<br>Yolculuğun</div>
-      <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#B8AA96;line-height:1.7">${introText}</div>
+      <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#D7C9B5;line-height:1.7">${introText}</div>
     </div>
-    ${emProfile.length?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7a6e60;margin-bottom:16px">Duygusal Profil</div>${emHTML}</div>`:''}`+`
-    ${reactTotal?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7a6e60;margin-bottom:16px">Tepkilerin</div>${reactHTML}</div>`:''}`+`
-    ${peak?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7a6e60;margin-bottom:12px">Öne Çıkan An</div>
+    ${emProfile.length?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7B67;margin-bottom:16px">Duygusal Profil</div>${emHTML}</div>`:''}`+`
+    ${reactTotal?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7B67;margin-bottom:16px">Tepkilerin</div>${reactHTML}</div>`:''}`+`
+    ${peak?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7B67;margin-bottom:12px">Öne Çıkan An</div>
       <div style="border:1px solid rgba(255,255,255,.08);border-radius:2px;overflow:hidden;cursor:pointer" onclick="closeFinalScreen();render(${peak.id})">
         <div style="background:#1e1a12;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.08)">
           <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#D4B06A;margin-bottom:4px">${peak.sure}</div>
           <div style="font-family:Georgia,serif;font-size:16px;font-weight:500;color:#F3E7D2">${peak.title}</div>
         </div>
-        <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#B8AA96;padding:12px 18px;line-height:1.65">${peak.kapanis||''}</div>
+        <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#D7C9B5;padding:12px 18px;line-height:1.65">${peak.kapanis||''}</div>
       </div>
     </div>`:''}`+`
     <div style="margin-bottom:40px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7a6e60;margin-bottom:12px">Yolculuk Haritası</div>
+      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7B67;margin-bottom:12px">Yolculuk Haritası</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(24px,1fr));gap:3px">${mapHTML}</div>
     </div>
     <div style="font-family:Georgia,serif;font-size:24px;font-style:italic;color:#F3E7D2;line-height:1.6;padding:32px 0;border-top:2px solid #F3E7D2;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px;text-align:center">
       ${(FINAL_WORD[domReact]||FINAL_WORD.default)}
-      <div style="font-family:Georgia,serif;font-size:16px;color:#7a6e60;margin-top:20px;font-style:normal">89 bölüm. İki ses. Bir yön.<br>Yön senin içindeydi.</div>
+      <div style="font-family:Georgia,serif;font-size:16px;color:#8A7B67;margin-top:20px;font-style:normal">89 bölüm. İki ses. Bir yön.<br>Yön senin içindeydi.</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button onclick="closeFinalScreen();openSystem('kitabim')" style="background:#F3E7D2;color:#1B1511;border:none;border-radius:2px;padding:13px 28px;font-family:Georgia,serif;font-size:15px;font-weight:500;cursor:pointer">Benim Kitabım'ı Gör</button>
-      <button onclick="closeFinalScreen();render(1)" style="background:none;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:13px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7a6e60;cursor:pointer">Baştan Oku</button>
-      <button onclick="closeFinalScreen()" style="background:none;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:13px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7a6e60;cursor:pointer">Kapat</button>
+      <button onclick="closeFinalScreen();render(1)" style="background:none;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:13px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A7B67;cursor:pointer">Baştan Oku</button>
+      <button onclick="closeFinalScreen()" style="background:none;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:13px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A7B67;cursor:pointer">Kapat</button>
     </div>`;
 
   document.getElementById('final-screen').style.display = 'block';
@@ -3489,72 +3314,72 @@ function renderKitabim() {
   Object.values(allReacts).forEach(v=>{if(v&&reactCounts[v]!==undefined)reactCounts[v]++;});
   const reactTotal = Object.values(reactCounts).reduce((a,b)=>a+b,0);
   const RLBL2={dusundurdu:'Düşündürdü',motive:'Motive etti',uzdu:'Üzdü',sasirtti:'Şaşırttı',kararsiz:'Kararsız'};
-  const RCOL2={dusundurdu:'#3a6a5a',motive:'#D4B06A',uzdu:'#8a3a50',sasirtti:'#3a6048',kararsiz:'#7a6e60'};
-  const RDOT2={violet:'#3a6a5a',gold:'#D4B06A',sage:'#3a6048',rose:'#8a3a50'};
+  const RCOL2={dusundurdu:'var(--quran)',motive:'#D4B06A',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'#8A7B67'};
+  const RDOT2={violet:'var(--quran)',gold:'#D4B06A',sage:'var(--quran)',rose:'var(--rose)'};
 
   if(!favs.length&&!notes.length&&!answers.length&&!reactTotal) {
-    el.innerHTML=`<div style="padding:20px 0 24px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:20px"><div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:4px">Benim Kitabım</div><div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#7a6e60">Kişisel yolculuğun burada birikir.</div></div>
-    <div style="padding:40px 0;text-align:center"><div style="font-size:32px;margin-bottom:12px;opacity:.4">✦</div><div style="font-family:Georgia,serif;font-size:15px;font-style:italic;color:#c8bfb0;line-height:1.7;margin-bottom:16px">Henüz iz bırakmadın.<br>Bölümlerdeki yıldıza tıkla, sorulara cevap ver,<br>notlar ekle — hepsi burada seni bekler.</div>
-    <button onclick="closeSystem()" style="background:none;border:1.5px solid rgba(255,255,255,.08);border-radius:2px;padding:8px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7a6e60;cursor:pointer">Okumaya Başla</button></div>`;
+    el.innerHTML=`<div style="padding:20px 0 24px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:20px"><div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:4px">Benim Kitabım</div><div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#8A7B67">Kişisel yolculuğun burada birikir.</div></div>
+    <div style="padding:40px 0;text-align:center"><div style="font-size:32px;margin-bottom:12px;opacity:.4">✦</div><div style="font-family:Georgia,serif;font-size:15px;font-style:italic;color:var(--text-soft);line-height:1.7;margin-bottom:16px">Henüz iz bırakmadın.<br>Bölümlerdeki yıldıza tıkla, sorulara cevap ver,<br>notlar ekle — hepsi burada seni bekler.</div>
+    <button onclick="closeSystem()" style="background:none;border:1.5px solid rgba(255,255,255,.08);border-radius:2px;padding:8px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A7B67;cursor:pointer">Okumaya Başla</button></div>`;
     return;
   }
 
   const favHTML = favs.length ? favs.map(fid=>{
     const c=CHAPTERS.find(x=>x.id===fid); if(!c) return '';
     const kap=(c.kapanis||'').replace(/"/g,'').substring(0,80);
-    const react=allReacts[fid]; const dot=RDOT2[c.theme]||'#3a6a5a';
+    const react=allReacts[fid]; const dot=RDOT2[c.theme]||'var(--quran)';
     return `<div style="border:1px solid rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${fid})">
       <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#231C17">
-        <span style="font-family:monospace;font-size:11px;color:#c8bfb0;margin-top:2px;min-width:22px">${String(fid).padStart(2,'0')}</span>
-        <div style="flex:1"><div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a6e60;margin-bottom:2px">${c.sure}</div>
+        <span style="font-family:monospace;font-size:11px;color:var(--text-soft);margin-top:2px;min-width:22px">${String(fid).padStart(2,'0')}</span>
+        <div style="flex:1"><div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:2px">${c.sure}</div>
         <div style="font-family:Georgia,serif;font-size:14px;font-weight:500;color:#F3E7D2">${c.title}</div></div>
         <div style="width:6px;height:6px;border-radius:50%;background:${dot};flex-shrink:0;margin-top:5px"></div>
-        <button onclick="event.stopPropagation();Store.toggleFav(${fid});renderKitabim()" style="background:none;border:none;cursor:pointer;color:#c8bfb0;font-size:13px;padding:2px 4px">✕</button>
+        <button onclick="event.stopPropagation();Store.toggleFav(${fid});renderKitabim()" style="background:none;border:none;cursor:pointer;color:var(--text-soft);font-size:13px;padding:2px 4px">✕</button>
       </div>
-      ${kap?`<div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#B8AA96;padding:8px 14px 10px 46px;line-height:1.55;border-top:1px solid rgba(255,255,255,.08)">${kap}…</div>`:''}</div>`;
-  }).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz favori bölüm yok.</div>';
+      ${kap?`<div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#D7C9B5;padding:8px 14px 10px 46px;line-height:1.55;border-top:1px solid rgba(255,255,255,.08)">${kap}…</div>`:''}</div>`;
+  }).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:var(--text-soft);padding:20px 0">Henüz favori bölüm yok.</div>';
 
   const noteHTML = notes.length ? notes.map(n=>`
     <div style="border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:12px 14px;background:#231C17;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${n.id})">
-      <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a6e60;margin-bottom:6px">${String(n.id).padStart(2,'0')} · ${n.sure}</div>
+      <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:6px">${String(n.id).padStart(2,'0')} · ${n.sure}</div>
       <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#F3E7D2;line-height:1.65">${n.text}</div>
-    </div>`).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz not yok.</div>';
+    </div>`).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:var(--text-soft);padding:20px 0">Henüz not yok.</div>';
 
   const ansHTML = answers.length ? answers.map(a=>`
     <div style="border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:12px 14px;margin-bottom:8px;cursor:pointer" onclick="closeSystem();render(${a.id})">
-      <div style="font-family:Georgia,serif;font-size:13px;color:#B8AA96;margin-bottom:6px;line-height:1.5">${a.q}</div>
+      <div style="font-family:Georgia,serif;font-size:13px;color:#D7C9B5;margin-bottom:6px;line-height:1.5">${a.q}</div>
       <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#F3E7D2;padding-left:12px;border-left:2px solid #c89848;line-height:1.6">${a.ans}</div>
-      <div style="font-family:monospace;font-size:9px;color:#c8bfb0;margin-top:6px">${String(a.id).padStart(2,'0')} · ${a.sure}</div>
-    </div>`).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz yanıt yok.</div>';
+      <div style="font-family:monospace;font-size:9px;color:var(--text-soft);margin-top:6px">${String(a.id).padStart(2,'0')} · ${a.sure}</div>
+    </div>`).join('') : '<div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:var(--text-soft);padding:20px 0">Henüz yanıt yok.</div>';
 
   const maxR=Math.max(...Object.values(reactCounts),1);
   const reactBarHTML = Object.entries(reactCounts).map(([k,n])=>`
     <div style="display:grid;grid-template-columns:90px 1fr 24px;gap:8px;align-items:center;margin-bottom:7px">
       <span style="font-family:monospace;font-size:11px;color:#F3E7D2">${RLBL2[k]}</span>
-      <div style="height:4px;background:#e8e0d2;border-radius:2px;overflow:hidden"><div style="height:100%;width:${n/maxR*100}%;background:${RCOL2[k]};border-radius:2px"></div></div>
-      <span style="font-family:monospace;font-size:10px;color:#7a6e60;text-align:right">${n}</span>
+      <div style="height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden"><div style="height:100%;width:${n/maxR*100}%;background:${RCOL2[k]};border-radius:2px"></div></div>
+      <span style="font-family:monospace;font-size:10px;color:#8A7B67;text-align:right">${n}</span>
     </div>`).join('');
 
   el.innerHTML = `
     <div style="padding:20px 0 16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:20px">
       <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:4px">Benim Kitabım</div>
-      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#7a6e60;margin-bottom:18px">Kendi sesini buraya bıraktın.</div>
+      <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#8A7B67;margin-bottom:18px">Kendi sesini buraya bıraktın.</div>
       <div style="display:flex;flex-wrap:wrap;gap:16px">
         ${[['Bölüm',readCount],['Favori',favs.length],['Not',notes.length],['Yanıt',answers.length],['Tepki',reactTotal]].map(([l,n])=>`
-          <div><div style="font-family:monospace;font-size:22px;font-weight:600;color:#F3E7D2;line-height:1">${n}</div><div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#c8bfb0">${l}</div></div>`).join('')}
+          <div><div style="font-family:monospace;font-size:22px;font-weight:600;color:#F3E7D2;line-height:1">${n}</div><div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft)">${l}</div></div>`).join('')}
       </div>
     </div>
     <div style="display:flex;gap:2px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,.08)">
       ${['favori','notlar','cevaplar','tepkiler'].map(t=>`
         <button class="kb-tab ${_kbTab===t?'on':''}" data-tab="${t}" onclick="kbTab('${t}')" 
-                style="background:none;border:none;border-bottom:2px solid ${_kbTab===t?'#D4B06A':'transparent'};padding:8px 12px 9px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:${_kbTab===t?'#F3E7D2':'#7a6e60'};cursor:pointer;margin-bottom:-1px">
+                style="background:none;border:none;border-bottom:2px solid ${_kbTab===t?'#D4B06A':'transparent'};padding:8px 12px 9px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:${_kbTab===t?'#F3E7D2':'#8A7B67'};cursor:pointer;margin-bottom:-1px">
           ${t.charAt(0).toUpperCase()+t.slice(1)}
         </button>`).join('')}
     </div>
     <div id="kbp-favori"   class="kb-pane" style="display:${_kbTab==='favori'?'block':'none'}">${favHTML}</div>
     <div id="kbp-notlar"   class="kb-pane" style="display:${_kbTab==='notlar'?'block':'none'}">${noteHTML}</div>
     <div id="kbp-cevaplar" class="kb-pane" style="display:${_kbTab==='cevaplar'?'block':'none'}">${ansHTML}</div>
-    <div id="kbp-tepkiler" class="kb-pane" style="display:${_kbTab==='tepkiler'?'block':'none'}">${reactTotal?reactBarHTML:'<div style="font-family:Lora,serif;font-size:14px;font-style:italic;color:#c8bfb0;padding:20px 0">Henüz tepki yok.</div>'}</div>`;
+    <div id="kbp-tepkiler" class="kb-pane" style="display:${_kbTab==='tepkiler'?'block':'none'}">${reactTotal?reactBarHTML:'<div style="font-family:Lora,serif;font-size:14px;font-style:italic;color:var(--text-soft);padding:20px 0">Henüz tepki yok.</div>'}</div>`;
 }
 
 /* ── DUYGU HARİTASI ── */
@@ -3562,7 +3387,7 @@ function renderHarita() {
   const el=document.getElementById('sysp-harita');
   const allReacts=Store.getAllReacts();
   const total=Object.keys(allReacts).length;
-  const RCOL={dusundurdu:'#3a6a5a',motive:'#D4B06A',uzdu:'#8a3a50',sasirtti:'#3a6048',kararsiz:'#7a6e60'};
+  const RCOL={dusundurdu:'var(--quran)',motive:'#D4B06A',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'#8A7B67'};
   const RLBL={dusundurdu:'Düşündürdü',motive:'Motive etti',uzdu:'Üzdü',sasirtti:'Şaşırttı',kararsiz:'Kararsız'};
   const RBGL={dusundurdu:'#1e2030',motive:'#1e1a12',uzdu:'#faf0f2',sasirtti:'#eef4f0',kararsiz:'#e8e0d2'};
   
@@ -3574,25 +3399,25 @@ function renderHarita() {
     const id=i+1, r=allReacts[id]||allReacts[String(id)];
     const c=CHAPTERS.find(x=>x.id===id);
     const bg=r?RBGL[r]:'#231C17', border=r?(RCOL[r]+'44'):'rgba(255,255,255,.08)';
-    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:7px;color:#7a6e60"
+    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:7px;color:#8A7B67"
                   onclick="closeSystem();render(${id})" title="B${id}${c?' · '+c.sure:''}${r?' · '+RLBL[r]:''} ">${id}</div>`;
   }).join('');
 
   el.innerHTML=`
     <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:4px">Duygu Haritası</div>
-    <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#7a6e60;margin-bottom:20px">89 bölüm boyunca kişisel yolculuğun.</div>
-    ${total?`<div style="font-family:monospace;font-size:11px;color:#7a6e60;margin-bottom:16px">${total} / 89 bölüm değerlendirildi · %${Math.round(total/89*100)}</div>`:''}
+    <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#8A7B67;margin-bottom:20px">89 bölüm boyunca kişisel yolculuğun.</div>
+    ${total?`<div style="font-family:monospace;font-size:11px;color:#8A7B67;margin-bottom:16px">${total} / 89 bölüm değerlendirildi · %${Math.round(total/89*100)}</div>`:''}
     <div style="background:#fff;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:14px 18px;margin-bottom:14px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a6e60;margin-bottom:12px">Tepki Dağılımı</div>
+      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:12px">Tepki Dağılımı</div>
       ${Object.entries(counts).map(([k,n])=>`
         <div style="display:grid;grid-template-columns:90px 1fr 24px;gap:8px;align-items:center;margin-bottom:7px">
           <span style="font-family:monospace;font-size:11px;color:#F3E7D2">${RLBL[k]}</span>
-          <div style="height:4px;background:#e8e0d2;border-radius:2px;overflow:hidden"><div style="height:100%;width:${n/maxC*100}%;background:${RCOL[k]};border-radius:2px"></div></div>
-          <span style="font-family:monospace;font-size:10px;color:#7a6e60;text-align:right">${n}</span>
+          <div style="height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden"><div style="height:100%;width:${n/maxC*100}%;background:${RCOL[k]};border-radius:2px"></div></div>
+          <span style="font-family:monospace;font-size:10px;color:#8A7B67;text-align:right">${n}</span>
         </div>`).join('')}
     </div>
     <div style="background:#fff;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:14px 18px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a6e60;margin-bottom:12px">Bölüm Haritası</div>
+      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:12px">Bölüm Haritası</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(28px,1fr));gap:4px">${cellsHTML}</div>
     </div>`;
 }
@@ -3609,15 +3434,15 @@ function renderLab() {
   const quickItems=CHAPTERS.filter(c=>c.nutuk&&c.nutuk.length>20).slice(0,12);
   el.innerHTML=`
     <div style="font-family:Georgia,serif;font-size:22px;font-weight:500;color:#F3E7D2;margin-bottom:4px">⚗ İki Ses Laboratuvarı</div>
-    <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#7a6e60;margin-bottom:20px">Bir Nutuk alıntısı gir. Sistem temaları ve Kur'an bağlantılarını keşfeder.</div>
+    <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#8A7B67;margin-bottom:20px">Bir Nutuk alıntısı gir. Sistem temaları ve Kur'an bağlantılarını keşfeder.</div>
     <textarea id="lab-input" style="width:100%;min-height:100px;padding:14px;font-family:Georgia,serif;font-size:14px;font-style:italic;line-height:1.75;color:#F3E7D2;background:#231C17;border:1.5px solid rgba(255,255,255,.08);border-radius:2px;resize:vertical;outline:none;margin-bottom:10px" placeholder="Buraya bir Nutuk cümlesi gir…"></textarea>
-    <div style="font-family:monospace;font-size:10px;color:#7a6e60;margin-bottom:8px;letter-spacing:.04em">Hızlı seç:</div>
+    <div style="font-family:monospace;font-size:10px;color:#8A7B67;margin-bottom:8px;letter-spacing:.04em">Hızlı seç:</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
-      ${quickItems.map(c=>`<button onclick="document.getElementById('lab-input').value=CHAPTERS.find(x=>x.id==${c.id}).nutuk" style="font-family:monospace;font-size:10px;color:#7a6e60;background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:4px 10px;cursor:pointer">${c.sure}</button>`).join('')}
+      ${quickItems.map(c=>`<button onclick="document.getElementById('lab-input').value=CHAPTERS.find(x=>x.id==${c.id}).nutuk" style="font-family:monospace;font-size:10px;color:#8A7B67;background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:4px 10px;cursor:pointer">${c.sure}</button>`).join('')}
     </div>
     <div style="display:flex;gap:8px;margin-bottom:20px">
       <button onclick="labAnalyze()" style="background:#F3E7D2;color:#1B1511;border:none;border-radius:2px;padding:10px 24px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer">Analiz Et</button>
-      <button onclick="document.getElementById('lab-input').value='';document.getElementById('lab-result').innerHTML=''" style="background:none;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:10px 16px;font-family:monospace;font-size:11px;color:#7a6e60;cursor:pointer">Temizle</button>
+      <button onclick="document.getElementById('lab-input').value='';document.getElementById('lab-result').innerHTML=''" style="background:none;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:10px 16px;font-family:monospace;font-size:11px;color:#8A7B67;cursor:pointer">Temizle</button>
     </div>
     <div id="lab-result"></div>`;
 }
@@ -3647,14 +3472,14 @@ function labAnalyze() {
   }
   const detected=Object.entries(scores).filter(([,s])=>s>0).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([em])=>em);
 
-  const ECOL={kararlılık:'#3a6a5a',cesaret:'#8a3a50',sabır:'#3a6048',yüzleşme:'#D4B06A',ihanet:'#8a3a50',umut:'#3a6048',şükür:'#D4B06A',yalnızlık:'#3a6a5a'};
+  const ECOL={kararlılık:'var(--quran)',cesaret:'var(--rose)',sabır:'var(--quran)',yüzleşme:'#D4B06A',ihanet:'var(--rose)',umut:'var(--quran)',şükür:'#D4B06A',yalnızlık:'var(--quran)'};
   const EBGL={kararlılık:'#1e2030',cesaret:'#faf0f2',sabır:'#eef4f0',yüzleşme:'#1e1a12',ihanet:'#faf0f2',umut:'#eef4f0',şükür:'#1e1a12',yalnızlık:'#1e2030'};
 
   const themeHTML=detected.length
-    ? detected.map(em=>`<div style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;background:${EBGL[em]||'#231C17'};border:1.5px solid ${ECOL[em]||'#3a6a5a'}44;margin-bottom:7px">
-        <span style="font-family:Georgia,serif;font-size:13px;color:${ECOL[em]||'#3a6a5a'}">${em}</span>
+    ? detected.map(em=>`<div style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;background:${EBGL[em]||'#231C17'};border:1.5px solid ${ECOL[em]||'var(--quran)'}44;margin-bottom:7px">
+        <span style="font-family:Georgia,serif;font-size:13px;color:${ECOL[em]||'var(--quran)'}">${em}</span>
       </div>`).join('')
-    : '<p style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#7a6e60">Belirgin tema tespit edilemedi.</p>';
+    : '<p style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#8A7B67">Belirgin tema tespit edilemedi.</p>';
 
   const bridgeHTML=detected.map(em=>{
     const tm=LAB_THEME_MAP[em]; if(!tm) return '';
@@ -3663,10 +3488,10 @@ function labAnalyze() {
         <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#D4B06A;margin-bottom:6px">Nutuk'ta</div>
         <div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#D4B06A;line-height:1.65">${tm.nutuk}</div>
       </div>
-      <div style="color:#7a6e60;font-size:16px;padding-top:14px;text-align:center">↔</div>
-      <div style="background:#1e2030;border-radius:2px;padding:12px 14px;border-left:2px solid #3a6a5a">
-        <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#3a6a5a;margin-bottom:6px">Kur'an'da</div>
-        <div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#3a6a5a;line-height:1.65">${tm.kuran}</div>
+      <div style="color:#8A7B67;font-size:16px;padding-top:14px;text-align:center">↔</div>
+      <div style="background:#1e2030;border-radius:2px;padding:12px 14px;border-left:2px solid var(--quran)">
+        <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--quran);margin-bottom:6px">Kur'an'da</div>
+        <div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:var(--quran);line-height:1.65">${tm.kuran}</div>
       </div>
     </div>`;
   }).join('');
@@ -3680,10 +3505,10 @@ function labAnalyze() {
 
   const relHTML=related.map(r=>{
     const c=CHAPTERS.find(x=>x.id===r.id); if(!c) return '';
-    const dot={violet:'#3a6a5a',gold:'#D4B06A',sage:'#3a6048',rose:'#8a3a50'}[c.theme]||'#3a6a5a';
+    const dot={violet:'var(--quran)',gold:'#D4B06A',sage:'var(--quran)',rose:'var(--rose)'}[c.theme]||'var(--quran)';
     return `<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:#231C17;border:1px solid rgba(255,255,255,.08);border-radius:2px;cursor:pointer;margin-bottom:6px" onclick="closeSystem();render(${r.id})">
-      <span style="font-family:monospace;font-size:10px;color:#7a6e60;min-width:20px">${String(r.id).padStart(2,'0')}</span>
-      <span style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7a6e60;min-width:60px">${c.sure}</span>
+      <span style="font-family:monospace;font-size:10px;color:#8A7B67;min-width:20px">${String(r.id).padStart(2,'0')}</span>
+      <span style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A7B67;min-width:60px">${c.sure}</span>
       <span style="font-family:Georgia,serif;font-size:13px;color:#F3E7D2;flex:1">${c.title}</span>
       <div style="width:5px;height:5px;border-radius:50%;background:${dot}"></div>
     </div>`;
@@ -3694,15 +3519,15 @@ function labAnalyze() {
 
   document.getElementById('lab-result').innerHTML=`
     <div style="margin-bottom:20px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a6e60;margin-bottom:10px">Tespit Edilen Temalar</div>
+      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:10px">Tespit Edilen Temalar</div>
       ${themeHTML}
     </div>
-    ${detected.length?`<div style="margin-bottom:20px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a6e60;margin-bottom:10px">Kavram Köprüsü</div>${bridgeHTML}</div>`:''}`+`
-    ${related.length?`<div style="margin-bottom:20px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a6e60;margin-bottom:10px">İlgili Bölümler</div>${relHTML}</div>`:''}`+`
+    ${detected.length?`<div style="margin-bottom:20px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:10px">Kavram Köprüsü</div>${bridgeHTML}</div>`:''}`+`
+    ${related.length?`<div style="margin-bottom:20px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:10px">İlgili Bölümler</div>${relHTML}</div>`:''}`+`
     <div style="margin-bottom:20px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a6e60;margin-bottom:10px">Yorumun</div>
+      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8A7B67;margin-bottom:10px">Yorumun</div>
       <textarea id="lab-note" style="width:100%;min-height:80px;padding:12px;font-family:Georgia,serif;font-size:13px;line-height:1.7;color:#F3E7D2;background:#231C17;border:1.5px solid rgba(255,255,255,.08);border-radius:2px;resize:vertical;outline:none" placeholder="Bu alıntı hakkında düşüncelerini yaz…">${savedNote}</textarea>
-      <button onclick="const v=document.getElementById('lab-note').value;Store.setLabNote('${hash}',v);this.textContent='✓ Kaydedildi';this.style.color='#3a6048'" style="margin-top:6px;background:none;border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:5px 14px;font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7a6e60;cursor:pointer">${savedNote?'✓ Kaydedildi':'Kaydet'}</button>
+      <button onclick="const v=document.getElementById('lab-note').value;Store.setLabNote('${hash}',v);this.textContent='✓ Kaydedildi';this.style.color='var(--quran)'" style="margin-top:6px;background:none;border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:5px 14px;font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A7B67;cursor:pointer">${savedNote?'✓ Kaydedildi':'Kaydet'}</button>
     </div>`;
 }
 
@@ -4223,7 +4048,7 @@ function showB1Intro() {
       1919
     </div>
     <div style="font-family:Georgia,serif;font-size:clamp(16px,2.5vw,22px);
-                color:#B8AA96;font-style:italic;line-height:1.7;
+                color:#D7C9B5;font-style:italic;line-height:1.7;
                 max-width:440px;margin-bottom:48px">
       Atatürk'ün önünde<br>üç farklı yol vardı.<br><br>
       Bir seçim yapmak zorundaydı.
@@ -4306,7 +4131,7 @@ function showFirstInteractionNudge() {
     Bir soruya cevap ver<br>veya bir not al.
     <div style="margin-top:12px">
       <button onclick="this.closest('div[style]').remove()"
-              style="background:none;border:none;color:#B8AA96;
+              style="background:none;border:none;color:#D7C9B5;
                      font-size:11px;cursor:pointer;letter-spacing:.1em">
         TAMAM
       </button>
@@ -4803,7 +4628,7 @@ function _disabled_showEvreCelebration(evre) {
                 color:${evre.color};margin-bottom:16px">EVRE TAMAMLANDI</div>
     <div style="font-family:Georgia,serif;font-size:32px;font-weight:500;color:#F3E7D2;
                 margin-bottom:12px">${evre.label}</div>
-    <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#B8AA96;
+    <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#D7C9B5;
                 max-width:360px;margin-bottom:40px;line-height:1.7">${evre.his}</div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
       <button onclick="this.closest('div[style*=fixed]').remove();updateEvreMini()"
@@ -5504,7 +5329,7 @@ if (_prevBuildJournal) {
                              color:#D4B06A;letter-spacing:.08em">
                   ${c ? `B${c.id} · ${c.sure}` : ''}
                 </span>
-                <span style="font-family:monospace;font-size:10px;color:#4a3a2a">
+                <span style="font-family:monospace;font-size:10px;color:#8A7B67">
                   ${tarihStr}
                 </span>
               </div>
@@ -5578,16 +5403,16 @@ document.addEventListener('DOMContentLoaded', () => {
     <div style="margin-top:32px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
       <button onclick="openKvkk()" style="background:none;border:none;
         font-family:monospace;font-size:10px;letter-spacing:.12em;
-        text-transform:uppercase;color:#4a3a2a;cursor:pointer;
-        transition:color .2s" onmouseover="this.style.color='#B8AA96'"
-        onmouseout="this.style.color='#4a3a2a'">
+        text-transform:uppercase;color:#8A7B67;cursor:pointer;
+        transition:color .2s" onmouseover="this.style.color='#D7C9B5'"
+        onmouseout="this.style.color='#8A7B67'">
         Gizlilik Politikası
       </button>
       <button onclick="openKosullar()" style="background:none;border:none;
         font-family:monospace;font-size:10px;letter-spacing:.12em;
-        text-transform:uppercase;color:#4a3a2a;cursor:pointer;
-        transition:color .2s" onmouseover="this.style.color='#B8AA96'"
-        onmouseout="this.style.color='#4a3a2a'">
+        text-transform:uppercase;color:#8A7B67;cursor:pointer;
+        transition:color .2s" onmouseover="this.style.color='#D7C9B5'"
+        onmouseout="this.style.color='#8A7B67'">
         Kullanım Koşulları
       </button>
     </div>
@@ -5682,7 +5507,7 @@ function renderLockedChapters() {
         🔒 ${89 - FREE_LIMIT} Bölüm Daha
       </div>
       <div style="font-family:Georgia,serif;font-size:13px;
-                  color:#B8AA96;margin-bottom:12px;font-style:italic">
+                  color:#D7C9B5;margin-bottom:12px;font-style:italic">
         B11'den B89'a kadar erişmek için
       </div>
       <button onclick="showPaywall(11)" style="
@@ -5728,7 +5553,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <button onclick="closeKvkk()" style="
       background:none;border:none;
       font-family:monospace;font-size:10px;letter-spacing:.2em;
-      text-transform:uppercase;color:#7a6e60;cursor:pointer;
+      text-transform:uppercase;color:#8A7B67;cursor:pointer;
       margin-bottom:40px;display:block;
     ">← Geri dön</button>
 
@@ -5740,12 +5565,12 @@ document.addEventListener('DOMContentLoaded', () => {
                color:#F3E7D2;margin-bottom:8px;line-height:1.3">
       Gizlilik Politikası
     </h1>
-    <div style="font-family:monospace;font-size:11px;color:#7a6e60;
+    <div style="font-family:monospace;font-size:11px;color:#8A7B67;
                 margin-bottom:48px">
       Son güncelleme: Haziran 2025 · Pixel Vadisi
     </div>
 
-    <div style="font-family:Georgia,serif;font-size:15px;color:#B8AA96;
+    <div style="font-family:Georgia,serif;font-size:15px;color:#D7C9B5;
                 line-height:1.9;">
 
       <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">1. Veri Sorumlusu</h2>
@@ -5782,7 +5607,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="margin-top:48px;padding-top:32px;
                   border-top:1px solid rgba(255,255,255,.08);
                   font-family:monospace;font-size:10px;
-                  color:#4a3a2a;letter-spacing:.08em">
+                  color:#8A7B67;letter-spacing:.08em">
         Bu politika gerektiğinde güncellenebilir. Önemli değişiklikler uygulama içinde duyurulur.
       </div>
     </div>
@@ -5801,7 +5626,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <button onclick="closeKosullar()" style="
       background:none;border:none;
       font-family:monospace;font-size:10px;letter-spacing:.2em;
-      text-transform:uppercase;color:#7a6e60;cursor:pointer;
+      text-transform:uppercase;color:#8A7B67;cursor:pointer;
       margin-bottom:40px;display:block;
     ">← Geri dön</button>
 
@@ -5813,12 +5638,12 @@ document.addEventListener('DOMContentLoaded', () => {
                color:#F3E7D2;margin-bottom:8px;line-height:1.3">
       Kullanım Koşulları
     </h1>
-    <div style="font-family:monospace;font-size:11px;color:#7a6e60;
+    <div style="font-family:monospace;font-size:11px;color:#8A7B67;
                 margin-bottom:48px">
       Son güncelleme: Haziran 2025 · Pixel Vadisi
     </div>
 
-    <div style="font-family:Georgia,serif;font-size:15px;color:#B8AA96;line-height:1.9;">
+    <div style="font-family:Georgia,serif;font-size:15px;color:#D7C9B5;line-height:1.9;">
 
       <h2 style="font-size:17px;color:#F3E7D2;margin:32px 0 12px">1. Hizmet</h2>
       <p>İki Ses, Bir Yön, Pixel Vadisi tarafından sunulan interaktif bir dijital okuma deneyimidir. 89 bölümden oluşur ve kişisel gelişim amaçlıdır.</p>
