@@ -94,7 +94,7 @@ body{
 #sb-overlay.on { display: block; }
 
 /* === READER === */
-#reader { max-width: 708px; margin: 0 auto; }
+#reader { max-width: 780px; margin: 0 auto; }
 
 /* ════════════════════════════════════════════
    3. COMPONENTS
@@ -104,7 +104,6 @@ body{
 /* === CHAPTER === */
 .ch-header {
   padding: 56px 32px 40px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
   position: relative;
 }
 .ch-header::before {
@@ -150,7 +149,7 @@ body{
   color:var(--text);
   font-family: 'Lora', serif; font-size: 17px; line-height: 2;
   padding: 36px 32px;
-  border-bottom: 1px solid var(--line);
+  margin-bottom: 4px;
 }
 .ch-sahne p { margin-bottom: 14px; }
 .ch-sahne p:last-child { margin-bottom: 0; }
@@ -158,7 +157,8 @@ body{
 /* === PANELS === */
 .ch-panel {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: #2e2820; border-bottom: 1px solid rgba(255,255,255,.08);
+  gap: 1px; background: #2e2820;
+  margin-bottom: 4px;
 }
 @media(max-width:560px) { .ch-panel { grid-template-columns: 1fr; } }
 .pbox { padding: 20px; }
@@ -193,7 +193,7 @@ body{
   color:var(--text);
   font-family: 'Lora', serif; font-size: 17px; font-style: italic;
   line-height: 1.95; padding: 28px 32px;
-  border-bottom: 1px solid var(--line);
+  margin-bottom: 4px;
 }
 .ch-devam p { margin-bottom: 14px; }
 .ch-devam p:last-child { margin-bottom: 0; }
@@ -205,11 +205,12 @@ body{
   line-height:1.7;
   font-family: 'Lora', serif; font-style: italic;
   padding: 32px 32px;
-  border-bottom: 1px solid var(--line); letter-spacing: -.01em;
+  margin-bottom: 4px;
+  letter-spacing: -.01em;
 }
 
 /* === TEPKİ === */
-.ch-react { padding: 24px 32px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.ch-react { padding: 24px 32px; margin-bottom: 4px; }
 .ch-react-q { font-family: 'Lora', serif; font-size: 14px; font-style: italic; color: #8A7B67; margin-bottom: 14px; }
 .ch-react-opts { display: flex; flex-wrap: wrap; gap: 8px; }
 .react-opt {
@@ -225,7 +226,7 @@ body{
 .react-opt.sel-kararsiz   { background: var(--surface-2); border-color: var(--text-soft); color: var(--title); }
 
 /* === SORULAR === */
-.ch-sorular { padding: 24px 32px; border-bottom: 1px solid #2e2820; }
+.ch-sorular { padding: 24px 32px; margin-bottom: 4px; }
 .sor-hdr { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6b5840; margin-bottom: 16px; }
 .sor-item { padding: 10px 0; border-bottom: 1px solid #2e2820; display: flex; align-items: baseline; gap: 10px; }
 .sor-item:last-child { border-bottom: none; }
@@ -236,7 +237,7 @@ body{
 }
 
 /* === NOT === */
-.ch-notes { padding: 14px 32px; border-bottom: 1px solid #2e2820; }
+.ch-notes { padding: 14px 32px; margin-bottom: 4px; }
 .note-toggle { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: #6b5840; background: none; border: none; cursor: pointer; letter-spacing: .04em; }
 .note-toggle:hover { color: #8A7B67; }
 .note-area { margin-top: 10px; display: none; }
@@ -247,7 +248,7 @@ body{
 .note-save.saved { background: var(--quran); }
 
 /* === ÖNERİLER === */
-.ch-recs { padding: 20px 32px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.ch-recs { padding: 20px 32px; margin-bottom: 4px; }
 .ch-recs-hdr { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 12px; }
 .rec-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--surface-2); border: 1px solid rgba(255,255,255,.08); border-radius: 2px; cursor: pointer; margin-bottom: 6px; transition: background .15s; }
 .rec-item:hover { background: var(--surface-2); }
@@ -257,7 +258,7 @@ body{
 .rec-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
 /* === FAVORİ === */
-.ch-fav-row { padding: 12px 32px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.ch-fav-row { padding: 12px 32px; margin-bottom: 4px; }
 .fav-btn {
   display: flex; align-items: center; gap: 7px; background: none;
   border: 1.5px solid rgba(255,255,255,.08); border-radius: 4px; padding: 5px 12px;
@@ -268,7 +269,7 @@ body{
 .fav-btn.on { background: rgba(212,176,106,.15); border-color: var(--gold); color: var(--gold); }
 
 /* === NAV === */
-.ch-nav { display: flex; border-bottom: 1px solid #2e2820; }
+.ch-nav { display: flex; }
 .ch-nav-btn { flex: 1; background: none; border: none; border-right: 1px solid #2e2820; padding: 20px 32px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text-soft); cursor: pointer; text-align: left; transition: background .15s; }
 .ch-nav-btn:last-child { border-right: none; text-align: right; }
 .ch-nav-btn:hover { background: #231C17; color: #D4B06A; }
@@ -646,7 +647,7 @@ body {
 #reader > div{
   background:var(--bg);
   border:1px solid var(--line);
-  margin:24px auto;
+  margin:40px auto;
 }
 
 .ch-number {
@@ -2538,6 +2539,31 @@ body {
   font-family:monospace; font-size:7px; color:var(--text-soft);
 }
 
+
+/* ── SECTION SPACING (border yerine nefes) ── */
+.ch-header,
+.ch-sahne,
+.ch-panel,
+.ch-devam,
+.ch-kapanis,
+.ch-react,
+.ch-sorular,
+.ch-notes,
+.ch-recs,
+.ch-fav-row {
+  position: relative;
+}
+.ch-sahne + .ch-panel,
+.ch-panel + .ch-devam,
+.ch-devam + .ch-kapanis,
+.ch-kapanis + .ch-react,
+.ch-react + .ch-sorular,
+.ch-sorular + .ch-notes,
+.ch-notes + .ch-recs,
+.ch-recs + .ch-fav-row,
+.ch-fav-row + .ch-nav {
+  margin-top: 0;
+}
 </style>
 
   <!-- PWA -->
