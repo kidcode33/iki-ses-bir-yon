@@ -545,8 +545,8 @@ body.chapter-rose  { --scene-glow: rgba(160,106,118,.04); }
 
 /* ── Sahne paragrafları — staggered ── */
 .ch-sahne p {
-  opacity: 0;
-  transform: translateY(10px);
+  opacity: 1;
+  transform: none;
   transition: opacity var(--dur-medium) var(--ease-smooth),
               transform var(--dur-medium) var(--ease-premium);
   will-change: opacity, transform;
@@ -591,8 +591,8 @@ body.chapter-rose  { --scene-glow: rgba(160,106,118,.04); }
 
 /* ── Devam paragrafları ── */
 .ch-devam p {
-  opacity: 0;
-  transform: translateY(8px);
+  opacity: 1;
+  transform: none;
   transition: opacity var(--dur-medium) var(--ease-smooth),
               transform var(--dur-medium) var(--ease-premium);
 }
@@ -4642,6 +4642,16 @@ body.phase-4 .jr-item.active .jr-dot {
   padding: 16px 20px;
   background: var(--glow-inset);
   box-shadow: inset 0 0 30px var(--glow-inset);
+}
+
+/* Devam/Sahne scroll stagger — sadece revealed class'ı varsa */
+.ch-devam.revealed p {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.ch-sahne.revealed p {
+  opacity: 1 !important;
+  transform: none !important;
 }
 </style>
 
