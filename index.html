@@ -8,6 +8,865 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ╔══════════════════════════════════════════════════════════════════╗
+   ║  FINAL SCREEN — Cinematic Journey Completion                     ║
+   ╚══════════════════════════════════════════════════════════════════╝ */
+
+/* ── Screen base ── */
+#final-screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-top);
+  background: #0E0B08;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#final-screen.fs-open { display: block; }
+
+/* Layer 2 — radial gold vignette */
+#final-screen::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 50% 20%,
+      rgba(216,180,106,.09) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      transparent 40%,
+      rgba(0,0,0,.60) 100%
+    );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Content container ── */
+#final-content {
+  position: relative;
+  z-index: 2;
+  max-width: 580px;
+  margin: 0 auto;
+  padding: clamp(56px,10vw,96px) clamp(24px,6vw,48px) clamp(64px,10vw,96px);
+}
+
+/* ── Entrance animations ── */
+@keyframes fsItemIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fsBgReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fsLineGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes fsNumberIn {
+  from { opacity: 0; transform: translateY(16px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+.fs-anim { opacity: 0; }
+.fs-anim-1  { animation: fsItemIn 900ms var(--ease-premium) .3s  forwards; }
+.fs-anim-2  { animation: fsItemIn 900ms var(--ease-premium) .6s  forwards; }
+.fs-anim-3  { animation: fsItemIn 900ms var(--ease-premium) .9s  forwards; }
+.fs-anim-4  { animation: fsItemIn 900ms var(--ease-premium) 1.2s forwards; }
+.fs-anim-5  { animation: fsItemIn 900ms var(--ease-premium) 1.5s forwards; }
+.fs-anim-6  { animation: fsItemIn 900ms var(--ease-premium) 1.8s forwards; }
+.fs-anim-7  { animation: fsItemIn 900ms var(--ease-premium) 2.1s forwards; }
+
+/* ── Hero section ── */
+.fs-hero {
+  margin-bottom: 64px;
+}
+.fs-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .20em;
+  text-transform: uppercase;
+  color: rgba(216,180,106,.45);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fs-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(216,180,106,.4), transparent);
+  animation: fsLineGrow 800ms var(--ease-smooth) .5s both;
+  transform-origin: left;
+}
+.fs-title {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: 600;
+  color: var(--color-title);
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  margin-bottom: 20px;
+}
+.fs-title-dim {
+  color: rgba(243,231,210,.35);
+  display: block;
+}
+.fs-intro {
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 2vw, 17px);
+  font-style: italic;
+  line-height: 1.75;
+  color: rgba(215,201,181,.55);
+  max-width: 420px;
+}
+
+/* ── Section label ── */
+.fs-section-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(215,201,181,.3);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+/* ── Stats row ── */
+.fs-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 48px;
+  background: rgba(255,255,255,.04);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.fs-stat {
+  padding: 20px 16px;
+  text-align: center;
+  background: rgba(14,11,8,.8);
+  transition: background var(--dur-base) var(--ease-out);
+}
+.fs-stat:hover { background: rgba(255,255,255,.03); }
+.fs-stat-num {
+  font-family: var(--font-mono);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 600;
+  color: var(--color-gold);
+  letter-spacing: -.03em;
+  line-height: 1;
+  display: block;
+  margin-bottom: 6px;
+  animation: fsNumberIn 700ms var(--ease-premium) .8s both;
+}
+.fs-stat-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(215,201,181,.3);
+  display: block;
+}
+
+/* ── Emotion profile ── */
+.fs-emotions {
+  margin-bottom: 48px;
+}
+.fs-em-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 40px;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.fs-em-name {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--color-title);
+  opacity: .85;
+}
+.fs-em-bar-bg {
+  height: 3px;
+  background: rgba(255,255,255,.06);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.fs-em-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-quran), rgba(158,207,168,.4));
+  transform-origin: left;
+  animation: fsLineGrow 800ms var(--ease-smooth) 1.2s both;
+}
+.fs-em-pct {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(215,201,181,.3);
+  text-align: right;
+}
+
+/* ── React chips ── */
+.fs-reacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+.fs-react-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid;
+  font-family: var(--font-mono);
+}
+.fs-react-chip-num {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+.fs-react-chip-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+/* ── Peak moment card ── */
+.fs-peak {
+  margin-bottom: 48px;
+  border: 1px solid rgba(216,180,106,.14);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow   var(--dur-medium) var(--ease-smooth);
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
+}
+.fs-peak:hover {
+  border-color: rgba(216,180,106,.30);
+  box-shadow: 0 8px 40px rgba(0,0,0,.4), 0 0 24px rgba(216,180,106,.08);
+}
+.fs-peak-header {
+  background: rgba(216,180,106,.05);
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(216,180,106,.08);
+}
+.fs-peak-sure {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  opacity: .7;
+  margin-bottom: 6px;
+}
+.fs-peak-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-title);
+  line-height: 1.3;
+}
+.fs-peak-body {
+  padding: 16px 20px;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(215,201,181,.7);
+  line-height: 1.7;
+}
+
+/* ── Journey map ── */
+.fs-map {
+  margin-bottom: 48px;
+}
+.fs-map-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+  gap: 4px;
+}
+.fs-map-cell {
+  aspect-ratio: 1;
+  border-radius: var(--radius-xs);
+  border: 1px solid rgba(255,255,255,.06);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  color: rgba(255,255,255,.25);
+  transition:
+    transform  var(--dur-base) var(--ease-premium),
+    box-shadow var(--dur-base) var(--ease-smooth),
+    opacity    var(--dur-base) var(--ease-out);
+}
+.fs-map-cell:hover {
+  transform: scale(1.2);
+  z-index: 2;
+}
+.fs-map-cell.read { opacity: 1; }
+.fs-map-cell.unread { opacity: .25; }
+.fs-map-cell.fav {
+  box-shadow: 0 0 0 1.5px var(--color-gold);
+}
+
+/* ── Final quote block ── */
+.fs-quote {
+  position: relative;
+  padding: 48px 0;
+  margin-bottom: 48px;
+  text-align: center;
+}
+.fs-quote::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 48px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  animation: fsLineGrow 900ms var(--ease-smooth) 2s both;
+}
+.fs-quote::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 48px; height: 1px;
+  background: rgba(255,255,255,.06);
+}
+.fs-quote-text {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 4vw, 28px);
+  font-style: italic;
+  color: var(--color-title);
+  line-height: 1.55;
+  letter-spacing: -.01em;
+  margin-bottom: 24px;
+  text-shadow: 0 0 60px rgba(216,180,106,.10);
+}
+.fs-quote-sub {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: rgba(215,201,181,.4);
+  line-height: 1.7;
+}
+
+/* ── Action buttons ── */
+.fs-actions {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+.fs-btn-primary {
+  background: var(--color-gold);
+  color: #1a1108;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px var(--space-3);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--motion-lift);
+  box-shadow: 0 4px 20px rgba(216,180,106,.20);
+}
+.fs-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(216,180,106,.30);
+}
+.fs-btn-secondary {
+  background: transparent;
+  color: rgba(215,201,181,.5);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-sm);
+  padding: 14px var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--motion-color), border-color var(--dur-fast) var(--ease-out);
+}
+.fs-btn-secondary:hover {
+  color: rgba(215,201,181,.85);
+  border-color: rgba(255,255,255,.16);
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .fs-stats { grid-template-columns: repeat(3, 1fr); }
+  .fs-em-row { grid-template-columns: 80px 1fr 32px; gap: 8px; }
+  .fs-map-grid { grid-template-columns: repeat(auto-fill, minmax(22px, 1fr)); gap: 3px; }
+}
+
+
+/* ╔══════════════════════════════════════════════════════════════════╗
+   ║  DUAL WORLD SYSTEM                                               ║
+   ║                                                                  ║
+   ║  QURAN  → spiritual · warm dark · mint glow · introspective     ║
+   ║  NUTUK  → strategic · cold surface · steel light · disciplined  ║
+   ║                                                                  ║
+   ║  Transitions: cinematic, 600-900ms, smooth easing               ║
+   ╚══════════════════════════════════════════════════════════════════╝ */
+
+/* ══════════════════════════════════════════════════
+   WORLD TOKENS — extended palette
+   ══════════════════════════════════════════════════ */
+:root {
+  /* Quran world — warm dark, spiritual mint */
+  --world-q-bg:           #1C1510;   /* warmer than global */
+  --world-q-surface:      #261D17;   /* amber-dark undertone */
+  --world-q-surface-2:    #2E2419;
+  --world-q-text:         #E2D5C0;   /* warm ivory */
+  --world-q-text-soft:    #A89880;   /* warm grey */
+  --world-q-glow-near:    rgba(158,207,168,.12);
+  --world-q-glow-mid:     rgba(158,207,168,.20);
+  --world-q-glow-far:     rgba(158,207,168,.06);
+  --world-q-border:       rgba(158,207,168,.14);
+  --world-q-shadow:       0 8px 40px rgba(0,0,0,.35), 0 0 60px rgba(158,207,168,.06);
+
+  /* Nutuk world — cold dark, steel blue */
+  --world-n-bg:           #161A1F;   /* cooler than global */
+  --world-n-surface:      #1E2530;   /* cold dark blue */
+  --world-n-surface-2:    #242C38;
+  --world-n-text:         #C8D4E0;   /* cool steel */
+  --world-n-text-soft:    #6E8098;   /* muted steel */
+  --world-n-glow-near:    rgba(110,143,184,.10);
+  --world-n-glow-mid:     rgba(110,143,184,.18);
+  --world-n-glow-far:     rgba(110,143,184,.05);
+  --world-n-border:       rgba(110,143,184,.14);
+  --world-n-shadow:       0 8px 40px rgba(0,0,0,.4), 0 0 60px rgba(110,143,184,.05);
+}
+
+/* ══════════════════════════════════════════════════
+   WORLD TRANSITION SPEED
+   Reader container handles the crossfade
+   ══════════════════════════════════════════════════ */
+
+#reader > div {
+  transition:
+    background-color 800ms var(--ease-smooth),
+    box-shadow       800ms var(--ease-smooth);
+}
+
+/* ══════════════════════════════════════════════════
+   QURAN PANEL — spiritual · warm · introspective
+   ══════════════════════════════════════════════════ */
+
+.pbox-q {
+  /* Warm dark surface — amber undertone */
+  background: linear-gradient(
+    150deg,
+    rgba(158,207,168,.09)  0%,
+    rgba(30,22,16,.6)      50%,
+    rgba(158,207,168,.05) 100%
+  );
+
+  /* Mint left border — 3px, alive */
+  border-left: 3px solid var(--color-quran);
+  border-top: 1px solid rgba(158,207,168,.10);
+  border-bottom: 1px solid rgba(0,0,0,.2);
+
+  /* Layered shadows — warm lift */
+  box-shadow:
+    inset 0 1px 0 rgba(158,207,168,.14),
+    inset 0 0 60px rgba(158,207,168,.05),
+    inset -1px 0 0 rgba(0,0,0,.2),
+    0 4px 24px rgba(0,0,0,.25);
+
+  backdrop-filter: blur(8px) saturate(130%) brightness(1.04);
+  -webkit-backdrop-filter: blur(8px) saturate(130%) brightness(1.04);
+
+  transition:
+    background  700ms var(--ease-smooth),
+    box-shadow  700ms var(--ease-smooth),
+    border-color 500ms var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Quran ambient — soft top-right, warm mint orb */
+.pbox-q::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -15%;
+  width: 150%; height: 150%;
+  background: radial-gradient(
+    ellipse 50% 50% at 75% 15%,
+    rgba(158,207,168,.10) 0%,
+    rgba(158,207,168,.03) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: opacity 700ms var(--ease-smooth);
+}
+
+/* Quran top shimmer line */
+.pbox-q::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(158,207,168,.25) 40%,
+    rgba(158,207,168,.35) 50%,
+    rgba(158,207,168,.25) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.pbox-q:hover {
+  background: linear-gradient(
+    150deg,
+    rgba(158,207,168,.14)  0%,
+    rgba(30,22,16,.5)      50%,
+    rgba(158,207,168,.08) 100%
+  );
+  border-left-color: rgba(158,207,168,.60);
+  box-shadow:
+    inset 0 1px 0 rgba(158,207,168,.22),
+    inset 0 0 80px rgba(158,207,168,.07),
+    0 0 36px rgba(158,207,168,.12),
+    0 8px 32px rgba(0,0,0,.3);
+}
+
+/* Quran label — mint, soft */
+.pbox-q .pbox-label {
+  color: var(--color-quran);
+  opacity: .9;
+  letter-spacing: .16em;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* Quran text — warm ivory */
+.pbox-q .pbox-text {
+  color: #D4ECD8;
+  line-height: 1.88;
+  text-shadow: 0 1px 12px rgba(0,0,0,.35);
+  font-size: 13.5px;
+}
+
+/* ══════════════════════════════════════════════════
+   NUTUK PANEL — strategic · cold · disciplined
+   ══════════════════════════════════════════════════ */
+
+.pbox-n {
+  /* Cold dark surface — steel blue undertone */
+  background: linear-gradient(
+    150deg,
+    rgba(110,143,184,.08)  0%,
+    rgba(16,22,32,.65)     50%,
+    rgba(110,143,184,.04) 100%
+  );
+
+  /* Steel left border — precise */
+  border-left: 3px solid var(--color-nutuk);
+  border-top: 1px solid rgba(110,143,184,.08);
+  border-bottom: 1px solid rgba(0,0,0,.25);
+
+  /* Sharper shadows — cold weight */
+  box-shadow:
+    inset 0 1px 0 rgba(110,143,184,.12),
+    inset 0 0 50px rgba(110,143,184,.04),
+    inset -1px 0 0 rgba(0,0,0,.3),
+    0 4px 24px rgba(0,0,0,.3),
+    0 1px 0 rgba(0,0,0,.4);
+
+  backdrop-filter: blur(10px) saturate(110%) brightness(.98);
+  -webkit-backdrop-filter: blur(10px) saturate(110%) brightness(.98);
+
+  transition:
+    background  700ms var(--ease-smooth),
+    box-shadow  700ms var(--ease-smooth),
+    border-color 500ms var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Nutuk ambient — cold bottom-left, steel orb */
+.pbox-n::before {
+  content: '';
+  position: absolute;
+  bottom: -40%; left: -15%;
+  width: 140%; height: 140%;
+  background: radial-gradient(
+    ellipse 45% 45% at 20% 85%,
+    rgba(110,143,184,.09) 0%,
+    rgba(110,143,184,.03) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: opacity 700ms var(--ease-smooth);
+}
+
+/* Nutuk top shimmer — colder, more precise */
+.pbox-n::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(110,143,184,.20) 40%,
+    rgba(110,143,184,.30) 50%,
+    rgba(110,143,184,.20) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.pbox-n:hover {
+  background: linear-gradient(
+    150deg,
+    rgba(110,143,184,.13)  0%,
+    rgba(16,22,32,.55)     50%,
+    rgba(110,143,184,.07) 100%
+  );
+  border-left-color: rgba(110,143,184,.60);
+  box-shadow:
+    inset 0 1px 0 rgba(110,143,184,.20),
+    inset 0 0 60px rgba(110,143,184,.06),
+    0 0 30px rgba(110,143,184,.10),
+    0 8px 32px rgba(0,0,0,.35);
+}
+
+/* Nutuk label — steel, wider tracking */
+.pbox-n .pbox-label {
+  color: var(--color-nutuk);
+  opacity: .9;
+  letter-spacing: .22em;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Nutuk text — cool steel blue */
+.pbox-n .pbox-text {
+  color: #B8CCE0;
+  line-height: 1.82;
+  letter-spacing: .008em;
+  text-shadow: 0 1px 8px rgba(0,0,0,.4);
+  font-size: 13.5px;
+}
+
+/* ══════════════════════════════════════════════════
+   PANEL DIVIDER — the membrane between worlds
+   ══════════════════════════════════════════════════ */
+
+.ch-panel {
+  /* Gradient gap: quran-mint → nutuk-steel */
+  background: linear-gradient(
+    90deg,
+    rgba(158,207,168,.20) 0%,
+    rgba(158,207,168,.08) 48%,
+    rgba(110,143,184,.08) 52%,
+    rgba(110,143,184,.20) 100%
+  );
+  gap: 2px;
+}
+
+/* ══════════════════════════════════════════════════
+   SCENE-AWARE BODY — ambient world bleeds into page
+   Much stronger values than before
+   ══════════════════════════════════════════════════ */
+
+/* body::after carries the scene glow */
+body::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    var(--scene-glow, transparent) 0%,
+    transparent 65%
+  );
+  transition: background 900ms var(--ease-smooth);
+  opacity: .8;
+}
+
+/* Quran scene — warm mint wash */
+body[data-scene="kuran"] {
+  --scene-glow: rgba(158,207,168,.09);
+}
+body[data-scene="kuran"] .ch-devam,
+body[data-scene="kuran"] ~ * .ch-devam {
+  color: var(--world-q-text);
+}
+
+/* Nutuk scene — cold steel wash */
+body[data-scene="nutuk"] {
+  --scene-glow: rgba(110,143,184,.08);
+}
+
+/* Kapanis — gold peak */
+body[data-scene="kapanis"] {
+  --scene-glow: rgba(216,180,106,.10);
+}
+
+/* ── Chapter-level body themes ── */
+
+/* Quran chapter — warm dark bg hint */
+body.chapter-quran {
+  --scene-glow: rgba(158,207,168,.05);
+}
+body.chapter-quran #reader > div {
+  background-image: linear-gradient(
+    180deg,
+    rgba(158,207,168,.025) 0%,
+    transparent 200px
+  );
+}
+
+/* Nutuk chapter — not applicable (nutuk always co-exists) */
+/* Gold chapter */
+body.chapter-gold {
+  --scene-glow: rgba(216,180,106,.06);
+}
+body.chapter-gold #reader > div {
+  background-image: linear-gradient(
+    180deg,
+    rgba(216,180,106,.03) 0%,
+    transparent 200px
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   AMBIENT GLOW BAR — stronger, thematic
+   ══════════════════════════════════════════════════ */
+
+#ambient-glow {
+  transition:
+    background  900ms var(--ease-smooth),
+    box-shadow  900ms var(--ease-smooth),
+    height      600ms var(--ease-smooth);
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: var(--layer-ambience);
+}
+
+#ambient-glow.glow-quran {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent   0%,
+    rgba(158,207,168,.6) 30%,
+    rgba(158,207,168,.9) 50%,
+    rgba(158,207,168,.6) 70%,
+    transparent  100%
+  );
+  box-shadow:
+    0 0 24px 4px rgba(158,207,168,.20),
+    0 0 60px 8px rgba(158,207,168,.08);
+}
+
+#ambient-glow.glow-nutuk {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent  0%,
+    rgba(110,143,184,.5) 30%,
+    rgba(110,143,184,.8) 50%,
+    rgba(110,143,184,.5) 70%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 24px 4px rgba(110,143,184,.18),
+    0 0 60px 8px rgba(110,143,184,.07);
+}
+
+#ambient-glow.glow-off {
+  background: transparent;
+  box-shadow: none;
+  height: 2px;
+}
+
+/* ══════════════════════════════════════════════════
+   TYPOGRAPHY — world-responsive
+   Quran: warmer, slightly softer
+   Nutuk: crisper, slightly tighter
+   ══════════════════════════════════════════════════ */
+
+/* Quran label — spiritual identifier */
+.pbox-q .pbox-label::before {
+  content: '';
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--color-quran);
+  opacity: .6;
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: worldDotQ 4s ease-in-out infinite;
+}
+@keyframes worldDotQ {
+  0%, 100% { opacity: .4; transform: scale(1); }
+  50%       { opacity: .9; transform: scale(1.3); }
+}
+
+/* Nutuk label — historical identifier */
+.pbox-n .pbox-label::before {
+  content: '';
+  display: inline-block;
+  width: 4px; height: 8px;
+  border-radius: 1px;
+  background: var(--color-nutuk);
+  opacity: .6;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ══════════════════════════════════════════════════
+   SCROLL SCENE TRANSITION
+   JS tarafından data-scene set edilince
+   smooth cinematic crossfade
+   ══════════════════════════════════════════════════ */
+
+/* Sahne bölümü — pre-panel, warm/neutral */
+body[data-scene="sahne"]  { --scene-glow: rgba(216,180,106,.06); }
+body[data-scene="devam"]  { --scene-glow: rgba(216,180,106,.05); }
+body[data-scene="idle"]   { --scene-glow: transparent; }
+
+/* ══════════════════════════════════════════════════
+   MOBILE — preserve world feeling
+   ══════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .pbox-q, .pbox-n {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .ch-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ╔══════════════════════════════════════════════════════════════════╗
    ║  FINAL PREMIUM POLISH                                            ║
    ║  micro-interactions · typography · consistency · world-class    ║
    ╚══════════════════════════════════════════════════════════════════╝ */
@@ -7590,94 +8449,202 @@ function openFinalScreen() {
   const allReacts  = Store.getAllReacts();
   const favs       = Store.getFavs();
   const readCount  = Store.getReadCount();
+  const favSet     = new Set(favs);
 
-  // Duygu profili
+  // ── Duygu profili ──
   const emCount = {};
   Object.keys(Store.get('read',{})).forEach(id => {
-    const c = CHAPTERS.find(x=>x.id===parseInt(id));
-    if(c) (c.emotions||[]).forEach(em => { emCount[em]=(emCount[em]||0)+1; });
+    const c = CHAPTERS.find(x => x.id === parseInt(id));
+    if (c) (c.emotions||[]).forEach(em => { emCount[em] = (emCount[em]||0) + 1; });
   });
-  const emProfile = Object.entries(emCount).sort((a,b)=>b[1]-a[1]);
+  const emProfile = Object.entries(emCount).sort((a,b) => b[1] - a[1]);
+  const emTotal   = Object.values(emCount).reduce((a,b) => a+b, 1);
 
-  // Tepki profili
-  const reactCount = {dusundurdu:0,motive:0,uzdu:0,sasirtti:0,kararsiz:0};
-  Object.values(allReacts).forEach(v => { if(v&&reactCount[v]!==undefined) reactCount[v]++; });
-  const reactTotal = Object.values(reactCount).reduce((a,b)=>a+b,0);
-  const domReact = reactTotal ? Object.entries(reactCount).sort((a,b)=>b[1]-a[1])[0][0] : 'default';
+  // ── Tepki profili ──
+  const RCOL = {
+    dusundurdu: 'var(--color-quran)',
+    motive:     'var(--color-gold)',
+    uzdu:       'var(--color-rose)',
+    sasirtti:   'var(--color-quran)',
+    kararsiz:   'var(--color-text-soft)'
+  };
+  const RLBL = {
+    dusundurdu:'Düşündürdü', motive:'Motive etti',
+    uzdu:'Üzdü', sasirtti:'Şaşırttı', kararsiz:'Kararsız'
+  };
+  const reactCount = {dusundurdu:0, motive:0, uzdu:0, sasirtti:0, kararsiz:0};
+  Object.values(allReacts).forEach(v => {
+    if (v && reactCount[v] !== undefined) reactCount[v]++;
+  });
+  const reactTotal  = Object.values(reactCount).reduce((a,b) => a+b, 0);
+  const domReact    = reactTotal
+    ? Object.entries(reactCount).sort((a,b) => b[1]-a[1])[0][0]
+    : 'default';
 
-  // Peak moment
-  let peakId = favs[0]||1, maxNote=0;
-  for(let i=1;i<=89;i++) { const n=Store.getNote(i); if(n&&n.length>maxNote) { maxNote=n.length; peakId=i; } }
-  const peak = CHAPTERS.find(x=>x.id===peakId);
+  // ── Peak moment ──
+  let peakId = favs[0]||1, maxNote = 0;
+  for (let i = 1; i <= 89; i++) {
+    const n = Store.getNote(i);
+    if (n && n.length > maxNote) { maxNote = n.length; peakId = i; }
+  }
+  const peak = CHAPTERS.find(x => x.id === peakId);
 
-  const ECOL = {kararlılık:'var(--quran)',cesaret:'var(--rose)',sabır:'var(--quran)',yüzleşme:'#D4B06A',ihanet:'var(--rose)',umut:'var(--quran)',şükür:'#D4B06A',yalnızlık:'var(--quran)'};
-  const RCOL = {dusundurdu:'var(--quran)',motive:'var(--gold)',uzdu:'var(--rose)',sasirtti:'var(--quran)',kararsiz:'var(--text-soft)'};
-  const RLBL = {dusundurdu:'Düşündürdü',motive:'Motive etti',uzdu:'Üzdü',sasirtti:'Şaşırttı',kararsiz:'Kararsız'};
-
-  const maxEm = emProfile[0]?.[1]||1;
-  const emHTML = emProfile.slice(0,6).map(([em,n])=>`
-    <div style="display:grid;grid-template-columns:100px 1fr 36px;gap:12px;align-items:center;margin-bottom:10px">
-      <span style="font-family:Georgia,serif;font-size:15px;color:#F3E7D2">${em}</span>
-      <div style="height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden">
-        <div style="height:100%;width:${n/maxEm*100}%;background:${ECOL[em]||'var(--quran)'};border-radius:3px"></div>
-      </div>
-      <span style="font-family:monospace;font-size:11px;color:#8A7B67;text-align:right">%${Math.round(n/(Object.values(emCount).reduce((a,b)=>a+b,1))*100)}</span>
-    </div>`).join('');
-
-  const reactHTML = Object.entries(reactCount).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`
-    <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:40px;border:1.5px solid ${RCOL[k]||'rgba(255,255,255,.08)'};background:${RCOL[k]||'var(--quran)'}18;margin-bottom:8px">
-      <span style="font-family:monospace;font-size:20px;font-weight:700;color:${RCOL[k]}">${n}</span>
-      <span style="font-family:monospace;font-size:11px;color:${RCOL[k]}">${RLBL[k]}</span>
-    </div>`).join('');
-
-  const favSet = new Set(favs);
-  const mapHTML = Array.from({length:89},(_,i)=>{
-    const id=i+1, r=allReacts[id]||allReacts[String(id)];
-    const bg=r?({dusundurdu:'rgba(88,109,136,.15)',motive:'rgba(212,176,106,.15)',uzdu:'rgba(160,106,118,.15)',sasirtti:'rgba(138,163,146,.15)',kararsiz:'rgba(138,123,103,.15)'}[r]||'rgba(138,123,103,.15)'):'var(--surface)';
-    const border=r?(RCOL[r]+'44'):'rgba(255,255,255,.08)';
-    const shadow=favSet.has(id)?'box-shadow:0 0 0 1.5px #D4B06A;':'';
-    return `<div style="aspect-ratio:1;border-radius:3px;background:${bg};border:1px solid ${border};${shadow}cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:7px;color:#8A7B67"
-                  onclick="closeFinalScreen();render(${id})" title="B${id}">${id}</div>`;
-  }).join('');
-
-  const introText = readCount>0
-    ? `${readCount} bölüm okudun${emProfile[0]?', en çok '+emProfile[0][0]+' hissettin':''}.${Store.getFavs().length?' '+Store.getFavs().length+' favori.':''} `
+  // ── Intro sentence ──
+  const introText = readCount > 0
+    ? `${readCount} bölüm okudun${emProfile[0] ? ', en çok <em>' + emProfile[0][0] + '</em> hissettin' : ''}.`
     : 'Yolculuğun tamamlandı.';
 
-  document.getElementById('final-content').innerHTML = `
-    <div style="margin-bottom:52px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:16px">İki Ses, Bir Yön · Tamamlandı</div>
-      <div style="font-family:Georgia,serif;font-size:48px;font-weight:500;color:#F3E7D2;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px">Senin<br>Yolculuğun</div>
-      <div style="font-family:Georgia,serif;font-size:16px;font-style:italic;color:#D7C9B5;line-height:1.7">${introText}</div>
-    </div>
-    ${emProfile.length?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7B67;margin-bottom:16px">Duygusal Profil</div>${emHTML}</div>`:''}`+`
-    ${reactTotal?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7B67;margin-bottom:16px">Tepkilerin</div>${reactHTML}</div>`:''}`+`
-    ${peak?`<div style="margin-bottom:40px"><div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7B67;margin-bottom:12px">Öne Çıkan An</div>
-      <div style="border:1px solid rgba(255,255,255,.08);border-radius:2px;overflow:hidden;cursor:pointer" onclick="closeFinalScreen();render(${peak.id})">
-        <div style="background:#1e1a12;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.08)">
-          <div style="font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#D4B06A;margin-bottom:4px">${peak.sure}</div>
-          <div style="font-family:Georgia,serif;font-size:16px;font-weight:500;color:#F3E7D2">${peak.title}</div>
-        </div>
-        <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#D7C9B5;padding:12px 18px;line-height:1.65">${peak.kapanis||''}</div>
+  // ══════════════════════════════════════
+  // HTML SECTIONS
+  // ══════════════════════════════════════
+
+  // Hero
+  const heroHTML = `
+    <div class="fs-hero fs-anim fs-anim-1">
+      <div class="fs-eyebrow">İki Ses, Bir Yön · Tamamlandı</div>
+      <div class="fs-title">
+        Senin<br>
+        <span class="fs-title-dim">Yolculuğun.</span>
       </div>
-    </div>`:''}`+`
-    <div style="margin-bottom:40px">
-      <div style="font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8A7B67;margin-bottom:12px">Yolculuk Haritası</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(24px,1fr));gap:3px">${mapHTML}</div>
-    </div>
-    <div style="font-family:Georgia,serif;font-size:24px;font-style:italic;color:#F3E7D2;line-height:1.6;padding:32px 0;border-top:2px solid #F3E7D2;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px;text-align:center">
-      ${(FINAL_WORD[domReact]||FINAL_WORD.default)}
-      <div style="font-family:Georgia,serif;font-size:16px;color:#8A7B67;margin-top:20px;font-style:normal">89 bölüm. İki ses. Bir yön.<br>Yön senin içindeydi.</div>
-    </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button onclick="closeFinalScreen();openSystem('kitabim')" style="background:#F3E7D2;color:#1B1511;border:none;border-radius:2px;padding:13px 28px;font-family:Georgia,serif;font-size:15px;font-weight:500;cursor:pointer">Benim Kitabım'ı Gör</button>
-      <button onclick="closeFinalScreen();render(1)" style="background:none;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:13px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A7B67;cursor:pointer">Baştan Oku</button>
-      <button onclick="closeFinalScreen()" style="background:none;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:13px 20px;font-family:monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A7B67;cursor:pointer">Kapat</button>
+      <div class="fs-intro">${introText}</div>
     </div>`;
 
-  document.getElementById('final-screen').style.display = 'block';
-  document.getElementById('toolbar').style.opacity = '0';
-  document.getElementById('float-nav').style.opacity = '0';
+  // Stats
+  const statsHTML = `
+    <div class="fs-anim fs-anim-2">
+      <div class="fs-section-label">İstatistikler</div>
+      <div class="fs-stats">
+        <div class="fs-stat">
+          <span class="fs-stat-num">${readCount}</span>
+          <span class="fs-stat-label">Bölüm</span>
+        </div>
+        <div class="fs-stat">
+          <span class="fs-stat-num">${favs.length}</span>
+          <span class="fs-stat-label">Favori</span>
+        </div>
+        <div class="fs-stat">
+          <span class="fs-stat-num">${reactTotal}</span>
+          <span class="fs-stat-label">Tepki</span>
+        </div>
+      </div>
+    </div>`;
+
+  // Emotion profile
+  const maxEm = emProfile[0]?.[1] || 1;
+  const emHTML = emProfile.length ? `
+    <div class="fs-emotions fs-anim fs-anim-3">
+      <div class="fs-section-label">Duygusal Profil</div>
+      ${emProfile.slice(0,6).map(([em, n]) => `
+        <div class="fs-em-row">
+          <span class="fs-em-name">${em}</span>
+          <div class="fs-em-bar-bg">
+            <div class="fs-em-bar-fill" style="width:${n/maxEm*100}%"></div>
+          </div>
+          <span class="fs-em-pct">%${Math.round(n/emTotal*100)}</span>
+        </div>`).join('')}
+    </div>` : '';
+
+  // React chips
+  const reactHTML = reactTotal ? `
+    <div class="fs-anim fs-anim-4">
+      <div class="fs-section-label">Tepkilerin</div>
+      <div class="fs-reacts">
+        ${Object.entries(reactCount)
+          .filter(([,n]) => n > 0)
+          .sort((a,b) => b[1]-a[1])
+          .map(([k,n]) => `
+            <div class="fs-react-chip" style="
+              color:${RCOL[k]};
+              border-color:${RCOL[k]}44;
+              background:${RCOL[k]}18">
+              <span class="fs-react-chip-num">${n}</span>
+              <span class="fs-react-chip-lbl">${RLBL[k]}</span>
+            </div>`).join('')}
+      </div>
+    </div>` : '';
+
+  // Peak moment
+  const peakHTML = peak ? `
+    <div class="fs-anim fs-anim-5">
+      <div class="fs-section-label">Öne Çıkan An</div>
+      <div class="fs-peak" onclick="closeFinalScreen();render(${peak.id})">
+        <div class="fs-peak-header">
+          <div class="fs-peak-sure">${peak.sure}</div>
+          <div class="fs-peak-title">${peak.title}</div>
+        </div>
+        <div class="fs-peak-body">${peak.kapanis||''}</div>
+      </div>
+    </div>` : '';
+
+  // Journey map
+  const mapCells = Array.from({length:89}, (_,i) => {
+    const id  = i + 1;
+    const r   = allReacts[id] || allReacts[String(id)];
+    const isRead = !!Store.get('read',{})[id];
+    const isFav  = favSet.has(id);
+    const BG = {
+      dusundurdu: 'rgba(110,143,184,.20)',
+      motive:     'rgba(216,180,106,.20)',
+      uzdu:       'rgba(160,106,118,.20)',
+      sasirtti:   'rgba(158,207,168,.20)',
+      kararsiz:   'rgba(138,123,103,.15)',
+    };
+    const bg     = r ? (BG[r]||'rgba(255,255,255,.06)') : 'rgba(255,255,255,.03)';
+    const border = r ? (RCOL[r]+'44') : 'rgba(255,255,255,.06)';
+    return `<div
+      class="fs-map-cell ${isRead?'read':'unread'} ${isFav?'fav':''}"
+      style="background:${bg};border-color:${border}"
+      onclick="closeFinalScreen();render(${id})"
+      title="B${id} · ${CHAPTERS[i]?.sure||''}">
+        ${id}
+      </div>`;
+  }).join('');
+
+  const mapHTML = `
+    <div class="fs-map fs-anim fs-anim-6">
+      <div class="fs-section-label">Yolculuk Haritası</div>
+      <div class="fs-map-grid">${mapCells}</div>
+    </div>`;
+
+  // Final quote
+  const quoteText = FINAL_WORD[domReact] || FINAL_WORD.default;
+  const quoteHTML = `
+    <div class="fs-quote fs-anim fs-anim-7">
+      <div class="fs-quote-text">${quoteText}</div>
+      <div class="fs-quote-sub">89 bölüm. İki ses. Bir yön.<br>Yön senin içindeydi.</div>
+    </div>`;
+
+  // Actions
+  const actionsHTML = `
+    <div class="fs-actions fs-anim fs-anim-7">
+      <button class="fs-btn-primary"
+        onclick="closeFinalScreen();openSystem('kitabim')">
+        Benim Kitabım'ı Gör
+      </button>
+      <button class="fs-btn-secondary"
+        onclick="closeFinalScreen();render(1)">
+        Baştan Oku
+      </button>
+      <button class="fs-btn-secondary"
+        onclick="closeFinalScreen()">
+        Kapat
+      </button>
+    </div>`;
+
+  // ── Mount ──
+  document.getElementById('final-content').innerHTML =
+    heroHTML + statsHTML + emHTML + reactHTML + peakHTML + mapHTML + quoteHTML + actionsHTML;
+
+  // ── Open ──
+  const fs = document.getElementById('final-screen');
+  fs.classList.add('fs-open');
+  fs.scrollTop = 0;
+
+  // Hide toolbar/nav
+  const tb = document.getElementById('toolbar');
+  const fn = document.getElementById('float-nav');
+  if (tb) tb.style.opacity = '0';
+  if (fn) fn.style.opacity = '0';
 }
 
 function closeFinalScreen() {
