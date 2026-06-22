@@ -8,6 +8,45 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ╔══════════════════════════════════════════════════════════════════╗
+   ║  COVER → READER CINEMATIC TRANSITION                             ║
+   ╚══════════════════════════════════════════════════════════════════╝ */
+
+/* Cover exit */
+#cover-screen {
+  transition:
+    opacity    700ms var(--ease-smooth),
+    filter     700ms var(--ease-smooth),
+    transform  700ms var(--ease-smooth);
+  will-change: opacity, filter, transform;
+}
+#cover-screen.cover-exit {
+  opacity:   0;
+  filter:    blur(6px);
+  transform: scale(1.03);
+  pointer-events: none;
+}
+
+/* Reader enter */
+#reader.reader-enter {
+  opacity:   0;
+  transform: translateY(16px);
+  filter:    blur(3px);
+}
+#reader {
+  transition:
+    opacity    750ms var(--ease-premium) 200ms,
+    transform  750ms var(--ease-premium) 200ms,
+    filter     600ms var(--ease-smooth)  200ms;
+  will-change: opacity, transform, filter;
+}
+#reader.reader-entered {
+  opacity:   1;
+  transform: none;
+  filter:    none;
+}
+
+
+/* ╔══════════════════════════════════════════════════════════════════╗
    ║  HERO UPGRADE — Cinematic Premium Cover                          ║
    ║  depth · grain · breathing · moving ambience · impact           ║
    ╚══════════════════════════════════════════════════════════════════╝ */
@@ -9716,34 +9755,64 @@ window.addEventListener('DOMContentLoaded', function() {
    ════════════════════════════════════════════════════════ */
 
 function coverStart() {
-  // Kapağı kapat → onboarding'e geç
   const cover = document.getElementById('cover-screen');
-  cover.style.transition = 'opacity .5s ease';
-  cover.style.opacity = '0';
+
+  // Cover exit — blur + scale + fade
+  cover.classList.add('cover-exit');
+
   setTimeout(() => {
     cover.style.display = 'none';
-    // Onboarding'i aç
+    cover.classList.remove('cover-exit');
+
+    // Onboarding varsa — reader transition gerek yok
     const ob = document.getElementById('onboarding');
     if (ob) {
       ob.style.display = 'block';
       const first = document.getElementById('ob-1');
       if (first) first.classList.add('active');
     } else {
-      // Onboarding yoksa direkt B1
-      render(1);
+      readerEnter(1);
     }
-  }, 500);
+  }, 700);
+}
+/* ── Cover → Reader cinematic entry ── */
+function readerEnter(id) {
+  const reader = document.getElementById('reader');
+
+  // Hazırla — görünmez, aşağıda, bulanık
+  reader.classList.add('reader-enter');
+  reader.classList.remove('reader-entered');
+
+  // Chapter'ı render et
+  render(id);
+
+  // Bir frame bekle → CSS transition başlasın
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      reader.classList.remove('reader-enter');
+      reader.classList.add('reader-entered');
+
+      // Transition bitince cleanup
+      setTimeout(() => {
+        reader.classList.remove('reader-entered');
+        reader.style.willChange = 'auto';
+      }, 1000);
+    });
+  });
 }
 
 function coverContinue() {
-  const last = Store.get('last', 1);
+  const last  = Store.get('last', 1);
   const cover = document.getElementById('cover-screen');
-  cover.style.transition = 'opacity .5s ease';
-  cover.style.opacity = '0';
+
+  // Cover exit
+  cover.classList.add('cover-exit');
+
   setTimeout(() => {
     cover.style.display = 'none';
-    render(last >= 1 && last <= 89 ? last : 1);
-  }, 500);
+    cover.classList.remove('cover-exit');
+    readerEnter(last >= 1 && last <= 89 ? last : 1);
+  }, 700);
 }
 
 function initCoverScreen() {
