@@ -7,6 +7,46 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ══════════════════════════════════════════════════
+   COVER / READER VISIBILITY FIX
+   İkisi aynı anda görünmesin
+   ══════════════════════════════════════════════════ */
+
+/* Cover screen — her zaman fixed, tam kaplar */
+#cover-screen {
+  display: flex;     /* override inline style */
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--layer-top) + 50);  /* 550 */
+}
+
+/* Cover kapatılınca display:none JS ile set eder */
+#cover-screen[style*="display: none"],
+#cover-screen[style*="display:none"] {
+  display: none !important;
+}
+
+/* Reader — cover açıkken arkaplanda kalmasın */
+body.cover-open #reader,
+body.cover-open #journey-rail,
+body.cover-open #float-nav,
+body.cover-open #audio-bar,
+body.cover-open #toolbar {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Reader — cover kapanınca görünür */
+body:not(.cover-open) #reader,
+body:not(.cover-open) #journey-rail,
+body:not(.cover-open) #float-nav,
+body:not(.cover-open) #audio-bar,
+body:not(.cover-open) #toolbar {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+
 /* ╔══════════════════════════════════════════════════════════════════╗
    ║  HERO MASTER CSS — Tek kaynak, çakışma yok                      ║
    ║  depth · grain · breathing · cinematic typography               ║
@@ -6747,7 +6787,7 @@ body.phase-4 .jr-item.active .jr-dot {
 
 
 <!-- KAPAK EKRANI -->
-<div id="cover-screen" style="display:flex;flex-direction:column">
+<div id="cover-screen">
 
   <!-- Layer 1: Background image -->
   <div class="cover-bg" style="background-image:url('kapak_web.jpg')"></div>
@@ -8470,6 +8510,7 @@ function coverStart() {
   setTimeout(() => {
     cover.style.display = 'none';
     cover.classList.remove('cover-exit');
+    document.body.classList.remove('cover-open');
 
     // Onboarding varsa — reader transition gerek yok
     const ob = document.getElementById('onboarding');
@@ -8518,6 +8559,7 @@ function coverContinue() {
   setTimeout(() => {
     cover.style.display = 'none';
     cover.classList.remove('cover-exit');
+    document.body.classList.remove('cover-open');
     readerEnter(last >= 1 && last <= 89 ? last : 1);
   }, 700);
 }
@@ -9229,6 +9271,9 @@ document.head.appendChild(celebStyle);
 
 // Sayfa yüklenince güncelle
 document.addEventListener('DOMContentLoaded', () => {
+  // Cover açık başlıyor — body'i işaretle
+  document.body.classList.add('cover-open');
+
   setTimeout(updateEvreMini, 300);
 });
 
