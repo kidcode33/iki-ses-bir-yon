@@ -8,6 +8,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════════════════
+   GLOBAL DARK BASE — tüm cascade'i geçersiz kıl
+   ══════════════════════════════════════════════════ */
+html {
+  background: #0A0806;
+}
+body {
+  background: #0A0806;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0; padding: 0;
+}
+
+/* Onboarding — koyu, premium */
+#onboarding {
+  background: #0A0806;
+}
+.ob-screen {
+  background: transparent;
+  color: var(--color-text);
+}
+#ob-1, #ob-2, #ob-3 {
+  background: transparent;
+}
+.ob-title {
+  color: var(--color-title);
+}
+.ob-text {
+  color: rgba(215,201,181,.75);
+}
+.ob-icon {
+  color: var(--color-gold);
+  font-size: 32px;
+  display: block;
+  margin-bottom: 16px;
+}
+.ob-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+
+/* ══ BODY BASE — OVERRIDE ══ */
+html, body {
+  background: #0A0806 !important;
+  color: var(--color-text);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* ══ ONBOARDING DARK MODE FIX ══ */
+#onboarding {
+  background: #0A0806 !important;
+  color: var(--color-text) !important;
+}
+.ob-screen {
+  background: transparent !important;
+  color: var(--color-text) !important;
+}
+.ob-title {
+  color: var(--color-title) !important;
+}
+.ob-text {
+  color: var(--color-text) !important;
+}
+.ob-card {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+}
+.ob-icon {
+  color: var(--color-gold) !important;
+}
+/* Onboarding step backgrounds */
+#ob-1, #ob-2, #ob-3 {
+  background: transparent !important;
+}
+
+
+/* ══════════════════════════════════════════════════
    COVER / READER VISIBILITY FIX
    İkisi aynı anda görünmesin
    ══════════════════════════════════════════════════ */
@@ -4808,7 +4890,7 @@ final-screen::before {
    ════════════════════════════════════════════ */
 #onboarding {
   display: none; position: fixed; inset: 0; z-index: 260;
-  background: #f7f3ec;
+  background: var(--color-bg);
 }
 .ob-screen {
   display: none; position: absolute; inset: 0;
@@ -4870,8 +4952,8 @@ final-screen::before {
 #ob-1 .ob-title { color: var(--title); }
 #ob-1 .ob-text  { color: var(--color-text-soft); }
 #ob-1 .ob-dot   { background: var(--color-text); }
-#ob-1 .ob-dot.on { background: #f7f3ec; }
-#ob-1 .ob-btn-primary { background: #f7f3ec; color: var(--title); }
+#ob-1 .ob-dot.on { background: var(--color-gold); }
+#ob-1 .ob-btn-primary { background: var(--color-gold); color: #140e08; }
 #ob-1 .ob-btn-primary:hover { background: var(--surface-2); }
 #ob-1 .ob-btn-skip { color: var(--color-text); }
 #ob-1 .ob-btn-skip:hover { color: var(--color-text-soft); }
@@ -4919,7 +5001,7 @@ final-screen::before {
 #audio-settings {
   display: none; position: fixed; bottom: 130px; left: 50%;
   transform: translateX(-50%); z-index: 161;
-  background: #f7f3ec; border: 1px solid var(--alpha-08);
+  background: var(--color-surface); border: 1px solid var(--alpha-08);
   border-radius: var(--radius-sm); padding: 20px 24px;
   box-shadow: none;
   min-width: 300px;
@@ -6776,7 +6858,7 @@ body.phase-4 .jr-item.active .jr-dot {
 </style>
 
   <!-- PWA -->
-  <meta name="theme-color" content="#f7f3ec">
+  <meta name="theme-color" content="#0A0806">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -8445,8 +8527,8 @@ const NotifSys = {
 
     new Notification('İki Ses, Bir Yön', {
       body: `B${nextId} · ${c.sure} — ${c.title} seni bekliyor.`,
-      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23f7f3ec"/><text y="44" x="32" text-anchor="middle" font-size="36">✦</text></svg>',
-      badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23f7f3ec"/><text y="44" x="32" text-anchor="middle" font-size="36">✦</text></svg>',
+      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%230A0806"/><text y="44" x="32" text-anchor="middle" font-size="36">✦</text></svg>',
+      badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%230A0806"/><text y="44" x="32" text-anchor="middle" font-size="36">✦</text></svg>',
       tag: 'iks-daily',
       renotify: true,
     });
