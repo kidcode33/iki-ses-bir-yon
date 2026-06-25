@@ -235,12 +235,10 @@ button { cursor: pointer; }
 body.cover-open #reader,
 body.cover-open #journey-rail,
 body.cover-open #float-nav,
-body.cover-open #audio-bar,
 body.cover-open #toolbar { visibility: hidden; pointer-events: none; }
 body:not(.cover-open) #reader,
 body:not(.cover-open) #journey-rail,
 body:not(.cover-open) #float-nav,
-body:not(.cover-open) #audio-bar,
 body:not(.cover-open) #toolbar { visibility: visible; pointer-events: auto; }
 
 /* ── COVER TRANSITION ── */
@@ -762,19 +760,6 @@ body:not(.cover-open) #toolbar { visibility: visible; pointer-events: auto; }
 #ambient-glow.glow-chapter { background: linear-gradient(90deg, transparent, var(--ch-accent), transparent); }
 #ambient-glow.glow-off { background: transparent; box-shadow: none; }
 
-/* ── AUDIO BAR ── */
-#audio-bar {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: rgba(27,21,17,.95); border-top: 1px solid rgba(255,255,255,.06);
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 16px; z-index: 150;
-  backdrop-filter: blur(16px);
-}
-.ab-btn { background: none; border: none; color: #8A7B67; cursor: pointer; font-size: 18px; transition: color 150ms; }
-.ab-btn:hover { color: #D4B06A; }
-.ab-bar { flex: 1; height: 3px; background: rgba(255,255,255,.08); border-radius: 2px; cursor: pointer; }
-.ab-fill { height: 3px; background: #D4B06A; border-radius: 2px; width: 0; transition: width .1s; }
-
 /* ── TOAST ── */
 #onboard-toast {
   display: none; position: fixed;
@@ -957,8 +942,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
   </button>
 
   <div class="lang-switcher" style="margin-left:auto">
-    <button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')">TR</button>
-    <button class="lang-btn" data-lang="es" onclick="setLanguage('es')">ES</button>
   </div>
 
 </div>
@@ -970,13 +953,7 @@ body.phase-4 { --scroll-slow: 1100ms; }
 <nav id="journey-rail"></nav>
 
 
-<!-- SES BARI -->
-<div id="audio-bar">
-  <button class="ab-btn" id="ab-play" onclick="audioToggle()" title="Oynat/Durdur">
-    <svg id="ab-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-  </button>
-  <div class="ab-title" id="ab-title">Yükleniyor…</div>
-  <div class="ab-progress"></div>
+<div class="ab-progress"></div>
   <button class="ab-btn" onclick="toggleAudioSettings()" title="Ayarlar">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
   </button>
@@ -986,9 +963,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 </div>
 
 <!-- SES AYARLARI -->
-<div id="audio-settings">
-  <button class="as-close" onclick="toggleAudioSettings()">✕</button>
-  <div class="as-title">Ses Ayarları</div>
   <div class="as-row">
     <label class="as-label">ElevenLabs API Key</label>
     <input class="as-input" type="password" id="as-apikey" placeholder="sk_..." oninput="audioSaveSettings()">
@@ -2349,9 +2323,7 @@ const AudioSys = {
     this.audio = new Audio(url);
     this.audio.ontimeupdate = () => {
       const pct = this.audio.duration ? (this.audio.currentTime / this.audio.duration * 100) : 0;
-      const fill = document.getElementById('ab-fill');
-      if (fill) fill.style.width = pct + '%';
-    };
+          };
     this.audio.onended = () => { this.playing = false; this.updateIcon(); };
     this.audio.play();
     this.playing = true;
@@ -2375,21 +2347,18 @@ const AudioSys = {
   showBar(c) {
     const bar = document.getElementById('audio-bar');
     if (bar) bar.classList.add('show');
-    const title = document.getElementById('ab-title');
-    if (title) title.textContent = 'B' + c.id + ' · ' + c.sure;
+    const title = null; if (title) title.textContent = 'B' + c.id + ' · ' + c.sure;
   },
 
   setLoading(v) {
     this.loading = v;
-    const icon = document.getElementById('ab-icon');
-    if (!icon) return;
+    const icon = null; if (!icon) return;
     if (v) icon.parentElement.classList.add('ab-loading');
     else   icon.parentElement.classList.remove('ab-loading');
   },
 
   updateIcon() {
-    const icon = document.getElementById('ab-icon');
-    if (!icon) return;
+    const icon = null; if (!icon) return;
     if (this.playing) {
       icon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
     } else {
@@ -2432,14 +2401,11 @@ function _disabled_audioPlay(id) {
   window._curId = id;
   AudioSys.speak(id);
 }
-function audioToggle()        { AudioSys.toggle(); }
+/* audioToggle removed */
 function closeAudioBar()      { AudioSys.stop(); document.getElementById('audio-bar').classList.remove('show'); }
-function toggleAudioSettings(){ 
-  AudioSys.loadSettings();
-  document.getElementById('audio-settings').classList.toggle('show');
-}
-function audioSaveSettings()  { AudioSys.saveSettings(); }
-function audioTestVoice()     { AudioSys.testVoice(); }
+/* toggleAudioSettings removed */
+/* audioSaveSettings removed */
+/* audioTestVoice removed */
 
 </script>
 
@@ -4375,101 +4341,28 @@ function closeKosullar() {
 }
 </script>
 <script>
-/* ════════════════════════════════════
-   ÇOK DİLLİ DESTEK SİSTEMİ (i18n)
-   ════════════════════════════════════ */
-
+/* ── UI STRINGS — sadece Türkçe ── */
 const UI_STRINGS = {
-  tr: {
-    kitabim: "Kitabım",
-    onsoz: "Önsöz",
-    devam: "Devam Et",
-    geri: "← Geri dön",
-    basla: "Yolculuğa Başla",
-    gizlilik: "Gizlilik Politikası",
-    kosullar: "Kullanım Koşulları",
-    kuran_label: "Kur'an",
-    nutuk_label: "Nutuk",
-    soru_baslik: "Düşün",
-    not_al: "Not al...",
-    bolum: "Bölüm",
-    evre_baslangic: "Başlangıç",
-    evre_uyanis: "Uyanış",
-    evre_yuzlesme: "Yüzleşme",
-    evre_karar: "Karar",
-    evre_yon: "Yön",
-    satin_al: "Erişim Satın Al",
-    tek_seferlik: "Tek Seferlik",
-    omur_boyu: "Ömür boyu erişim",
-  },
-  es: {
-    kitabim: "Mi Libro",
-    onsoz: "Prólogo",
-    devam: "Continuar",
-    geri: "← Volver",
-    basla: "Comenzar el Viaje",
-    gizlilik: "Política de Privacidad",
-    kosullar: "Términos de Uso",
-    kuran_label: "Corán",
-    nutuk_label: "Nutuk",
-    soru_baslik: "Reflexiona",
-    not_al: "Escribe una nota...",
-    bolum: "Capítulo",
-    evre_baslangic: "Comienzo",
-    evre_uyanis: "Despertar",
-    evre_yuzlesme: "Confrontación",
-    evre_karar: "Decisión",
-    evre_yon: "Dirección",
-    satin_al: "Obtener Acceso Completo",
-    tek_seferlik: "Pago Único",
-    omur_boyu: "Acceso de por vida",
-  }
+  kitabim: "Kitabım",
+  onsoz: "Önsöz",
+  devam: "Devam Et",
+  geri: "← Geri dön",
+  basla: "Yolculuğa Başla",
+  gizlilik: "Gizlilik Politikası",
+  kosullar: "Kullanım Koşulları",
+  kuran_label: "Kur'an",
+  nutuk_label: "Nutuk",
+  soru_baslik: "Düşün",
+  not_al: "Not al...",
+  bolum: "Bölüm",
+  satin_al: "Erişim Satın Al",
+  tek_seferlik: "Tek Seferlik",
+  omur_boyu: "Ömür boyu erişim",
 };
 
-function getCurrentLang() {
-  return Store.get('lang', 'tr');
-}
-
 function t(key) {
-  const lang = getCurrentLang();
-  return (UI_STRINGS[lang] && UI_STRINGS[lang][key]) || UI_STRINGS.tr[key] || key;
+  return UI_STRINGS[key] || key;
 }
-
-function setLanguage(lang) {
-  Store.set('lang', lang);
-  applyLanguage(lang);
-}
-
-function applyLanguage(lang) {
-  // HTML dir ve lang attribute
-  document.documentElement.setAttribute('lang', lang);
-  document.documentElement.setAttribute('dir', 'ltr');
-
-  // Aktif buton vurgusu
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
-  });
-
-  // Kitabım butonu metni
-  document.querySelectorAll('.tb-btn[onclick*="kitabim"]').forEach(btn => {
-    const svg = btn.querySelector('svg');
-    btn.innerHTML = '';
-    if (svg) btn.appendChild(svg);
-    btn.appendChild(document.createTextNode(' ' + t('kitabim')));
-  });
-
-  // Not alma placeholder
-  document.querySelectorAll('textarea[placeholder]').forEach(ta => {
-    if (ta.id && ta.id.startsWith('note-')) {
-      ta.placeholder = t('not_al');
-    }
-  });
-}
-
-// Sayfa yüklenince dili uygula
-document.addEventListener('DOMContentLoaded', () => {
-  applyLanguage(getCurrentLang());
-});
 </script>
 
 <script>
