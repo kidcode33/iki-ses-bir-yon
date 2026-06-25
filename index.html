@@ -7,6 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ── Toolbar auto-hide on scroll ── */
+#toolbar {
+  transition: transform 300ms var(--ease-smooth), opacity 300ms var(--ease-smooth);
+}
+#toolbar.toolbar-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ═══════════════════════════════════════════════════════
    İKİ SES BİR YÖN — CLEAN CSS
    Sadece çalışan, kanıtlanmış stiller
@@ -234,12 +244,10 @@ button { cursor: pointer; }
 /* ── COVER/READER VISIBILITY ── */
 body.cover-open #reader,
 body.cover-open #journey-rail,
-body.cover-open #float-nav,
-body.cover-open #toolbar { visibility: hidden; pointer-events: none; }
+body.cover-open 
 body:not(.cover-open) #reader,
 body:not(.cover-open) #journey-rail,
-body:not(.cover-open) #float-nav,
-body:not(.cover-open) #toolbar { visibility: visible; pointer-events: auto; }
+body:not(.cover-open) 
 
 /* ── COVER TRANSITION ── */
 #reader {
@@ -527,55 +535,7 @@ body:not(.cover-open) #toolbar { visibility: visible; pointer-events: auto; }
 }
 
 /* ── JOURNEY RAIL ── */
-#journey-rail {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  display: flex; justify-content: center; align-items: center;
-  gap: 6px; padding: 8px 16px;
-  background: rgba(27,21,17,.85);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(255,255,255,.05);
-  z-index: 50;
-}
-.jr-item {
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  cursor: pointer; padding: 4px 0;
-  transition: transform 200ms var(--ease-premium);
-}
-.jr-item:hover { transform: translateY(-2px); }
-.jr-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(255,255,255,.15);
-  transition: background 200ms, box-shadow 200ms, transform 200ms;
-}
-.jr-item.active .jr-dot {
-  background: #D4B06A;
-  box-shadow: 0 0 8px 2px rgba(212,176,106,.4);
-  transform: scale(1.3);
-}
-.jr-violet .jr-dot { background: #9ECFA8; }
-.jr-gold   .jr-dot { background: #D4B06A; }
-.jr-sage   .jr-dot { background: #9ECFA8; }
-.jr-rose   .jr-dot { background: #A06A76; }
-.jr-label {
-  font-family: var(--font-mono); font-size: 8px;
-  color: #8A7B67; opacity: 0; max-width: 0;
-  overflow: hidden; white-space: nowrap;
-  transition: opacity 200ms, max-width 250ms;
-}
-.jr-item:hover .jr-label,
-.jr-item.active .jr-label { opacity: 1; max-width: 80px; }
 
-/* ── FLOAT NAV ── */
-#float-nav {
-  position: fixed; bottom: 52px; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 2px;
-  background: rgba(35,28,23,.88);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 99px; padding: 5px 8px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px rgba(0,0,0,.4);
-  z-index: 50;
-}
 .nav-btn {
   background: transparent; border: none;
   color: #8A7B67; cursor: pointer;
@@ -774,18 +734,6 @@ body:not(.cover-open) #toolbar { visibility: visible; pointer-events: auto; }
 #onboard-toast.show { display: block; animation: toastIn 300ms var(--ease-premium) both; }
 
 /* ── RETURN CARD ── */
-#return-card {
-  display: none; position: fixed;
-  top: 60px; right: 16px;
-  background: rgba(35,28,23,.95); border: 1px solid rgba(255,255,255,.1);
-  border-radius: 20px; padding: 16px 24px;
-  font-family: var(--font-serif); font-size: 14px;
-  color: #D7C9B5; cursor: pointer;
-  box-shadow: 0 8px 32px rgba(0,0,0,.4);
-  z-index: 60; transition: opacity 300ms, transform 300ms;
-  opacity: 0; transform: translateY(8px);
-}
-#return-card.visible { display: block; opacity: 1; transform: none; }
 
 /* ── SCROLL REVEAL ── */
 .scroll-reveal { opacity: 0; will-change: opacity, transform; }
@@ -803,8 +751,6 @@ body.phase-3 { --scroll-slow: 950ms; }
 body.phase-4 { --scroll-slow: 1100ms; }
 
 /* ── SCROLL DEPTH ── */
-#scroll-depth { position: fixed; right: 0; top: 0; width: 2px; height: 100vh; z-index: 500; pointer-events: none; }
-#scroll-depth-fill { width: 100%; background: linear-gradient(180deg, #9ECFA8 0%, #D4B06A 50%, #6E8FB8 100%); height: 0%; opacity: .25; transition: height .1s linear; }
 
 /* ── MOBILE ── */
 @media (max-width: 600px) {
@@ -929,7 +875,7 @@ body.phase-4 { --scroll-slow: 1100ms; }
   </div>
 </div>
 
-<div id="toolbar">
+<div id="toolbar" class="toolbar-autohide">
   <button class="tb-btn" onclick="openSidebar()">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
@@ -945,49 +891,19 @@ body.phase-4 { --scroll-slow: 1100ms; }
   </div>
 
 </div>
-
-<div id="scroll-depth"><div id="scroll-depth-fill"></div></div>
+</div>
 <div id="ambient-glow" class="glow-off"></div>
 <div id="reader"></div>
 
-<nav id="journey-rail"></nav>
 
 
 <div class="ab-progress"></div>
-  <button class="ab-btn" onclick="toggleAudioSettings()" title="Ayarlar">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-  </button>
   <button class="ab-btn" onclick="closeAudioBar()" title="Kapat">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
 </div>
 
-<!-- SES AYARLARI -->
-  <div class="as-row">
-    <label class="as-label">ElevenLabs API Key</label>
-    <input class="as-input" type="password" id="as-apikey" placeholder="sk_..." oninput="audioSaveSettings()">
-  </div>
-  <div class="as-row">
-    <label class="as-label">Ses</label>
-    <select class="as-select" id="as-voice" onchange="audioSaveSettings()">
-      <option value="pNInz6obpgDQGcFmaJgB">Adam — Genç, enerjik (TR)</option>
-      <option value="EXAVITQu4vr4xnSDxMaL">Bella — Sıcak, sakin (TR)</option>
-      <option value="ErXwobaYiN019PkySvjV">Antoni — Derin, anlatıcı</option>
-      <option value="VR6AewLTigWG4xSOukaG">Arnold — Güçlü, net</option>
-    </select>
-  </div>
-  <button class="as-save" onclick="audioTestVoice()">🎵 Sesi Test Et</button>
-</div>
 
-<div id="float-nav">
-  <button class="nav-btn" id="nav-prev" onclick="navigate(-1)" disabled>
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-  </button>
-  <span class="nav-counter" id="nav-counter">1 / 89</span>
-  <button class="nav-btn" id="nav-next" onclick="navigate(1)">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-  </button>
-  <div class="nav-sep"></div>
   <button class="nav-btn" onclick="shareChapter()" title="Paylaş">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
   </button>
@@ -1049,61 +965,7 @@ const Store = {
   markRead(id)   { const r=this.get('read',{}); r[id]=1; this.set('read',r); },
 };
 
-/* ── JOURNEY ── */
-const WAYPOINTS = [
-  {id:'baslangic', label:'Başlangıç', start:1,  end:9,  his:'Çağrı, uyanış'},
-  {id:'uyaniş',   label:'Uyanış',    start:10, end:21, his:'Fark etme'},
-  {id:'yuzlesme', label:'Yüzleşme',  start:22, end:49, his:'Rahatsızlık, çatışma'},
-  {id:'karar',    label:'Karar',     start:50, end:67, his:'Seçim, yön tayini'},
-  {id:'yon',      label:'Yön',       start:68, end:89, his:'Sükûnet, bütünleşme'},
-];
-const CH_TO_WP = {};
-WAYPOINTS.forEach(wp => { for(let id=wp.start; id<=wp.end; id++) CH_TO_WP[id]=wp; });
-
-const THEME_DOT = {violet:'var(--quran)', gold:'#D4B06A', sage:'var(--quran)', rose:'var(--rose)'};
-const ROLE_TR   = {opening:'açılış',rising:'yükseliş',drive:'ilerleme',tension:'gerilim',climax:'doruk',reflection:'yansıma',resolution:'çözüm',transition:'geçiş',closing:'kapanış'};
-const REACT_OPTS = [
-  {key:'dusundurdu',label:'Düşündürdü'},
-  {key:'motive',    label:'Motive etti'},
-  {key:'uzdu',      label:'Üzdü'},
-  {key:'sasirtti',  label:'Şaşırttı'},
-  {key:'kararsiz',  label:'Kararsız bıraktı'},
-];
-
-var cur = 1;
-
-/* ── SIDEBAR ── */
-function buildSidebar() {
-  document.getElementById('sb-list').innerHTML = CHAPTERS.map(c => `
-    <div class="sb-item" id="si${c.id}" onclick="goTo(${c.id})">
-      <span class="si-num">${String(c.id).padStart(2,'0')}</span>
-      <span class="si-sure">${c.sure}</span>
-      <span class="si-dot dot-${c.theme}"></span>
-    </div>`).join('');
-}
-function openSidebar()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('sb-overlay').classList.add('on'); }
-function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sb-overlay').classList.remove('on'); }
-
-/* ── JOURNEY ── */
-function buildJourney() {
-  document.getElementById('journey-rail').innerHTML = WAYPOINTS.map(wp => `
-    <div class="jr-item" id="jr-${wp.id}" title="${wp.label}" onclick="goTo(${wp.start})">
-      <span class="jr-label">${wp.label}</span>
-      <div class="jr-dot"></div>
-    </div>`).join('');
-}
-
-function updateJourney(id) {
-  const active = CH_TO_WP[id];
-  let passed = true;
-  WAYPOINTS.forEach(wp => {
-    const el = document.getElementById('jr-'+wp.id);
-    if(!el) return;
-    el.className = 'jr-item';
-    if(wp.id === active?.id) { el.classList.add('active', wp.cls); passed = false; }
-    else if(passed) el.classList.add('passed');
-  });
-}
+/* journey removed */
 
 /* ── RENDER ── */
 function goTo(id) { render(id); closeSidebar(); }
@@ -1140,7 +1002,6 @@ function render(id) {
   if(si) { si.classList.add('on'); si.scrollIntoView({block:'nearest'}); }
 
   // Journey
-  updateJourney(id);
 
   // Progress
   const pct = ((id-1)/88*100).toFixed(1);
@@ -1148,68 +1009,27 @@ function render(id) {
 
   // Pips
   const intLevel = Math.round((c.intensity||5)/2);
-  const pipsHTML = Array.from({length:5},(_,i)=>`<div class="ch-pip${i<intLevel?' on':''}"></div>`).join('');
 
   // Sahne paragraflar
-  const sahne = (c.sahne||'').split(/\n+/).filter(Boolean).map(p=>'<p>'+p+'</p>').join('');
   // Devam paragraflar
-  const devam = (c.devam||'')
-    .replace(/([.!?])([A-ZÇĞİÖŞÜa-zçğışöüı])/g,'$1 $2')
-    .split(/\n+/).filter(Boolean).map(p=>'<p>'+p+'</p>').join('');
+  const devam = (c.devam||'').replace(/([.!?])([A-ZÇĞİÖŞÜa-zçğışöüı])/g,'$1 $2');
 
   // React
   const savedReact = Store.getReact(id);
-  const reactHTML = REACT_OPTS.map(o=>`
-    <button class="react-opt ${savedReact===o.key?'sel-'+o.key:''}"
-            id="ro-${id}-${o.key}" onclick="setReact(${id},'${o.key}')">${o.label}</button>`).join('');
+    var reactHTML='';(REACT_OPTS||[]).forEach(function(o){var cls='react-opt'+(savedReact===o.key?' sel-'+o.key:'');reactHTML+='<button class="'+cls+'" data-cid="'+id+'" data-key="'+o.key+'" onclick="setReact(parseInt(this.dataset.cid),this.dataset.key,this)">'+o.emoji+' '+o.label+'</button>';});
 
   // Sorular
-  const soruHTML = (c.sorular||[]).map((q,qi)=>{
-    const saved = Store.getQ(id, qi);
-    return `
-    <div class="sor-item">
-      <span class="sor-arrow">→</span>
-      <div style="flex:1">
-        <div class="sor-text">${q}<span class="sor-toggle" onclick="toggleSoruResponse(${id},${qi},this)">${saved?'✓ yanıt':'+ yanıt'}</span></div>
-        <div class="sor-response ${saved?'open':''}" id="sr-${id}-${qi}">
-          <textarea placeholder="Düşünceni yaz…" onblur="saveSoruQ(${id},${qi},this)">${saved||''}</textarea>
-          <button class="sor-save ${saved?'saved':''}" onclick="saveSoruQ(${id},${qi},this.previousElementSibling)">${saved?'✓ Kaydedildi':'Kaydet'}</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+  var soruHTML='';
 
   // Not
   const savedNote = Store.getNote(id)||'';
-  const noteHTML = `
-    <div class="ch-notes">
-      <button class="note-toggle" onclick="toggleNote(${id},this)">✎ ${savedNote?'Notunu gör':'Not ekle'}</button>
-      <div class="note-area ${savedNote?'open':''}" id="note-${id}">
-        <textarea onblur="saveNote(${id},this)" placeholder="Bu bölümle ilgili notun…">${savedNote}</textarea>
-        <button class="note-save ${savedNote?'saved':''}" onclick="saveNote(${id},this.previousElementSibling)">${savedNote?'✓ Kaydedildi':'Kaydet'}</button>
-      </div>
-    </div>`;
+  var noteHTML='';
 
   // Öneriler
-  const recHTML = (c.recs||[]).slice(0,3).map(r=>{
-    const rc = CHAPTERS.find(x=>x.id===r.id);
-    if(!rc) return '';
-    return `<div class="rec-item" onclick="goTo(${r.id})">
-      <span class="rec-num">${String(r.id).padStart(2,'0')}</span>
-      <span class="rec-sure">${rc.sure}</span>
-      <span class="rec-title">${rc.title}</span>
-      <div class="rec-dot" style="background:${THEME_DOT[rc.theme]||'var(--quran)'}"></div>
-    </div>`;
-  }).join('');
+  var recHTML='';
 
   // Fav row
-  const favRowHTML = `
-    <div class="ch-fav-row">
-      <button class="fav-btn ${isFav?'on':''}" id="fav-row-${id}" onclick="toggleFavFromRow(${id})">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="${isFav?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        ${isFav?'Favoride':'Favoriye Ekle'}
-      </button>
-    </div>`;
+  var favRowHTML='';
 
   // Nav
   const prev = CHAPTERS.find(x=>x.id===id-1), next = CHAPTERS.find(x=>x.id===id+1);
@@ -1317,7 +1137,6 @@ document.addEventListener('touchend', e=>{
 
 /* ── INIT ── */
 buildSidebar();
-buildJourney();
 render(1); // reader'ı hazırla arka planda
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -1328,7 +1147,6 @@ window.addEventListener('DOMContentLoaded', function() {
   if (typeof initCoverDevamBtn === 'function') initCoverDevamBtn();
   if (typeof initFirstInteraction === 'function') initFirstInteraction();
   // Kaldığın yer kartını göster — kısa gecikmeyle
-  setTimeout(() => { if(typeof showReturnCard==='function') showReturnCard(); }, 800);
 
   const _initLast  = Store.get('last', null);
   const _initRead  = Object.keys(Store.get('read',{})).length;
@@ -2235,178 +2053,7 @@ function obSkip() {
 </script>
 
 <script>
-
-/* ════════════════════════════════════════════
-   SES SİSTEMİ — ElevenLabs TTS
-   ════════════════════════════════════════════ */
-
-const AudioSys = {
-  audio: null,
-  playing: false,
-  loading: false,
-  currentId: null,
-  cache: {}, // id → blob URL
-
-  getKey()   { return localStorage.getItem('iks_el_key') || ''; },
-  getVoice() { return localStorage.getItem('iks_el_voice') || 'pNInz6obpgDQGcFmaJgB'; },
-
-  saveSettings() {
-    const key   = document.getElementById('as-apikey')?.value;
-    const voice = document.getElementById('as-voice')?.value;
-    if (key)   localStorage.setItem('iks_el_key', key);
-    if (voice) localStorage.setItem('iks_el_voice', voice);
-  },
-
-  loadSettings() {
-    const key   = this.getKey();
-    const voice = this.getVoice();
-    const ki = document.getElementById('as-apikey');
-    const vi = document.getElementById('as-voice');
-    if (ki && key)   ki.value = key;
-    if (vi && voice) vi.value = voice;
-  },
-
-  async speak(id) {
-    const c = CHAPTERS.find(x => x.id === id);
-    if (!c) return;
-    const key = this.getKey();
-    if (!key) { this.showSettings(); return; }
-
-    // Cache'te var mı?
-    if (this.cache[id]) {
-      this.playUrl(this.cache[id], c);
-      return;
-    }
-
-    // Yükle
-    this.setLoading(true);
-    this.showBar(c);
-
-    const text = [c.sahne, c.devam, c.kapanis].filter(Boolean).join('\n\n').substring(0, 2500);
-    try {
-      const res = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + this.getVoice(), {
-        method: 'POST',
-        headers: {
-          'xi-api-key': key,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text: text,
-          model_id: 'eleven_multilingual_v2',
-          voice_settings: { stability: 0.5, similarity_boost: 0.75, style: 0.3, use_speaker_boost: true }
-        })
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        console.error('ElevenLabs hata:', err);
-        this.setLoading(false);
-        alert('API hatası: ' + (err.detail?.message || res.status));
-        return;
-      }
-
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      this.cache[id] = url;
-      this.playUrl(url, c);
-
-    } catch(e) {
-      this.setLoading(false);
-      console.error('Ses yüklenemedi:', e);
-      alert("Ses yuklenemedi. API key kontrol et.");
-    }
-  },
-
-  playUrl(url, c) {
-    this.setLoading(false);
-    if (this.audio) { this.audio.pause(); this.audio = null; }
-    this.audio = new Audio(url);
-    this.audio.ontimeupdate = () => {
-      const pct = this.audio.duration ? (this.audio.currentTime / this.audio.duration * 100) : 0;
-          };
-    this.audio.onended = () => { this.playing = false; this.updateIcon(); };
-    this.audio.play();
-    this.playing = true;
-    this.updateIcon();
-    this.showBar(c);
-  },
-
-  toggle() {
-    if (!this.audio) { this.speak(window._curId || 1); return; }
-    if (this.playing) { this.audio.pause(); this.playing = false; }
-    else              { this.audio.play();  this.playing = true;  }
-    this.updateIcon();
-  },
-
-  stop() {
-    if (this.audio) { this.audio.pause(); this.audio = null; }
-    this.playing = false;
-    this.updateIcon();
-  },
-
-  showBar(c) {
-    const bar = document.getElementById('audio-bar');
-    if (bar) bar.classList.add('show');
-    const title = null; if (title) title.textContent = 'B' + c.id + ' · ' + c.sure;
-  },
-
-  setLoading(v) {
-    this.loading = v;
-    const icon = null; if (!icon) return;
-    if (v) icon.parentElement.classList.add('ab-loading');
-    else   icon.parentElement.classList.remove('ab-loading');
-  },
-
-  updateIcon() {
-    const icon = null; if (!icon) return;
-    if (this.playing) {
-      icon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-    } else {
-      icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
-    }
-  },
-
-  showSettings() {
-    this.loadSettings();
-    const s = document.getElementById('audio-settings');
-    if (s) s.classList.add('show');
-  },
-
-  async testVoice() {
-    this.saveSettings();
-    const key = this.getKey();
-    const testText = 'Merhaba. İki Ses, Bir Yön. Okumaya başlıyoruz.';
-    const btn = document.querySelector('.as-save');
-    if (btn) btn.textContent = '⏳ Yükleniyor…';
-    try {
-      const res = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + this.getVoice(), {
-        method: 'POST',
-        headers: { 'xi-api-key': key, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: testText, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.5, similarity_boost: 0.75 } })
-      });
-      if (!res.ok) { alert('Hata: ' + res.status); return; }
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      new Audio(url).play();
-      if (btn) btn.textContent = '✓ Test başarılı';
-    } catch(e) {
-      alert('Bağlantı hatası.');
-      if (btn) btn.textContent = '🎵 Sesi Test Et';
-    }
-  }
-};
-
-// Global bağlantılar
-function _disabled_audioPlay(id) {
-  window._curId = id;
-  AudioSys.speak(id);
-}
-/* audioToggle removed */
-function closeAudioBar()      { AudioSys.stop(); document.getElementById('audio-bar').classList.remove('show'); }
-/* toggleAudioSettings removed */
-/* audioSaveSettings removed */
-/* audioTestVoice removed */
-
+/* Audio removed */
 </script>
 
 
@@ -3024,8 +2671,6 @@ function shareJournal() {
 </script>
 
 <!-- KALDIĞIN YER KARTI -->
-<div id="return-card">
-  <div class="rc-eyebrow">KALDIĞIN YER</div>
   <div class="rc-title" id="rc-title"></div>
   <div class="rc-meta" id="rc-meta"></div>
   <div class="rc-kapanis" id="rc-kapanis"></div>
@@ -3045,9 +2690,6 @@ function shareJournal() {
 
 let _returnCardChapterId = null;
 
-function showReturnCard() {
-  const last     = Store.get('last', null);
-  const readMap  = Store.get('read', {});
   const readCount = Object.keys(readMap).length;
 
   // Gösterme koşulları
@@ -3089,27 +2731,11 @@ function showReturnCard() {
     btn.textContent = nextC ? `B${nextId}'e Geç →` : 'Devam Et →';
   } else {
     btn.textContent = `B${last}'den Devam Et →`;
-  }
 
   // Kartı göster — kısa gecikmeyle
   setTimeout(() => {
-    const card = document.getElementById('return-card');
     if (card) card.classList.add('visible');
   }, 1200);
-}
-
-function returnToChapter() {
-  dismissReturnCard();
-  if (_returnCardChapterId) {
-    render(_returnCardChapterId);
-  }
-}
-
-function dismissReturnCard() {
-  const card = document.getElementById('return-card');
-  if (card) card.classList.remove('visible');
-  Store.set('return_card_dismissed_today', _todayStr());
-}
 
 function _todayStr() {
   return new Date().toISOString().slice(0, 10);
@@ -3131,15 +2757,9 @@ function _timeAgo(isoStr) {
 }
 
 // render() her çağrıldığında last_read_time güncelle
-const _origRenderForRC = window.render;
-window.render = function(id) {
-  _origRenderForRC(id);
-  Store.set('last_read_time', new Date().toISOString());
-  // Kart görünürse gizle
-  const card = document.getElementById('return-card');
-  if (card) card.classList.remove('visible');
-};
-
+}
+const _origRT=window.render;
+window.render=function(id){_origRT(id);Store.set('last_read_time',new Date().toISOString());};
 </script>
 <script>
 
@@ -3175,18 +2795,7 @@ function getActiveEvre() {
   return progress.find(e => !e.complete) || progress[progress.length - 1];
 }
 
-function updateEvreMini() {
-  const active = getActiveEvre();
-  if (!active) return;
-
-  const labelEl = document.getElementById('evre-mini-label');
-  const fillEl  = document.getElementById('evre-mini-fill');
-  const countEl = document.getElementById('evre-mini-count');
-
-  if (labelEl) labelEl.textContent = active.label;
-  if (fillEl)  fillEl.style.width  = active.pct + '%';
-  if (countEl) countEl.textContent = active.done + '/' + active.total;
-}
+/* updateEvreMini removed */
 
 function buildEvreSection() {
   const progress = getEvreProgress();
@@ -3627,8 +3236,6 @@ window.render = function(id) {
 </div>
 
 <!-- DAMGA KAZANMA ANİMASYONU -->
-<div id="damga-kazan">
-  <div class="dk-kazan-icon" id="dk-kazan-icon"></div>
 </div>
 
 <script>
@@ -4211,20 +3818,6 @@ function renderLockedChapters() {
     </div>`;
 }
 
-// Sidebar'da kilitli bölümler için kilit ikonu
-const _origBuildJourney = typeof buildJourney === 'function' ? buildJourney : null;
-if (_origBuildJourney) {
-  window.buildJourney = function() {
-    _origBuildJourney();
-    if (!isSubscribed()) {
-      document.querySelectorAll('.jr-item').forEach(item => {
-        const wpId = parseInt(item.id.replace('jr-', ''));
-        const wp = WAYPOINTS.find(w => w.id === `jr-${wpId}` || w.start > FREE_LIMIT);
-        // Basit kontrol: evre başlangıcı FREE_LIMIT'in üzerindeyse kilitle
-      });
-    }
-  };
-}
 
 // Sayfa yüklenince ödeme başarısını kontrol et
 document.addEventListener('DOMContentLoaded', () => {
@@ -4537,6 +4130,30 @@ window.render = function(id) {
 </script>
 
 <script>
+/* ── Toolbar auto-hide ── */
+(function() {
+  let lastY = 0;
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      const tb = document.getElementById('toolbar');
+      if (tb) {
+        if (y > lastY && y > 60) {
+          tb.classList.add('toolbar-hidden');
+        } else {
+          tb.classList.remove('toolbar-hidden');
+        }
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+
+
 /* ── DOM Element Cache — sık sorgulananlar ── */
 const DOM = {
   get reader()    { return document.getElementById('reader'); },
