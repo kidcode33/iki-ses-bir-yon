@@ -662,6 +662,19 @@ body:not(.cover-open) #journey-rail {
 .sb-item:hover .sb-num { color: #8A7B67; }
 .sb-item:hover .sb-title-line { color: #6a5c4e; }
 
+/* ── SIDEBAR STATUS DOTS ── */
+.sb-dot {
+  font-size: 10px;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  line-height: 1;
+  margin-top: 3px;
+}
+.sb-dot-read   { color: #D4B06A; }
+.sb-dot-cur    { color: #D4B06A; }
+.sb-dot-unread { color: #2e2418; }
+
 /* ── SYSTEM PANEL ── */
 #sys-overlay {
   display: none; position: fixed; inset: 0;
@@ -1014,7 +1027,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 }
 
 #notif-prompt,
-#sabah-ritual,
 #damga-koleksiyon,
 #gunluk-soru-ekran,
 #kimlik-screen,
@@ -1025,8 +1037,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
   display: none;
 }
 #notif-prompt.show { display: block; }
-#sabah-ritual.open { display: flex; }
-#sabah-ritual.visible { opacity: 1; }
 #damga-koleksiyon.open { display: flex; }
 #damga-koleksiyon.visible { opacity: 1; }
 #gunluk-soru-ekran.open { display: flex; }
@@ -1040,7 +1050,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 #onboard-toast.show { display: block; }
 
 /* Overlay base styles */
-#sabah-ritual,
 #damga-koleksiyon,
 #gunluk-soru-ekran,
 #kimlik-screen {
@@ -1050,7 +1059,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
   padding: 40px 24px; text-align: center;
   opacity: 0; transition: opacity .5s ease;
 }
-#sabah-ritual.visible,
 #damga-koleksiyon.visible,
 #gunluk-soru-ekran.visible,
 #kimlik-screen.visible { opacity: 1; }
@@ -1133,18 +1141,7 @@ body.phase-4 { --scroll-slow: 1100ms; }
 #onboard-toast.show { opacity: 1; }
 
 /* Sabah Ritual */
-.sr-selamlama { font-family: var(--font-serif); font-size: 13px; color: #8A7B67; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 8px; }
-.sr-streak { display: none; background: rgba(212,176,106,.1); border: 1px solid rgba(212,176,106,.2); border-radius: 20px; padding: 4px 12px; font-family: var(--font-mono); font-size: 11px; color: #D4B06A; margin-bottom: 16px; }
-.sr-dun-label { font-family: var(--font-mono); font-size: 10px; color: #5a4830; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
-.sr-dun-bolum { font-family: var(--font-serif); font-size: 15px; color: #F3E7D2; margin-bottom: 12px; }
-.sr-kapanis { font-family: var(--font-serif); font-size: 14px; font-style: italic; color: #8A7B67; line-height: 1.7; margin-bottom: 20px; max-width: 360px; }
-.sr-soru { font-family: var(--font-serif); font-size: 16px; color: #D7C9B5; margin-bottom: 16px; max-width: 360px; line-height: 1.6; }
-.sr-cevaplar { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 320px; margin-bottom: 20px; }
-.sr-cevap-btn { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 12px 16px; font-family: var(--font-serif); font-size: 13px; color: #D7C9B5; cursor: pointer; transition: all 150ms; }
-.sr-cevap-btn.selected { border-color: rgba(212,176,106,.4); color: #D4B06A; background: rgba(212,176,106,.06); }
-.sr-devam-btn { display: none; background: #D4B06A; color: #140e08; border: none; border-radius: 8px; padding: 14px 32px; font-family: var(--font-serif); font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
-.sr-devam-btn.visible { display: block; }
-.sr-atla { background: none; border: none; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #5a4830; cursor: pointer; }
+
 
 /* Damga Koleksiyon */
 .dk-baslik { font-family: var(--font-serif); font-size: 22px; font-weight: 500; color: #F3E7D2; margin-bottom: 6px; }
@@ -2537,19 +2534,30 @@ function closeFinalScreen() {
 function buildSidebar() {
   const list = document.getElementById('sb-list');
   if (!list) return;
+  const readMap = Store.get('read', {});
 
-  // Header
   list.innerHTML = `<div class="sb-header">İçindekiler</div>` +
-    CHAPTERS.map(c => `
-      <div class="sb-item" id="si${c.id}" onclick="goTo(${c.id})">
-        <span class="sb-num">${String(c.id).padStart(2,'0')}</span>
-        <span class="sb-info">
-          <span class="sb-sure">${c.sure}</span>
-          <span class="sb-title-line">${c.title}</span>
-        </span>
-      </div>`).join('');
+    CHAPTERS.map(c => {
+      const isCur  = c.id === cur;
+      const isRead = !!readMap[c.id];
+      const dot = isCur
+        ? '<span class="sb-dot sb-dot-cur">●</span>'
+        : isRead
+          ? '<span class="sb-dot sb-dot-read">✓</span>'
+          : '<span class="sb-dot sb-dot-unread">○</span>';
+      return `
+        <div class="sb-item${isCur?' on':''}" id="si${c.id}" onclick="goTo(${c.id})">
+          <span class="sb-num">${String(c.id).padStart(2,'0')}</span>
+          ${dot}
+          <span class="sb-info">
+            <span class="sb-sure">${c.sure}</span>
+            <span class="sb-title-line">${c.title}</span>
+          </span>
+        </div>`;
+    }).join('');
 }
 function openSidebar() {
+  buildSidebar();
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('sb-overlay').classList.add('on');
 }
@@ -3793,162 +3801,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script>
 
-<!-- SABAH RİTÜELİ -->
-<div id="sabah-ritual">
-  <div class="sr-selamlama" id="sr-selamlama">Günaydın</div>
-  <div class="sr-streak" id="sr-streak"></div>
-  <div class="sr-dun-label" id="sr-dun-label"></div>
-  <div class="sr-dun-bolum" id="sr-dun-bolum"></div>
-  <div class="sr-kapanis" id="sr-kapanis"></div>
-  <div class="sr-soru" id="sr-soru"></div>
-  <div class="sr-cevaplar" id="sr-cevaplar"></div>
-  <button class="sr-devam-btn" id="sr-devam-btn" onclick="closeSabahRitual()">
-    Bugün de Devam Et →
-  </button>
-  <button class="sr-atla" onclick="closeSabahRitual()">Atla</button>
-</div>
-
-<script>
-
-/* ════════════════════════════════════
-   SABAH RİTÜELİ
-   ════════════════════════════════════ */
-
-const SABAH_SORULARI = [
-  { soru: "Dün okuduğun kapanış cümlesi sende durdu mu?", cevaplar: ["Evet, hâlâ düşünüyorum", "Biraz, ama geçti", "Henüz değil"] },
-  { soru: "Bugün merkeze dönmek için ne yapacaksın?", cevaplar: ["Bir şey planladım", "Henüz bilmiyorum", "Sadece okumak istiyorum"] },
-  { soru: "Dünkü soru zihninde bir yerde kaldı mı?", cevaplar: ["Evet, cevabı geldi", "Hâlâ düşünüyorum", "Geçmişti"] },
-  { soru: "Bu yolculukta bugün neyi fark etmek istiyorsun?", cevaplar: ["Kendim hakkında bir şey", "Tarih hakkında bir şey", "İkisi de"] },
-  { soru: "Dün bıraktığın yerden devam etmeye hazır mısın?", cevaplar: ["Evet, başlıyorum", "Biraz daha bekleyeyim", "İlham bekliyorum"] },
-];
-
-function shouldShowSabahRitual() {
-  return false; // MVP — devre dışı
-}
-
-function showSabahRitual() {
-  if (!shouldShowSabahRitual()) return;
-
-  const last = Store.get('last', null);
-  const c    = CHAPTERS.find(x => x.id === last);
-  if (!c) return;
-
-  // Bugün gösterildi olarak işaretle
-  Store.set('sabah_shown_date', new Date().toISOString().slice(0, 10));
-
-  // Streak hesapla
-  const streak = calcStreak();
-
-  // Selamlama
-  const hour = new Date().getHours();
-  let selamlama = 'Günaydın';
-  if (hour >= 12 && hour < 18) selamlama = 'İyi günler';
-  if (hour >= 18) selamlama = 'İyi akşamlar';
-  document.getElementById('sr-selamlama').textContent = selamlama;
-
-  // Streak rozeti
-  const streakEl = document.getElementById('sr-streak');
-  if (streak >= 2) {
-    streakEl.innerHTML = `🔥 ${streak} günlük seri`;
-    streakEl.style.display = 'inline-flex';
-  } else {
-    streakEl.style.display = 'none';
-  }
-
-  // Dünkü bölüm
-  document.getElementById('sr-dun-label').textContent = `Son okuduğun bölüm`;
-  document.getElementById('sr-dun-bolum').textContent = `B${c.id} · ${c.sure} — ${c.title}`;
-
-  // Kapanış cümlesi
-  const kapanisText = (c.kapanis || '').replace(/"/g, '');
-  document.getElementById('sr-kapanis').textContent = kapanisText;
-
-  // Rastgele soru seç
-  const soruData = SABAH_SORULARI[Math.floor(Math.random() * SABAH_SORULARI.length)];
-  document.getElementById('sr-soru').textContent = soruData.soru;
-
-  // Cevap butonları
-  const cevaplarEl = document.getElementById('sr-cevaplar');
-  cevaplarEl.innerHTML = soruData.cevaplar.map((c, i) => `
-    <button class="sr-cevap-btn" onclick="selectSabahCevap(this, ${i})">
-      ${c}
-    </button>
-  `).join('');
-
-  // Devam butonu başta gizli
-  document.getElementById('sr-devam-btn').classList.remove('visible');
-
-  // Ekranı aç
-  const el = document.getElementById('sabah-ritual');
-  el.classList.add('open');
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => { el.classList.add('visible'); });
-  });
-}
-
-function selectSabahCevap(btn, idx) {
-  // Seçimi işaretle
-  document.querySelectorAll('.sr-cevap-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-
-  // Cevabı kaydet
-  const last = Store.get('last', null);
-  if (last) {
-    const today = new Date().toISOString().slice(0, 10);
-    Store.set('sabah_cevap_' + today, { chapterId: last, cevapIdx: idx });
-  }
-
-  // Devam butonunu göster
-  const devamBtn = document.getElementById('sr-devam-btn');
-  setTimeout(() => devamBtn.classList.add('visible'), 600);
-}
-
-function closeSabahRitual() {
-  const el = document.getElementById('sabah-ritual');
-  el.classList.remove('visible');
-  setTimeout(() => {
-    el.classList.remove('open');
-    // Sabah ritüeli tamamen kapandıktan sonra günlük soruyu göster
-    setTimeout(() => {
-      // Günlük soru devre dışı
-    }, 400);
-  }, 700);
-
-  // Streak güncelle
-  updateStreak();
-}
-
-function calcStreak() {
-  let streak = 0;
-  const today = new Date();
-  for (let i = 0; i < 30; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() - i);
-    const dateStr = d.toISOString().slice(0, 10);
-    if (Store.get('streak_day_' + dateStr, false)) {
-      streak++;
-    } else if (i > 0) {
-      break;
-    }
-  }
-  return streak;
-}
-
-function updateStreak() {
-  const today = new Date().toISOString().slice(0, 10);
-  Store.set('streak_day_' + today, true);
-}
-
-// Sayfa yüklenince — kısa gecikmeyle sabah ritüelini kontrol et
-// (Kapak ve return card'dan sonra)
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    if (typeof showSabahRitual === 'function') showSabahRitual();
-  }, 2000);
-});
-
-</script>
-
 <!-- KİMLİK SORUSU -->
 <div id="kimlik-screen">
   <div class="ks-baslik">Bu yolculuğa neden başladın?</div>
@@ -4496,7 +4348,7 @@ if (_prevBuildJournal) {
 // Init
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initGsTbBtn, 500);
-  // Günlük soru sabah ritüelinden sonra açılacak — closeSabahRitual() içinde tetiklenir
+  // Günlük soru
 });
 
 </script>
