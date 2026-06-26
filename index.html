@@ -1568,7 +1568,7 @@ body.phase-4 { --scroll-slow: 1100ms; }
     <div class="sb-logo">İki Ses, Bir Yön</div>
     <button class="sb-close" onclick="closeSidebar()">✕</button>
   </div>
-  <div class="sb-list" id="sb-list" style="overflow-y:auto;flex:1;padding:4px 6px;"></div>
+  <div class="sb-list" id="sb-list" style="overflow-y:auto;flex:1;padding:4px 6px;min-height:0;"></div>
   <div style="padding:12px 14px;border-top:1px solid rgba(255,255,255,.08)">
     <button onclick="closeSidebar();document.getElementById('intro-overlay').style.display='flex'" 
             style="background:none;border:none;font-family:monospace;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8A7B67;cursor:pointer;padding:6px 0;width:100%;text-align:left">
@@ -1904,9 +1904,8 @@ document.addEventListener('touchend', e=>{
 }, {passive:true});
 
 /* ── INIT ── */
-buildSidebar();
-
 window.addEventListener('DOMContentLoaded', function() {
+  buildSidebar();
   if (typeof initCoverScreen === 'function') initCoverScreen();
   if (typeof initCoverDevamBtn === 'function') initCoverDevamBtn();
   if (typeof initFirstInteraction === 'function') initFirstInteraction();
