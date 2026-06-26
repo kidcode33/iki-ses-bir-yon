@@ -571,7 +571,31 @@ body:not(.cover-open) #journey-rail {
   z-index: 200; transform: translateX(-100%);
   transition: transform 300ms var(--ease-smooth);
   backdrop-filter: blur(20px);
+  height: 100%;
+  overflow: hidden;
 }
+#sidebar.open { transform: none; }
+.sb-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  flex-shrink: 0;
+}
+.sb-logo {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: #6a5c4e;
+  letter-spacing: .02em;
+}
+.sb-close {
+  background: none; border: none;
+  color: #5a4830; cursor: pointer;
+  font-size: 14px; padding: 4px;
+  transition: color 150ms;
+  line-height: 1;
+}
+.sb-close:hover { color: #D7C9B5; }
 #sidebar.open { transform: none; }
 #sb-overlay {
   display: none; position: fixed; inset: 0;
