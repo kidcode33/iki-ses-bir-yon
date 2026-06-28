@@ -1028,7 +1028,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 
 #notif-prompt,
 #damga-koleksiyon,
-#gunluk-soru-ekran,
 #kimlik-screen,
 #welcome-back,
 #rc-card,
@@ -1039,8 +1038,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 #notif-prompt.show { display: block; }
 #damga-koleksiyon.open { display: flex; }
 #damga-koleksiyon.visible { opacity: 1; }
-#gunluk-soru-ekran.open { display: flex; }
-#gunluk-soru-ekran.visible { opacity: 1; }
 #kimlik-screen.open { display: flex; }
 #kimlik-screen.visible { opacity: 1; }
 #welcome-back.show { display: flex; }
@@ -1051,7 +1048,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 
 /* Overlay base styles */
 #damga-koleksiyon,
-#gunluk-soru-ekran,
 #kimlik-screen {
   position: fixed; inset: 0; z-index: 450;
   background: rgba(10,8,6,.97);
@@ -1060,7 +1056,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
   opacity: 0; transition: opacity .5s ease;
 }
 #damga-koleksiyon.visible,
-#gunluk-soru-ekran.visible,
 #kimlik-screen.visible { opacity: 1; }
 
 .legal-overlay {
@@ -1156,16 +1151,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 .dk-kapat { background: none; border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 8px 24px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #8A7B67; cursor: pointer; }
 
 /* Günlük Soru */
-.gs-tarih { font-family: var(--font-mono); font-size: 10px; color: #5a4830; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
-.gs-ust { font-family: var(--font-mono); font-size: 10px; color: #D4B06A; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 16px; }
-.gs-bolum { font-family: var(--font-mono); font-size: 10px; color: #8A7B67; letter-spacing: .08em; margin-bottom: 8px; }
-.gs-kapanis { font-family: var(--font-serif); font-size: 13px; font-style: italic; color: #8A7B67; line-height: 1.7; margin-bottom: 16px; max-width: 360px; }
-.gs-soru { font-family: var(--font-serif); font-size: 18px; color: #F3E7D2; line-height: 1.6; margin-bottom: 20px; max-width: 400px; }
-.gs-textarea-wrap { width: 100%; max-width: 440px; margin-bottom: 16px; }
-.gs-textarea { width: 100%; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 4px; color: #D7C9B5; font-family: var(--font-serif); font-size: 14px; line-height: 1.75; padding: 14px 16px; resize: vertical; outline: none; min-height: 120px; }
-.gs-aksiyonlar { display: flex; gap: 10px; }
-.gs-kaydet-btn { background: #D4B06A; color: #140e08; border: none; border-radius: 8px; padding: 12px 24px; font-family: var(--font-serif); font-size: 14px; font-weight: 600; cursor: pointer; }
-.gs-gec-btn { background: none; border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 12px 18px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #8A7B67; cursor: pointer; }
 
 /* Kimlik Sorusu */
 .ks-baslik { font-family: var(--font-serif); font-size: 22px; font-weight: 500; color: #F3E7D2; margin-bottom: 8px; }
@@ -1580,10 +1565,7 @@ body.phase-4 { --scroll-slow: 1100ms; }
   </button>
   <span class="tb-title" id="tb-title"></span>
 
-  <div class="lang-switcher" style="margin-left:auto">
-  </div>
-
-  <button class="tb-btn" id="fav-tb-btn" onclick="toggleFav()" title="Favoriye ekle">
+  <button class="tb-btn" id="fav-tb-btn" onclick="toggleFav()" title="Favoriye ekle" style="margin-left:auto">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
   </button>
 
@@ -2913,16 +2895,6 @@ function obSkip() {
 
 
 
-  <!-- Service Worker — Offline Destek -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/iki-ses-bir-yon/sw.js')
-          .then(reg => console.log('SW kayıt:', reg.scope))
-          .catch(err => console.log('SW hata:', err));
-      });
-    }
-  </script>
 
 <!-- BİLDİRİM İSTEK KUTUSU -->
 <div id="notif-prompt">
@@ -2941,7 +2913,7 @@ function obSkip() {
    ════════════════════════════════════════════ */
 
 const NotifSys = {
-  isSupported() { return 'Notification' in window && 'serviceWorker' in navigator; },
+  isSupported() { return 'Notification' in window; },
   isGranted()   { return Notification.permission === 'granted'; },
   isDenied()    { return Notification.permission === 'denied'; },
 
@@ -4090,266 +4062,6 @@ if (_prevRenderKitabimForDamga) {
     }
   };
 }
-
-</script>
-
-<!-- GÜNLÜK SORU EKRANI -->
-<div id="gunluk-soru-ekran">
-  <div class="gs-tarih" id="gs-tarih"></div>
-  <div class="gs-ust">Bugünün Sorusu</div>
-  <div class="gs-bolum" id="gs-bolum"></div>
-  <div class="gs-kapanis" id="gs-kapanis"></div>
-  <div class="gs-soru" id="gs-soru"></div>
-  <div class="gs-textarea-wrap">
-    <textarea class="gs-textarea" id="gs-textarea"
-              placeholder="Düşüncelerini buraya yaz..."></textarea>
-  </div>
-  <div class="gs-aksiyonlar">
-    <button class="gs-kaydet-btn" onclick="saveGunlukSoru()">Kaydet ve Devam Et →</button>
-    <button class="gs-gec-btn" onclick="closeGunlukSoru(false)">Geç</button>
-  </div>
-</div>
-
-<script>
-
-/* ════════════════════════════════════
-   GÜNLÜK SORU SİSTEMİ
-   ════════════════════════════════════ */
-
-// Bölümlerin özel sorularından günlük soru oluştur
-function buildGunlukSoruHavuzu() {
-  const readMap = Store.get('read', {});
-  const okunanlar = CHAPTERS.filter(c => readMap[c.id] && c.sorular && c.sorular.length > 0);
-
-  if (okunanlar.length === 0) return null;
-
-  // Bugünün tarihine göre deterministik seçim
-  const today   = new Date().toISOString().slice(0, 10);
-  const seed    = today.split('-').reduce((a, b) => a + parseInt(b), 0);
-  const cIdx    = seed % okunanlar.length;
-  const chapter = okunanlar[cIdx];
-  const qIdx    = (seed + cIdx) % chapter.sorular.length;
-
-  return {
-    chapter,
-    soru: chapter.sorular[qIdx],
-    soru_idx: qIdx,
-  };
-}
-
-function shouldShowGunlukSoru() {
-  const today = new Date().toISOString().slice(0, 10);
-  // Bugün zaten yanıtlandı mı?
-  if (Store.get('gs_answered_' + today, false)) return false;
-  // Bugün zaten gösterildi mi?
-  if (Store.get('gs_shown_' + today, false)) return false;
-  // En az 3 bölüm okunmuş mu?
-  const readCount = Object.keys(Store.get('read', {})).length;
-  if (readCount < 3) return false;
-  return true;
-}
-
-function _disabled_showGunlukSoru() {
-  if (!shouldShowGunlukSoru()) {
-    updateGsTbDot();
-    return;
-  }
-
-  const data = buildGunlukSoruHavuzu();
-  if (!data) return;
-
-  const today = new Date().toISOString().slice(0, 10);
-  Store.set('gs_shown_' + today, true);
-
-  // Tarih
-  const tarihStr = new Date().toLocaleDateString('tr-TR', {
-    weekday: 'long', day: 'numeric', month: 'long'
-  });
-  document.getElementById('gs-tarih').textContent = tarihStr;
-
-  // Bölüm bilgisi
-  const c = data.chapter;
-  document.getElementById('gs-bolum').textContent = `B${c.id} · ${c.sure} — ${c.title}`;
-
-  // Kapanış
-  document.getElementById('gs-kapanis').textContent = (c.kapanis || '').replace(/"/g, '');
-
-  // Soru
-  document.getElementById('gs-soru').textContent = data.soru;
-
-  // Textarea'yı temizle
-  document.getElementById('gs-textarea').value = '';
-
-  // Ekranı aç
-  const el = document.getElementById('gunluk-soru-ekran');
-  el.classList.add('open');
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      el.classList.add('visible');
-      setTimeout(() => {
-        document.getElementById('gs-textarea').focus();
-      }, 1000);
-    });
-  });
-
-  // Dot güncelle
-  updateGsTbDot();
-}
-
-function saveGunlukSoru() {
-  const today   = new Date().toISOString().slice(0, 10);
-  const cevap   = document.getElementById('gs-textarea').value.trim();
-  const data    = buildGunlukSoruHavuzu();
-
-  if (cevap && data) {
-    // Günlük log'a kaydet
-    const log = Store.get('journal_log', {});
-    const cId = data.chapter.id;
-    if (!log[cId]) log[cId] = {};
-    if (!log[cId].answers) log[cId].answers = {};
-    log[cId].answers['gs_' + today] = cevap;
-    log[cId].qa_date = new Date().toISOString();
-    Store.set('journal_log', log);
-
-    // Ayrıca günlük soru cevabı olarak kaydet
-    Store.set('gs_cevap_' + today, {
-      chapterId: data.chapter.id,
-      soru: data.soru,
-      cevap,
-      tarih: today,
-    });
-
-    Store.set('gs_answered_' + today, true);
-    if (typeof markFirstInteraction === 'function') markFirstInteraction('question');
-    if (typeof showToast === 'function') showToast('Günlük cevabın kaydedildi ✦');
-  }
-
-  closeGunlukSoru(true);
-}
-
-function closeGunlukSoru(answered) {
-  const el = document.getElementById('gunluk-soru-ekran');
-  el.classList.remove('visible');
-  setTimeout(() => el.classList.remove('open'), 600);
-  updateGsTbDot();
-}
-
-function updateGsTbDot() {
-  const today   = new Date().toISOString().slice(0, 10);
-  const hasDot  = !Store.get('gs_answered_' + today, false) &&
-                  Object.keys(Store.get('read', {})).length >= 3;
-  const dot = document.querySelector('.gs-tb-dot');
-  if (dot) dot.classList.toggle('visible', hasDot);
-}
-
-// Günlük soru toolbar butonu ekle
-function initGsTbBtn() {
-  const dinleBtn = document.getElementById('listen-tb-btn');
-  if (!dinleBtn) return;
-
-  const gsBtn = document.createElement('button');
-  gsBtn.className = 'tb-btn';
-  gsBtn.id = 'gs-tb-btn';
-  gsBtn.title = 'Bugünün sorusu';
-  gsBtn.innerHTML = `
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-      <line x1="12" y1="17" x2="12.01" y2="17"/>
-    </svg>
-    <span>Günlük</span>
-    <div class="gs-tb-dot"></div>
-  `;
-  gsBtn.onclick = () => {
-    const today = new Date().toISOString().slice(0, 10);
-    // Zaten cevaplandıysa günlüğe yönlendir
-    if (Store.get('gs_answered_' + today, false)) {
-      openSysPanel();
-      setTimeout(() => sysTab('gunluk'), 200);
-    } else {
-      showGunlukSoru();
-    }
-  };
-  dinleBtn.parentNode.insertBefore(gsBtn, dinleBtn);
-
-  // Ayırıcı
-  const sep = document.createElement('div');
-  sep.className = 'tb-sep';
-  dinleBtn.parentNode.insertBefore(sep, dinleBtn);
-
-  updateGsTbDot();
-}
-
-// Günlük cevapları Günlük paneline ekle
-const _prevBuildJournal = typeof buildJournal === 'function' ? buildJournal : null;
-if (_prevBuildJournal) {
-  window.buildJournal = function() {
-    _prevBuildJournal();
-
-    // Günlük soru cevaplarını en üste ekle
-    const container = document.getElementById('gunluk-container');
-    if (!container) return;
-
-    const gsCevaplar = [];
-    for (let i = 0; i < 90; i++) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().slice(0, 10);
-      const gs = Store.get('gs_cevap_' + dateStr, null);
-      if (gs) gsCevaplar.push({ ...gs, dateStr });
-    }
-
-    if (gsCevaplar.length === 0) return;
-
-    const gsHTML = `
-      <div style="padding:0 32px 20px;border-bottom:1px solid var(--border);margin-bottom:8px">
-        <div style="font-family:monospace;font-size:10px;letter-spacing:.2em;
-                    text-transform:uppercase;color:#D4B06A;margin-bottom:16px">
-          Günlük Sorular
-        </div>
-        ${gsCevaplar.map(gs => {
-          const c = CHAPTERS.find(x => x.id === gs.chapterId);
-          const tarihStr = new Date(gs.dateStr).toLocaleDateString('tr-TR', {
-            day:'numeric', month:'long'
-          });
-          return `
-            <div style="border:1px solid var(--border);border-radius:3px;
-                        padding:16px 18px;margin-bottom:10px;cursor:pointer"
-                 onclick="closeSysPanel();render(${gs.chapterId})">
-              <div style="display:flex;justify-content:space-between;
-                          align-items:center;margin-bottom:10px">
-                <span style="font-family:monospace;font-size:10px;
-                             color:#D4B06A;letter-spacing:.08em">
-                  ${c ? `B${c.id} · ${c.sure}` : ''}
-                </span>
-                <span style="font-family:monospace;font-size:10px;color:#8A7B67">
-                  ${tarihStr}
-                </span>
-              </div>
-              <div style="font-family:Georgia,serif;font-size:12px;
-                          color:var(--text2);font-style:italic;
-                          margin-bottom:10px;line-height:1.6">
-                ${gs.soru}
-              </div>
-              <div style="font-family:Georgia,serif;font-size:14px;
-                          color:var(--text);line-height:1.7;
-                          padding-left:12px;
-                          border-left:2px solid rgba(212,176,106,.3)">
-                ${gs.cevap}
-              </div>
-            </div>`;
-        }).join('')}
-      </div>`;
-
-    container.insertAdjacentHTML('afterbegin', gsHTML);
-  };
-}
-
-// Init
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(initGsTbBtn, 500);
-  // Günlük soru
-});
 
 </script>
 
