@@ -259,6 +259,8 @@ body:not(.cover-open) #journey-rail {
 }
 #reader.reader-enter { opacity: 0; transform: translateY(12px); filter: blur(4px); }
 #reader.reader-entered { opacity: 1; transform: none; filter: none; transition-delay: 120ms; }
+#reader.switching { opacity: 0; filter: blur(3px); transform: translateY(-6px); transition: opacity 180ms ease, filter 180ms ease, transform 180ms ease; }
+#reader.entering  { opacity: 0; filter: blur(3px); transform: translateY(8px); }
 
 /* ── TOOLBAR ── */
 #toolbar {
@@ -721,6 +723,13 @@ body:not(.cover-open) #journey-rail {
   overflow: hidden;
   box-shadow: 0 0 0 1px rgba(216,180,106,.06), 0 24px 64px rgba(0,0,0,.5);
   animation: pwCardIn 700ms cubic-bezier(.16,1,.3,1) 150ms both;
+}
+.pw-card-glow {
+  position: absolute; top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,176,106,.08) 0%, transparent 70%);
+  pointer-events: none;
 }
 .pw-eyebrow {
   font-family: var(--font-mono); font-size: 10px; font-weight: 600;
