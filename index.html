@@ -259,8 +259,6 @@ body:not(.cover-open) #journey-rail {
 }
 #reader.reader-enter { opacity: 0; transform: translateY(12px); filter: blur(4px); }
 #reader.reader-entered { opacity: 1; transform: none; filter: none; transition-delay: 120ms; }
-#reader.switching { opacity: 0; filter: blur(3px); transform: translateY(-6px); transition: opacity 180ms ease, filter 180ms ease, transform 180ms ease; }
-#reader.entering  { opacity: 0; filter: blur(3px); transform: translateY(8px); }
 
 /* ── TOOLBAR ── */
 #toolbar {
@@ -1482,6 +1480,75 @@ body.phase-4 { --scroll-slow: 1100ms; }
   color: #D7C9B5;
   padding: 3px 0;
 }
+/* ════════════════════════════════════════════════════════════
+   BUTTON ALIAS SYSTEM
+   Mevcut class'lara dokunulmadı. Yeni kod için alias'lar.
+   ════════════════════════════════════════════════════════════ */
+
+/* Base — tüm buton alias'larının temeli */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+/* Toolbar butonu gibi — mono, küçük, uppercase */
+.btn-icon {
+  background: transparent; border: none;
+  padding: 6px 8px; border-radius: 6px;
+  color: #8A7B67; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .06em; text-transform: uppercase;
+  transition: color 150ms, background 150ms;
+}
+.btn-icon:hover { color: #F3E7D2; background: rgba(255,255,255,.05); }
+.btn-icon.on   { color: #D4B06A; }
+
+/* Ghost — border'lı, şeffaf arka plan */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(212,176,106,.22);
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: rgba(212,176,106,.7);
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase;
+  cursor: pointer;
+  transition: color 150ms, border-color 150ms, background 150ms;
+}
+.btn-ghost:hover {
+  color: rgba(212,176,106,.9);
+  border-color: rgba(212,176,106,.38);
+  background: rgba(212,176,106,.04);
+}
+
+/* Pill — yuvarlak, tepki butonu gibi */
+.btn-pill {
+  padding: 8px 14px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  font-family: var(--font-mono); font-size: 11px;
+  color: #8A7B67; cursor: pointer;
+  transition: all 150ms ease;
+}
+.btn-pill:hover { border-color: rgba(255,255,255,.16); color: #D7C9B5; background: rgba(255,255,255,.06); }
+.btn-pill.on    { border-color: rgba(212,176,106,.4); color: #D4B06A; background: rgba(212,176,106,.08); }
+
+/* React — tepki seçimi için pill alias */
+.btn-react { }
+.btn-react { padding: 8px 14px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  font-family: var(--font-mono); font-size: 11px;
+  color: #8A7B67; cursor: pointer;
+  transition: all 150ms ease;
+}
+.btn-react:hover { border-color: rgba(255,255,255,.16); color: #D7C9B5; background: rgba(255,255,255,.06); }
+.btn-react.on   { border-color: rgba(212,176,106,.4); color: #D4B06A; background: rgba(212,176,106,.08); }
 
 </style>
 
