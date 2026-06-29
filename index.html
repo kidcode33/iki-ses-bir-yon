@@ -147,7 +147,7 @@ button { cursor: pointer; }
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center top;
     opacity: 0;
     animation: heroBgReveal 2.6s ease .1s forwards;
@@ -937,6 +937,8 @@ body.phase-4 { --scroll-slow: 1100ms; }
   .cover-content { align-items: center; text-align: center; padding-left: 24px; padding-right: 24px; padding-bottom: 56px; }
   .cover-cta-group { max-width: 100%; }
   .cover-eyebrow { justify-content: center; }
+  .cover-btn-primary { font-size: 14px; padding: 5px; border-radius: 8px; }
+  .cover-btn-ghost   { font-size: 9px; padding: 5px; }
 }
 @media (max-width: 480px) {
   .cover-title-main { font-size: clamp(52px,16vw,80px); }
