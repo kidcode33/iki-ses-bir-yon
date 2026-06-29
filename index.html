@@ -179,8 +179,10 @@ button { cursor: pointer; }
   position: relative; z-index: 5;
   margin-top: auto;
   padding: clamp(24px,4vw,48px) clamp(36px,7vw,80px) clamp(56px,7vw,76px);
-  display: flex; flex-direction: column; align-items: flex-start;
-  max-width: 720px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+  width: 100%; max-width: 480px;
+  align-self: center;
 }
 .cover-eyebrow {
   font-family: var(--font-mono);
@@ -215,6 +217,7 @@ button { cursor: pointer; }
 .cover-cta-group {
   display: flex; flex-direction: column; gap: 12px;
   width: 100%; max-width: 288px;
+  align-items: center;
 }
 .cover-btn-primary {
   width: 100%; background: #D4B06A; color: #140e08;
@@ -237,9 +240,7 @@ button { cursor: pointer; }
 .cover-btn-ghost:hover { color: rgba(212,176,106,.9); border-color: rgba(212,176,106,.38); background: rgba(212,176,106,.04); }
 .hero-anim { opacity: 0; }
 .hero-anim-1 { animation: heroItemIn 1000ms var(--ease-premium) .65s forwards; }
-.hero-anim-2 { animation: heroItemIn 1100ms var(--ease-premium) .95s forwards; }
-.hero-anim-3 { animation: heroItemIn 1000ms var(--ease-premium) 1.30s forwards; }
-.hero-anim-4 { animation: heroItemIn 900ms var(--ease-premium) 1.60s forwards; }
+.hero-anim-2 { animation: heroItemIn 900ms var(--ease-premium) 1.00s forwards; }
 
 /* ── COVER/READER VISIBILITY ── */
 body.cover-open #reader,
@@ -1677,21 +1678,10 @@ body.phase-4 { --scroll-slow: 1100ms; }
       89 Bölüm · Bir Yolculuk
     </div>
 
-    <!-- Main title -->
-    <h1 class="cover-title-main hero-anim hero-anim-2">
-      İki Ses,<br>Bir Yön
-    </h1>
-
-    <!-- Subtitle -->
-    <p class="cover-subtitle hero-anim hero-anim-3">
-      Kur'an ve Nutuk'tan iki ses.<br>
-      Senin için tek bir yol.
-    </p>
-
     <!-- CTA group -->
-    <div class="cover-cta-group hero-anim hero-anim-4">
+    <div class="cover-cta-group hero-anim hero-anim-2">
 
-      <!-- Primary CTA — tek, güçlü -->
+      <!-- Primary CTA -->
       <button class="cover-btn-primary" onclick="coverStart()">
         Yolculuğa Başla
       </button>
