@@ -1910,9 +1910,9 @@ function render(id) {
                  border-radius:4px;color:#D7C9B5;font-family:var(--font-serif);font-size:14px;
                  padding:12px 14px;resize:vertical;outline:none;min-height:80px;"
           placeholder="Notlarını buraya yaz..."
-          onchange="Store.setNote(${id},this.value);if(typeof markFirstInteraction==='function')markFirstInteraction('note')"
+          oninput="Store.setNote(${id},this.value);if(typeof markFirstInteraction==='function')markFirstInteraction('note');const sb=this.nextElementSibling;sb.textContent='✓ Kaydedildi';sb.className='note-save saved';clearTimeout(sb._t);sb._t=setTimeout(()=>{sb.textContent='Kaydet';sb.className='note-save'},2000)"
         >${savedNote}</textarea>
-        <button class="note-save" onclick="Store.setNote(${id},this.previousElementSibling.value);this.textContent='✓ Kaydedildi'">Kaydet</button>
+        <button class="note-save" onclick="Store.setNote(${id},this.previousElementSibling.value);this.textContent='✓ Kaydedildi';this.className='note-save saved'">Kaydet</button>
       </div>
     </div>`;
 
