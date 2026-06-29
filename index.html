@@ -1942,6 +1942,7 @@ function render(id) {
         <div class="ch-meta">
           <div class="ch-intensity">${pipsHTML}</div>
           <span class="ch-role-badge">${ROLE_TR[c.narrative_role]||c.narrative_role||''}</span>
+          ${(function(){ const e = (typeof EVRELER!=='undefined'?EVRELER:[]).find(e=>e.start===id); return e ? `<span class="ch-evre-badge" style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:${e.color};opacity:.8;border:1px solid ${e.color}33;border-radius:4px;padding:2px 7px;">${e.icon} ${e.label}</span>` : ''; })()}
         </div>
       </div>
       <div class="ch-sahne">${sahne}</div>
@@ -1971,8 +1972,10 @@ function render(id) {
       <div class="ch-react">
         <div class="ch-react-q">Bu bölüm sana ne hissettirdi?</div>
         <div class="ch-react-opts">${reactHTML}</div>
-      </div>` : ''}
+      </div>
+      <div style="height:1px;background:rgba(255,255,255,.05);margin:0 36px;"></div>` : ''}
       ${typeof buildEvreSonuHTML === 'function' ? buildEvreSonuHTML(id) : ''}
+      ${navHTML}
     </div>`;
 
   window.scrollTo({top:0});
