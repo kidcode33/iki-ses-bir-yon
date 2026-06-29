@@ -140,28 +140,41 @@ button { cursor: pointer; }
   .cover-compass-glow { display: none; }
   #cover-screen {
     background: #080604;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    flex-direction: column;
+    overflow-y: auto;
   }
   .cover-img-mobile {
-    position: absolute;
-    inset: 0;
+    position: relative;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     object-position: center top;
     opacity: 0;
+    display: block;
+    flex-shrink: 0;
     animation: heroBgReveal 2.6s ease .1s forwards;
   }
   .cover-content {
     position: relative;
     z-index: 5;
-    padding: 20px 24px 40px;
-    background: linear-gradient(0deg, rgba(8,6,4,1) 0%, rgba(8,6,4,.85) 60%, transparent 100%);
     width: 100%;
+    padding: 16px 24px 36px;
+    background: #080604;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
+    flex-shrink: 0;
+    margin-top: auto;
   }
-  .cover-eyebrow { justify-content: center; }
+  .cover-eyebrow {
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .cover-cta-group { max-width: 100%; width: 100%; }
+  .cover-btn-primary { font-size: 14px; padding: 13px 20px; border-radius: 10px; }
+  .cover-btn-ghost   { font-size: 9px; padding: 9px 18px; }
 }
 .cover-overlay {
   position: absolute;
