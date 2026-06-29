@@ -1775,9 +1775,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
   </button>
   <span class="tb-title" id="tb-title"></span>
 
-  <button class="tb-btn" id="fav-tb-btn" onclick="toggleFav()" title="Favoriye ekle" style="margin-left:auto">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-  </button>
 
 </div>
 <div id="ambient-glow" class="glow-off"></div>
@@ -1867,12 +1864,6 @@ function render(id) {
   cur = id;
   const c = CHAPTERS.find(x => x.id === id);
   if(!c) return;
-
-  // B1 ilk kez açılıyorsa giriş ekranı göster
-  const readMap = Store.get('read', {});
-  if (id === 1 && !readMap[1] && !Store.get('b1intro_seen', false)) {
-    if (typeof showB1Intro === 'function') { showB1Intro(); return; }
-  }
 
   // Toolbar
   document.getElementById('tb-title').textContent = 'B'+id+' · '+c.sure;
@@ -3400,62 +3391,6 @@ function buildEvreSonuHTML(id) {
 <script>
 
 /* ════ B1 GİRİŞ EKRANI ════ */
-function showB1Intro() {
-  const overlay = document.createElement('div');
-  overlay.id = 'b1-intro';
-  overlay.style.cssText = `
-    position: fixed; inset: 0; z-index: 500;
-    background: #1B1511;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 40px; text-align: center;
-    opacity: 0; transition: opacity .8s ease;
-  `;
-  overlay.innerHTML = `
-    <div style="font-family:monospace;font-size:11px;letter-spacing:.25em;
-                color:#D4B06A;text-transform:uppercase;margin-bottom:32px">
-      BÖLÜM 01
-    </div>
-    <div style="font-family:Georgia,serif;font-size:clamp(56px,12vw,96px);
-                font-weight:600;color:#F3E7D2;line-height:1;
-                margin-bottom:24px;letter-spacing:-.02em">
-      1919
-    </div>
-    <div style="font-family:Georgia,serif;font-size:clamp(16px,2.5vw,22px);
-                color:#D7C9B5;font-style:italic;line-height:1.7;
-                max-width:440px;margin-bottom:48px">
-      Atatürk'ün önünde<br>üç farklı yol vardı.<br><br>
-      Bir seçim yapmak zorundaydı.
-    </div>
-    <button onclick="closeB1Intro()"
-            style="background:none;border:1px solid rgba(212,176,106,.4);
-                   border-radius:40px;padding:14px 32px;
-                   font-family:monospace;font-size:12px;letter-spacing:.2em;
-                   text-transform:uppercase;color:#D4B06A;cursor:pointer;
-                   transition:all .3s ease"
-            onmouseover="this.style.background='rgba(212,176,106,.1)'"
-            onmouseout="this.style.background='none'">
-      Aşağı Kaydır ↓
-    </button>
-  `;
-  document.body.appendChild(overlay);
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => { overlay.style.opacity = '1'; });
-  });
-}
-
-function closeB1Intro() {
-  Store.set('b1intro_seen', true);
-  const el = document.getElementById('b1-intro');
-  if (el) {
-    el.style.opacity = '0';
-    setTimeout(() => {
-      el.remove();
-      render(1); // Şimdi gerçek bölümü render et
-    }, 600);
-  }
-}
-
 /* ════ İLK ETKİLEŞİM SİSTEMİ ════ */
 let _firstInteractionDone = false;
 let _firstInteractionTimer = null;
