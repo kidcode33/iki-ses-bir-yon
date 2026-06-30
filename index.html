@@ -1054,41 +1054,27 @@ body.phase-4 { --scroll-slow: 1100ms; }
   font-style: italic;
   color: #8A7B67;
   line-height: 1.7;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
-.evc-stats {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  margin-bottom: 28px;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 8px;
-  padding: 16px 20px;
-}
-.evc-stat {
-  flex: 1;
-  text-align: center;
-}
-.evc-stat-n {
+.evc-cumle {
   font-family: var(--font-serif);
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1;
-  margin-bottom: 4px;
+  font-size: clamp(17px, 4vw, 21px);
+  font-weight: 500;
+  font-style: italic;
+  color: #D7C9B5;
+  line-height: 1.6;
+  letter-spacing: -.01em;
+  margin-bottom: 32px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(6px);
+  animation: evcCumleReveal 1.8s cubic-bezier(.16,1,.3,1) .4s forwards;
 }
-.evc-stat-l {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: #5a4830;
-}
-.evc-stat-sep {
-  width: 1px;
-  height: 32px;
-  background: rgba(255,255,255,.06);
-  flex-shrink: 0;
+@keyframes evcCumleReveal {
+  to { opacity: 1; filter: blur(0); transform: none; }
 }
 .evc-actions { display: flex; }
 .evc-btn-primary {
@@ -1119,7 +1105,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 #damga-koleksiyon,
 #kimlik-screen,
 #welcome-back,
-#rc-card,
 #onboard-toast,
 .legal-overlay {
   display: none;
@@ -1130,7 +1115,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 #kimlik-screen.open { display: flex; }
 #kimlik-screen.visible { opacity: 1; }
 #welcome-back.show { display: flex; }
-#rc-card.visible { display: flex; }
 .legal-overlay.open { display: flex; }
 .legal-overlay.visible { opacity: 1; }
 #onboard-toast.show { display: block; }
@@ -1249,26 +1233,6 @@ body.phase-4 { --scroll-slow: 1100ms; }
 .ks-secenek.selected { border-color: rgba(212,176,106,.4); color: #D4B06A; background: rgba(212,176,106,.06); }
 #ks-devam-btn { display: none; background: #D4B06A; color: #140e08; border: none; border-radius: 8px; padding: 14px 32px; font-family: var(--font-serif); font-size: 15px; font-weight: 600; cursor: pointer; }
 #ks-devam-btn.visible { display: block; }
-
-/* Kaldığın Yer Kartı */
-#rc-card {
-  display: none; position: fixed;
-  bottom: 80px; left: 50%; transform: translateX(-50%);
-  z-index: 200; background: #231C17;
-  border: 1px solid rgba(255,255,255,.1); border-radius: 16px;
-  padding: 20px 24px; max-width: 360px; width: calc(100% - 48px);
-  flex-direction: column; gap: 8px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.4);
-  opacity: 0; transition: opacity .4s ease;
-}
-#rc-card.visible { display: flex; opacity: 1; }
-.rc-title { font-family: var(--font-mono); font-size: 10px; color: #D4B06A; letter-spacing: .08em; }
-.rc-meta { font-family: var(--font-mono); font-size: 10px; color: #5a4830; line-height: 1.6; }
-.rc-kapanis { font-family: var(--font-serif); font-size: 13px; font-style: italic; color: #8A7B67; line-height: 1.65; }
-.rc-time-badge { background: rgba(212,176,106,.1); color: #D4B06A; border-radius: 20px; padding: 2px 8px; font-size: 9px; }
-.rc-actions { display: flex; gap: 8px; margin-top: 4px; }
-.rc-btn-primary { flex: 1; background: #D4B06A; color: #140e08; border: none; border-radius: 8px; padding: 10px 16px; font-family: var(--font-serif); font-size: 13px; font-weight: 600; cursor: pointer; }
-.rc-btn-close { background: none; border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #8A7B67; cursor: pointer; }
 
 /* ── INTRO OVERLAY ── */
 #intro-overlay {
@@ -3332,21 +3296,16 @@ function initCoverScreen() {
 
 /* ── EVRE SONU KARTI ── */
 const EVRE_SONU_IDS = {
-  9:  { icon:'🌱', label:'BAŞLANGIÇ', baslik:'İlk Adım Atıldı', metin:'Çağrıyı duydun. Uyanış başlıyor.', sonraki:'Uyanış', color:'#D4B06A', next:10 },
-  21: { icon:'👁',  label:'UYANIS',   baslik:'Gözler Açıldı',   metin:'Fark ettin. Şimdi yüzleşme zamanı.', sonraki:'Yüzleşme', color:'#8AA392', next:22 },
-  49: { icon:'🔥', label:'YÜZLEŞME', baslik:'Gördün',           metin:'Kaçmadın. Karar zamanı.', sonraki:'Karar', color:'#E8A87C', next:50 },
-  67: { icon:'⚖️', label:'KARAR',    baslik:'Seçim Yapıldı',    metin:'Yön belli. Artık yürüme vakti.', sonraki:'Yön', color:'#6E8FB8', next:68 },
-  89: { icon:'✦',  label:'YÖN',      baslik:'Yolculuk Bitti',   metin:'89 bölüm. İki ses. Bir yön.', sonraki:null, color:'#D4B06A', next:null },
+  9:  { icon:'🌱', label:'BAŞLANGIÇ', baslik:'İlk Adım Atıldı', metin:'Çağrıyı duydun. Uyanış başlıyor.', cumle:'Görmek — en cesur başlangıçtır.', sonraki:'Uyanış', color:'#D4B06A', next:10 },
+  21: { icon:'👁',  label:'UYANIS',   baslik:'Gözler Açıldı',   metin:'Fark ettin. Şimdi yüzleşme zamanı.', cumle:'Bazı şeyler okunmaz — görülür.', sonraki:'Yüzleşme', color:'#8AA392', next:22 },
+  49: { icon:'🔥', label:'YÜZLEŞME', baslik:'Gördün',           metin:'Kaçmadın. Karar zamanı.', cumle:'Kaçmak kaçanı tanımlar.', sonraki:'Karar', color:'#E8A87C', next:50 },
+  67: { icon:'⚖️', label:'KARAR',    baslik:'Seçim Yapıldı',    metin:'Yön belli. Artık yürüme vakti.', cumle:'Önce çamur. En sona — ruh.', sonraki:'Yön', color:'#6E8FB8', next:68 },
+  89: { icon:'✦',  label:'YÖN',      baslik:'Yolculuk Bitti',   metin:'89 bölüm. İki ses. Bir yön.', cumle:'Sen şimdi — kime devredeceksin?', sonraki:null, color:'#D4B06A', next:null },
 };
 
 function buildEvreSonuHTML(id) {
   const evre = EVRE_SONU_IDS[id];
   if (!evre) return '';
-
-  const favCount   = Store.getFavs().length;
-  const readCount  = Object.keys(Store.get('read',{})).length;
-  const allReacts  = Store.getAllReacts ? Store.getAllReacts() : {};
-  const reactCount = Object.values(allReacts).filter(Boolean).length;
 
   return `
     <div class="evre-sonu-card">
@@ -3357,22 +3316,7 @@ function buildEvreSonuHTML(id) {
       <div class="evc-divider"></div>
       <div class="evc-baslik">${evre.baslik}</div>
       <div class="evc-metin">${evre.metin}</div>
-      <div class="evc-stats">
-        <div class="evc-stat">
-          <div class="evc-stat-n" style="color:${evre.color}">${readCount}</div>
-          <div class="evc-stat-l">Bölüm</div>
-        </div>
-        <div class="evc-stat-sep"></div>
-        <div class="evc-stat">
-          <div class="evc-stat-n" style="color:${evre.color}">${favCount}</div>
-          <div class="evc-stat-l">Favori</div>
-        </div>
-        <div class="evc-stat-sep"></div>
-        <div class="evc-stat">
-          <div class="evc-stat-n" style="color:${evre.color}">${reactCount}</div>
-          <div class="evc-stat-l">Tepki</div>
-        </div>
-      </div>
+      <div class="evc-cumle">${evre.cumle}</div>
       <div class="evc-actions">
         ${evre.sonraki
           ? `<button class="evc-btn-primary" style="background:${evre.color}" onclick="render(${evre.next})">
@@ -3668,113 +3612,7 @@ function shareJournal() {
 </script>
 
 <!-- KALDIĞIN YER KARTI -->
-<div id="rc-card">
-  <div class="rc-title" id="rc-title"></div>
-  <div class="rc-meta" id="rc-meta"></div>
-  <div class="rc-kapanis" id="rc-kapanis"></div>
-  <div class="rc-actions">
-    <button class="rc-btn-primary" id="rc-btn" onclick="returnToChapter()">
-      Devam Et →
-    </button>
-    <button class="rc-btn-close" onclick="dismissReturnCard()" title="Kapat">✕</button>
-  </div>
-</div>
 
-<script>
-
-/* ════════════════════════════════════
-   KALDIĞIN YER KARTI
-   ════════════════════════════════════ */
-
-let _returnCardChapterId = null;
-
-function _todayStr() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function _timeAgo(isoStr) {
-  if (!isoStr) return 'Daha önce';
-  const diff = Date.now() - new Date(isoStr).getTime();
-  const mins  = Math.floor(diff / 60000);
-  const hours = Math.floor(diff / 3600000);
-  const days  = Math.floor(diff / 86400000);
-
-  if (mins < 2)   return 'Az önce';
-  if (mins < 60)  return `${mins} dakika önce`;
-  if (hours < 24) return `${hours} saat önce`;
-  if (days === 1) return 'Dün';
-  if (days < 7)   return `${days} gün önce`;
-  return `${Math.floor(days/7)} hafta önce`;
-}
-
-function showReturnCard() {
-  const last    = Store.get('last', null);
-  const readMap = Store.get('read', {});
-  const readCount = Object.keys(readMap).length;
-
-  // Gösterme koşulları
-  if (!last || readCount === 0) return;
-  if (Store.get('return_card_dismissed_today', null) === _todayStr()) return;
-
-  const c = CHAPTERS.find(x => x.id === last);
-  if (!c) return;
-
-  _returnCardChapterId = last;
-
-  // Son okuma zamanı
-  const lastTime  = Store.get('last_read_time', null);
-  const timeLabel = _timeAgo(lastTime);
-
-  // Tahmini kalan
-  const remaining = 89 - readCount;
-
-  // Kartı doldur
-  document.getElementById('rc-title').textContent =
-    `B${c.id} · ${c.sure} — ${c.title}`;
-
-  document.getElementById('rc-meta').innerHTML =
-    `<span class="rc-time-badge">${timeLabel}</span><br>` +
-    `${readCount} bölüm tamamlandı · Kalan ~${remaining} bölüm`;
-
-  const kapanisText = (c.kapanis || '').replace(/"/g, '');
-  document.getElementById('rc-kapanis').textContent = kapanisText;
-
-  // Butonu özelleştir
-  const btn = document.getElementById('rc-btn');
-  if (readMap[last]) {
-    const nextId = last < 89 ? last + 1 : last;
-    _returnCardChapterId = nextId;
-    const nextC = CHAPTERS.find(x => x.id === nextId);
-    btn.textContent = nextC ? `B${nextId}'e Geç →` : 'Devam Et →';
-  } else {
-    btn.textContent = `B${last}'den Devam Et →`;
-  }
-
-  // Kartı göster
-  const card = document.getElementById('rc-card');
-  setTimeout(() => {
-    if (card) card.classList.add('visible');
-  }, 1200);
-}
-
-function returnToChapter() {
-  const card = document.getElementById('rc-card');
-  if (card) card.classList.remove('visible');
-  if (_returnCardChapterId) {
-    setTimeout(() => render(_returnCardChapterId), 200);
-  }
-}
-
-function dismissReturnCard() {
-  const card = document.getElementById('rc-card');
-  if (card) card.classList.remove('visible');
-  Store.set('return_card_dismissed_today', _todayStr());
-}
-
-// render() her çağrıldığında last_read_time güncelle
-const _origRT = window.render;
-window.render = function(id) { _origRT(id); Store.set('last_read_time', new Date().toISOString()); };
-</script>
 <script>
 
 /* ════════════════════════════════════
