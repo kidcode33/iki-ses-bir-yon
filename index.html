@@ -1861,48 +1861,33 @@ body.phase-4 { --scroll-slow: 1100ms; }
 </div>
 
 <!-- KAPAK EKRANI -->
-<div id="cover-screen">
+<div id="cover-screen" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:fixed;inset:0;z-index:550;background:#0A0806;">
 
-  <!-- Layer 1: Background image (desktop) -->
-  <div class="cover-bg" style="background-image:url('kapak_web.jpg')"></div>
+  <div style="text-align:center;padding:40px 24px;display:flex;flex-direction:column;align-items:center;gap:24px;">
 
-  <!-- Layer 1b: Mobile full image -->
-  <img class="cover-img-mobile" src="kapak_mobil.png" alt="" aria-hidden="true">
-
-  <!-- Layer 2: Gradient overlay -->
-  <div class="cover-overlay"></div>
-
-  <!-- Layer 2: Ambient light orbs -->
-  <div class="cover-light-gold"></div>
-  <div class="cover-light-blue"></div>
-  <div class="cover-compass-glow"></div>
-
-  <!-- Layer 3: Content -->
-  <div class="cover-content">
-
-    <!-- Eyebrow -->
-    <div class="cover-eyebrow">
-      <span class="cover-eyebrow-dot"></span>
+    <div style="font-family:monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,176,106,.5);">
+      <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#D4B06A;margin-right:10px;vertical-align:middle;"></span>
       89 Bölüm · Bir Yolculuk
     </div>
 
-    <!-- CTA group -->
-    <div class="cover-cta-group">
+    <h1 style="font-family:Georgia,serif;font-size:clamp(52px,10vw,96px);font-weight:600;line-height:.96;letter-spacing:-.04em;color:#F3E7D2;margin:0;">
+      İki Ses,<br>Bir Yön
+    </h1>
 
-      <!-- Primary CTA -->
-      <button class="cover-btn-primary" onclick="coverStart()">
+    <p style="font-family:Georgia,serif;font-size:clamp(15px,2vw,18px);font-style:italic;color:rgba(215,201,181,.6);margin:0;max-width:340px;line-height:1.6;">
+      Kur'an ve Nutuk'tan iki ses.<br>Senin için tek bir yol.
+    </p>
+
+    <div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;">
+      <button onclick="coverStart()"
+              style="width:100%;background:#D4B06A;color:#140e08;border:none;border-radius:12px;padding:16px 24px;font-family:Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">
         Yolculuğa Başla
       </button>
-
-      <!-- Secondary CTA — sadece geçmiş varsa görünür -->
-      <button
-        id="cover-btn-devam"
-        class="cover-btn-ghost"
-        style="display:none"
-        onclick="coverContinue()">
+      <button id="cover-btn-devam"
+              style="display:none;width:100%;background:none;border:1px solid rgba(212,176,106,.3);border-radius:12px;padding:14px 24px;font-family:monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(212,176,106,.7);cursor:pointer;"
+              onclick="coverContinue()">
         Kaldığın Yerden Devam Et
       </button>
-
     </div>
 
   </div>
