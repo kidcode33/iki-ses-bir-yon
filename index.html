@@ -1657,6 +1657,143 @@ body.phase-4 { --scroll-slow: 1100ms; }
   margin-right: 6px;
   font-style: normal;
 }
+/* ════════════════════════════════════════════
+   AUTH MODAL
+   ════════════════════════════════════════════ */
+#auth-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 800;
+  background: rgba(8,6,4,.92);
+  backdrop-filter: blur(12px);
+  align-items: center; justify-content: center;
+  padding: 24px;
+}
+#auth-modal.open { display: flex; }
+
+.auth-card {
+  background: #1B1511;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%; max-width: 380px;
+  display: flex; flex-direction: column; gap: 20px;
+  animation: authCardIn 400ms cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes authCardIn {
+  from { opacity:0; transform: translateY(16px) scale(.97); }
+  to   { opacity:1; transform: none; }
+}
+.auth-logo {
+  font-family: var(--font-serif);
+  font-size: 13px; letter-spacing: .12em;
+  text-transform: uppercase; color: #D4B06A;
+  opacity: .7; text-align: center;
+}
+.auth-title {
+  font-family: var(--font-serif);
+  font-size: 22px; font-weight: 600;
+  color: #F3E7D2; text-align: center;
+  line-height: 1.3;
+}
+.auth-sub {
+  font-family: var(--font-serif);
+  font-size: 14px; color: #8A7B67;
+  text-align: center; line-height: 1.6;
+  margin-top: -8px;
+}
+.auth-input {
+  width: 100%; padding: 13px 16px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px;
+  font-family: var(--font-serif); font-size: 15px;
+  color: #F3E7D2; outline: none;
+  transition: border-color 150ms;
+  box-sizing: border-box;
+}
+.auth-input::placeholder { color: #5a4830; }
+.auth-input:focus { border-color: rgba(212,176,106,.4); }
+.auth-btn-primary {
+  width: 100%; padding: 14px;
+  background: #D4B06A; color: #140e08;
+  border: none; border-radius: 8px;
+  font-family: var(--font-serif);
+  font-size: 15px; font-weight: 600;
+  cursor: pointer;
+  transition: opacity 150ms, transform 150ms;
+}
+.auth-btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+.auth-btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.auth-divider {
+  display: flex; align-items: center; gap: 12px;
+}
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1;
+  height: 1px; background: rgba(255,255,255,.07);
+}
+.auth-divider span {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: #5a4830;
+}
+.auth-btn-google {
+  width: 100%; padding: 13px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 14px; color: #D7C9B5;
+  cursor: pointer; display: flex;
+  align-items: center; justify-content: center; gap: 10px;
+  transition: background 150ms, border-color 150ms;
+}
+.auth-btn-google:hover {
+  background: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.16);
+}
+.auth-toggle {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: #5a4830; text-align: center;
+  cursor: pointer; transition: color 150ms;
+}
+.auth-toggle span { color: #D4B06A; }
+.auth-toggle:hover span { text-decoration: underline; }
+.auth-error {
+  font-family: var(--font-serif); font-size: 13px;
+  color: #C97B7B; text-align: center;
+  background: rgba(201,123,123,.08);
+  border: 1px solid rgba(201,123,123,.2);
+  border-radius: 6px; padding: 10px 14px;
+  display: none;
+}
+.auth-error.show { display: block; }
+.auth-skip {
+  background: none; border: none;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: #3a2e22; cursor: pointer;
+  text-align: center; width: 100%;
+  transition: color 150ms; padding: 4px;
+}
+.auth-skip:hover { color: #8A7B67; }
+
+/* Auth user badge in toolbar */
+#auth-user-badge {
+  display: none;
+  align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: #5a4830; cursor: pointer;
+  background: none; border: none;
+  transition: color 150ms;
+}
+#auth-user-badge.visible { display: flex; }
+#auth-user-badge:hover { color: #D4B06A; }
+.auth-user-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #D4B06A; flex-shrink: 0;
+}
 
 </style>
 
@@ -1667,9 +1804,60 @@ body.phase-4 { --scroll-slow: 1100ms; }
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="İki Ses, Bir Yön">
   <link rel="manifest" href="manifest.json">
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
+
+<!-- AUTH MODAL -->
+<div id="auth-modal">
+  <div class="auth-card">
+    <div class="auth-logo">İki Ses, Bir Yön</div>
+
+    <div id="auth-title-login" class="auth-title">Hoş Geldin</div>
+    <div id="auth-title-signup" class="auth-title" style="display:none">Hesap Oluştur</div>
+
+    <div id="auth-sub-login" class="auth-sub">Yolculuğuna kaldığın yerden devam et.</div>
+    <div id="auth-sub-signup" class="auth-sub" style="display:none">İlerlemenin her cihazda senkronize olsun.</div>
+
+    <div id="auth-error" class="auth-error"></div>
+
+    <div id="auth-name-wrap" style="display:none">
+      <input id="auth-name" class="auth-input" type="text"
+             placeholder="Adın (isteğe bağlı)" autocomplete="name">
+    </div>
+
+    <input id="auth-email" class="auth-input" type="email"
+           placeholder="E-posta" autocomplete="email">
+    <input id="auth-password" class="auth-input" type="password"
+           placeholder="Şifre" autocomplete="current-password">
+
+    <button id="auth-submit" class="auth-btn-primary" onclick="authSubmit()">
+      Giriş Yap
+    </button>
+
+    <div class="auth-divider"><span>veya</span></div>
+
+    <button class="auth-btn-google" onclick="authGoogle()">
+      <svg width="18" height="18" viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      </svg>
+      Google ile Devam Et
+    </button>
+
+    <div class="auth-toggle" onclick="authToggleMode()">
+      <span id="auth-toggle-text">Hesabın yok mu? <span>Oluştur</span></span>
+    </div>
+
+    <button class="auth-skip" onclick="authSkip()">
+      Şimdilik atla — misafir olarak devam et
+    </button>
+  </div>
+</div>
 
 <!-- KAPAK EKRANI -->
 <div id="cover-screen">
@@ -1742,6 +1930,10 @@ body.phase-4 { --scroll-slow: 1100ms; }
   </button>
   <span class="tb-title" id="tb-title"></span>
 
+  <button id="auth-user-badge" onclick="authShowProfile()" title="Hesabım">
+    <span class="auth-user-dot"></span>
+    <span id="auth-user-label">Giriş Yap</span>
+  </button>
 
 </div>
 <div id="ambient-glow" class="glow-off"></div>
@@ -5185,6 +5377,414 @@ window.render = function(id) {
   });
 };
 </script>
+<!-- ════════════════════════════════════════════════════════════
+     AUTH MODULE
+     Supabase Auth + Sync + UI
+     ════════════════════════════════════════════════════════════ -->
+<script>
+/* ── CONFIG ──────────────────────────────────────────────────
+   Supabase project URL ve anon key buraya girilecek.
+   Dashboard: https://app.supabase.com → Settings → API
+   ─────────────────────────────────────────────────────────── */
+const SUPABASE_URL  = 'YOUR_SUPABASE_URL';   // örn: https://xxxx.supabase.co
+const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';
+
+/* ── CLIENT ─────────────────────────────────────────────────── */
+let _supabase = null;
+function getSupabase() {
+  if (!_supabase && typeof supabase !== 'undefined') {
+    _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  }
+  return _supabase;
+}
+
+/* ── STATE ──────────────────────────────────────────────────── */
+let _authUser    = null;   // Supabase user objesi
+let _authMode    = 'login'; // 'login' | 'signup'
+let _syncPending = false;
+
+/* ── INIT ───────────────────────────────────────────────────── */
+async function authInit() {
+  const sb = getSupabase();
+  if (!sb) return; // SDK yüklenmediyse sessizce atla
+
+  // Mevcut session kontrol
+  const { data: { session } } = await sb.auth.getSession();
+  if (session?.user) {
+    await authOnLogin(session.user);
+  }
+
+  // Auth state değişikliklerini dinle
+  sb.auth.onAuthStateChange(async (event, session) => {
+    if (event === 'SIGNED_IN' && session?.user) {
+      await authOnLogin(session.user);
+    } else if (event === 'SIGNED_OUT') {
+      authOnLogout();
+    }
+  });
+}
+
+/* ── LOGIN HANDLER ──────────────────────────────────────────── */
+async function authOnLogin(user) {
+  _authUser = user;
+  authUpdateBadge(user);
+  authCloseModal();
+
+  // localStorage → Supabase sync (ilk login'de)
+  await syncLocalToSupabase();
+
+  // Supabase → localStorage sync (güncel veri)
+  await syncSupabaseToLocal();
+
+  // Sidebar'ı güncelle
+  if (typeof buildSidebar === 'function') buildSidebar();
+}
+
+function authOnLogout() {
+  _authUser = null;
+  authUpdateBadge(null);
+}
+
+/* ── UI: BADGE ──────────────────────────────────────────────── */
+function authUpdateBadge(user) {
+  const badge = document.getElementById('auth-user-badge');
+  const label = document.getElementById('auth-user-label');
+  if (!badge || !label) return;
+
+  badge.classList.add('visible');
+  if (user) {
+    const name = user.user_metadata?.name
+      || user.email?.split('@')[0]
+      || 'Hesabım';
+    label.textContent = name;
+  } else {
+    label.textContent = 'Giriş Yap';
+  }
+}
+
+/* ── UI: MODAL ──────────────────────────────────────────────── */
+function authOpenModal() {
+  document.getElementById('auth-modal').classList.add('open');
+  setTimeout(() => document.getElementById('auth-email')?.focus(), 100);
+}
+
+function authCloseModal() {
+  document.getElementById('auth-modal').classList.remove('open');
+  authClearError();
+}
+
+function authToggleMode() {
+  _authMode = _authMode === 'login' ? 'signup' : 'login';
+  const isLogin = _authMode === 'login';
+
+  document.getElementById('auth-title-login').style.display  = isLogin ? '' : 'none';
+  document.getElementById('auth-title-signup').style.display = isLogin ? 'none' : '';
+  document.getElementById('auth-sub-login').style.display    = isLogin ? '' : 'none';
+  document.getElementById('auth-sub-signup').style.display   = isLogin ? 'none' : '';
+  document.getElementById('auth-name-wrap').style.display    = isLogin ? 'none' : '';
+  document.getElementById('auth-submit').textContent         = isLogin ? 'Giriş Yap' : 'Hesap Oluştur';
+  document.getElementById('auth-toggle-text').innerHTML      = isLogin
+    ? 'Hesabın yok mu? <span>Oluştur</span>'
+    : 'Zaten hesabın var mı? <span>Giriş Yap</span>';
+
+  const pwInput = document.getElementById('auth-password');
+  if (pwInput) pwInput.autocomplete = isLogin ? 'current-password' : 'new-password';
+
+  authClearError();
+}
+
+function authShowProfile() {
+  if (_authUser) {
+    authOpenProfileMenu();
+  } else {
+    authOpenModal();
+  }
+}
+
+function authOpenProfileMenu() {
+  // Basit confirm — ileride dropdown yapılabilir
+  if (confirm(`${_authUser.email}\n\nÇıkış yapmak istiyor musun?`)) {
+    authSignOut();
+  }
+}
+
+function authShowError(msg) {
+  const el = document.getElementById('auth-error');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function authClearError() {
+  const el = document.getElementById('auth-error');
+  if (el) el.classList.remove('show');
+}
+
+function authSetLoading(loading) {
+  const btn = document.getElementById('auth-submit');
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.textContent = loading
+    ? (_authMode === 'login' ? 'Giriş yapılıyor…' : 'Oluşturuluyor…')
+    : (_authMode === 'login' ? 'Giriş Yap' : 'Hesap Oluştur');
+}
+
+/* ── AUTH ACTIONS ───────────────────────────────────────────── */
+async function authSubmit() {
+  const sb = getSupabase();
+  if (!sb) return authShowError('Bağlantı kurulamadı.');
+
+  const email    = document.getElementById('auth-email')?.value?.trim();
+  const password = document.getElementById('auth-password')?.value;
+  const name     = document.getElementById('auth-name')?.value?.trim();
+
+  if (!email || !password) return authShowError('E-posta ve şifre gerekli.');
+  if (password.length < 6)  return authShowError('Şifre en az 6 karakter olmalı.');
+
+  authSetLoading(true);
+  authClearError();
+
+  try {
+    if (_authMode === 'signup') {
+      const { error } = await sb.auth.signUp({
+        email, password,
+        options: { data: { name: name || email.split('@')[0] } }
+      });
+      if (error) throw error;
+      authShowError('✓ Doğrulama e-postası gönderildi. Lütfen gelen kutunu kontrol et.');
+    } else {
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      // authOnLogin onAuthStateChange ile tetiklenecek
+    }
+  } catch (err) {
+    const msgs = {
+      'Invalid login credentials': 'E-posta veya şifre hatalı.',
+      'Email not confirmed':        'E-postanı doğrulaman gerekiyor.',
+      'User already registered':    'Bu e-posta zaten kayıtlı.',
+      'Password should be at least 6 characters': 'Şifre en az 6 karakter olmalı.',
+    };
+    authShowError(msgs[err.message] || 'Bir hata oluştu. Tekrar dene.');
+  } finally {
+    authSetLoading(false);
+  }
+}
+
+async function authGoogle() {
+  const sb = getSupabase();
+  if (!sb) return;
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+  if (error) authShowError('Google ile giriş başarısız.');
+}
+
+async function authSignOut() {
+  const sb = getSupabase();
+  if (sb) await sb.auth.signOut();
+}
+
+function authSkip() {
+  authCloseModal();
+  // Misafir olarak devam — mevcut akış değişmiyor
+}
+
+/* ── SYNC: localStorage → Supabase ─────────────────────────── */
+async function syncLocalToSupabase() {
+  if (!_authUser) return;
+  const sb = getSupabase();
+  if (!sb) return;
+
+  const uid = _authUser.id;
+
+  try {
+    // 1. Okuma ilerlemesi
+    const readMap = Store.get('read', {});
+    const readIds = Object.keys(readMap).map(Number).filter(Boolean);
+    if (readIds.length > 0) {
+      const rows = readIds.map(id => ({ user_id: uid, chapter_id: id }));
+      await sb.from('reading_progress').upsert(rows, { onConflict: 'user_id,chapter_id' });
+    }
+
+    // 2. Favoriler
+    const favs = Store.getFavs ? Store.getFavs() : Store.get('fav', []);
+    if (favs.length > 0) {
+      const favRows = favs.map(id => ({ user_id: uid, chapter_id: id }));
+      await sb.from('favorites').upsert(favRows, { onConflict: 'user_id,chapter_id' });
+    }
+
+    // 3. Notlar
+    const notes = Store.get('notes', {});
+    const noteEntries = Object.entries(notes).filter(([,v]) => v);
+    if (noteEntries.length > 0) {
+      const noteRows = noteEntries.map(([id, content]) => ({
+        user_id: uid, chapter_id: parseInt(id), content
+      }));
+      await sb.from('notes').upsert(noteRows, { onConflict: 'user_id,chapter_id' });
+    }
+
+    // 4. Tepkiler
+    const reacts = Store.get('reacts', {});
+    const reactEntries = Object.entries(reacts).filter(([,v]) => v);
+    if (reactEntries.length > 0) {
+      const reactRows = reactEntries.map(([id, reaction_key]) => ({
+        user_id: uid, chapter_id: parseInt(id), reaction_key
+      }));
+      await sb.from('reactions').upsert(reactRows, { onConflict: 'user_id,chapter_id' });
+    }
+
+    console.log('[Sync] localStorage → Supabase ✓');
+  } catch (err) {
+    console.warn('[Sync] Upload failed:', err.message);
+  }
+}
+
+/* ── SYNC: Supabase → localStorage ─────────────────────────── */
+async function syncSupabaseToLocal() {
+  if (!_authUser) return;
+  const sb = getSupabase();
+  if (!sb) return;
+
+  const uid = _authUser.id;
+
+  try {
+    // 1. Okuma ilerlemesi
+    const { data: progress } = await sb
+      .from('reading_progress')
+      .select('chapter_id')
+      .eq('user_id', uid);
+
+    if (progress?.length) {
+      const readMap = {};
+      progress.forEach(r => { readMap[r.chapter_id] = 1; });
+      Store.set('read', readMap);
+    }
+
+    // 2. Favoriler
+    const { data: favs } = await sb
+      .from('favorites')
+      .select('chapter_id')
+      .eq('user_id', uid);
+
+    if (favs?.length) {
+      Store.set('fav', favs.map(f => f.chapter_id));
+    }
+
+    // 3. Notlar
+    const { data: notes } = await sb
+      .from('notes')
+      .select('chapter_id, content')
+      .eq('user_id', uid);
+
+    if (notes?.length) {
+      const noteMap = {};
+      notes.forEach(n => { noteMap[n.chapter_id] = n.content; });
+      Store.set('notes', noteMap);
+    }
+
+    // 4. Tepkiler
+    const { data: reactions } = await sb
+      .from('reactions')
+      .select('chapter_id, reaction_key')
+      .eq('user_id', uid);
+
+    if (reactions?.length) {
+      const reactMap = {};
+      reactions.forEach(r => { reactMap[r.chapter_id] = r.reaction_key; });
+      Store.set('reacts', reactMap);
+    }
+
+    console.log('[Sync] Supabase → localStorage ✓');
+  } catch (err) {
+    console.warn('[Sync] Download failed:', err.message);
+  }
+}
+
+/* ── REALTIME SYNC: Store değişince Supabase'e yaz ─────────── */
+const _syncQueue = new Map();
+
+function authSyncDebounced(table, payload) {
+  if (!_authUser) return;
+  const key = `${table}-${JSON.stringify(payload)}`;
+  clearTimeout(_syncQueue.get(key));
+  _syncQueue.set(key, setTimeout(async () => {
+    const sb = getSupabase();
+    if (!sb || !_authUser) return;
+    try {
+      await sb.from(table).upsert(
+        { user_id: _authUser.id, ...payload },
+        { onConflict: `user_id,${Object.keys(payload)[0]}` }
+      );
+    } catch (e) {
+      console.warn('[Sync] Debounced write failed:', e.message);
+    }
+  }, 2000));
+}
+
+/* ── Store HOOKS — mevcut Store'a bağlanır ──────────────────── */
+/* Her Store.set çağrısından sonra ilgili tabloyu senkronize et */
+const _origStoreSet = Store.set.bind(Store);
+Store.set = function(key, value) {
+  _origStoreSet(key, value); // Önce localStorage'a yaz
+  if (!_authUser) return;    // Login yoksa sync atla
+
+  // Hangi tablo? — key'e göre yönlendir
+  if (key === 'read') {
+    // read objesi değişti — tüm read'leri sync et (batch)
+    const ids = Object.keys(value).map(Number).filter(Boolean);
+    ids.forEach(id => {
+      authSyncDebounced('reading_progress', { chapter_id: id });
+    });
+  }
+  // notes, fav, reacts için modül metodları kullanılıyor
+  // (setNote, toggleFav, setReact) — aşağıda hook'landı
+};
+
+const _origSetNote = Store.setNote?.bind(Store);
+if (_origSetNote) {
+  Store.setNote = function(id, content) {
+    _origSetNote(id, content);
+    authSyncDebounced('notes', { chapter_id: id, content });
+  };
+}
+
+const _origToggleFav = Store.toggleFav?.bind(Store);
+if (_origToggleFav) {
+  Store.toggleFav = function(id) {
+    _origToggleFav(id);
+    const isFav = Store.isFav(id);
+    if (_authUser) {
+      const sb = getSupabase();
+      if (!sb) return;
+      if (isFav) {
+        sb.from('favorites').upsert({ user_id: _authUser.id, chapter_id: id },
+          { onConflict: 'user_id,chapter_id' }).then(() => {});
+      } else {
+        sb.from('favorites').delete()
+          .eq('user_id', _authUser.id).eq('chapter_id', id).then(() => {});
+      }
+    }
+  };
+}
+
+const _origSetReact = Store.setReact?.bind(Store);
+if (_origSetReact) {
+  Store.setReact = function(id, key) {
+    _origSetReact(id, key);
+    authSyncDebounced('reactions', { chapter_id: id, reaction_key: key });
+  };
+}
+
+/* ── AUTO-INIT ──────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  authInit();
+  // Badge her zaman görünür — tıklanınca login veya profil
+  const badge = document.getElementById('auth-user-badge');
+  if (badge) badge.classList.add('visible');
+});
+</script>
+
 </body>
 </html>
 <!-- EKLEME NOKTASI -->
