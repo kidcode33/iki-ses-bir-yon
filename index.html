@@ -110,7 +110,7 @@ button { cursor: pointer; }
 #cover-screen {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   position: fixed;
   inset: 0;
   z-index: 550;
@@ -226,8 +226,7 @@ button { cursor: pointer; }
   padding: clamp(24px,4vw,48px) clamp(36px,7vw,80px) clamp(56px,7vw,76px);
   display: flex; flex-direction: column; align-items: center;
   text-align: center;
-  width: 100%; max-width: 480px;
-  align-self: flex-end;
+  width: 100%;
 }
 .cover-eyebrow {
   font-family: var(--font-mono);
@@ -5388,7 +5387,7 @@ window.render = function(id) {
    Dashboard: https://app.supabase.com → Settings → API
    ─────────────────────────────────────────────────────────── */
 const SUPABASE_URL  = 'https://wmwpupegitenehpvhffp.supabase.co';
-const SUPABASE_ANON = 'sb_publishable_xiDIN1hSDT67Ky3VnmoacQ_rkB4mLn_';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indtd3B1cGVnaXRlbmVocHZoZmZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwOTA1NzgsImV4cCI6MjA5ODY2NjU3OH0.7Pb9NaEx0U8tVqChhd1fmnogZgIC1u98XNh5KK1C_30';
 
 /* ── CLIENT ─────────────────────────────────────────────────── */
 let _supabase = null;
