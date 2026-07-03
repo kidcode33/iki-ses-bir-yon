@@ -110,6 +110,7 @@ button { cursor: pointer; }
 #cover-screen {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   position: fixed;
   inset: 0;
   z-index: 550;
@@ -226,7 +227,7 @@ button { cursor: pointer; }
   display: flex; flex-direction: column; align-items: center;
   text-align: center;
   width: 100%; max-width: 480px;
-  align-self: center;
+  align-self: flex-end;
 }
 .cover-eyebrow {
   font-family: var(--font-mono);
@@ -5386,8 +5387,8 @@ window.render = function(id) {
    Supabase project URL ve anon key buraya girilecek.
    Dashboard: https://app.supabase.com → Settings → API
    ─────────────────────────────────────────────────────────── */
-const SUPABASE_URL  = 'YOUR_SUPABASE_URL';   // örn: https://xxxx.supabase.co
-const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL  = 'https://wmwpupegitenehpvhffp.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_xiDIN1hSDT67Ky3VnmoacQ_rkB4mLn_';
 
 /* ── CLIENT ─────────────────────────────────────────────────── */
 let _supabase = null;
