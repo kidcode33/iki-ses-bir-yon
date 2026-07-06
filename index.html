@@ -1807,6 +1807,16 @@ body.phase-4 { --scroll-slow: 1100ms; }
   <link rel="manifest" href="manifest.json">
   <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- PostHog SDK -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+" (stub)"},o="init bs ws ge fs pc capture De identify alias people.set people.set_once set register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId setPersonPropertiesForFlags".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_pwbzjowyQ6J7RJDGGoXWt8HVo7JpzakhXJRMEi8vNR3u', {
+      api_host: 'https://us.i.posthog.com',
+      person_profiles: 'identified_only',
+      autocapture: false,
+      capture_pageview: true,
+    });
+  </script>
 </head>
 <body>
 
@@ -5768,6 +5778,160 @@ document.addEventListener('DOMContentLoaded', () => {
   // Badge her zaman görünür — tıklanınca login veya profil
   const badge = document.getElementById('auth-user-badge');
   if (badge) badge.classList.add('visible');
+});
+</script>
+
+<!-- ════════════════════════════════════════════════════════════
+     ANALYTICS MODULE — PostHog
+     ════════════════════════════════════════════════════════════ -->
+<script>
+/* ── EVENT DEFINITIONS ──────────────────────────────────────── */
+const ANALYTICS = {
+
+  /* Kullanıcı kimliğini PostHog'a bağla */
+  identify(user) {
+    if (!window.posthog || !user) return;
+    posthog.identify(user.id, {
+      email: user.email,
+      name:  user.user_metadata?.name || user.email?.split('@')[0],
+    });
+  },
+
+  reset() {
+    if (!window.posthog) return;
+    posthog.reset();
+  },
+
+  /* Bölüm okundu */
+  chapterRead(chapterId, sure, evre) {
+    if (!window.posthog) return;
+    posthog.capture('chapter_read', {
+      chapter_id:  chapterId,
+      sure:        sure,
+      evre:        evre,
+      read_count:  Object.keys(Store.get('read', {})).length,
+      is_logged_in: !!_authUser,
+    });
+  },
+
+  /* Favori eklendi/kaldırıldı */
+  favToggled(chapterId, isFav) {
+    if (!window.posthog) return;
+    posthog.capture(isFav ? 'favorite_added' : 'favorite_removed', {
+      chapter_id: chapterId,
+    });
+  },
+
+  /* Not kaydedildi */
+  noteSaved(chapterId) {
+    if (!window.posthog) return;
+    posthog.capture('note_saved', { chapter_id: chapterId });
+  },
+
+  /* Tepki eklendi */
+  reactionAdded(chapterId, reactionKey) {
+    if (!window.posthog) return;
+    posthog.capture('reaction_added', {
+      chapter_id:   chapterId,
+      reaction_key: reactionKey,
+    });
+  },
+
+  /* Paywall gösterildi */
+  paywallShown(chapterId) {
+    if (!window.posthog) return;
+    posthog.capture('paywall_shown', {
+      chapter_id:  chapterId,
+      read_count:  Object.keys(Store.get('read', {})).length,
+    });
+  },
+
+  /* Ödeme başlatıldı */
+  checkoutStarted(source) {
+    if (!window.posthog) return;
+    posthog.capture('checkout_started', { source });
+  },
+
+  /* Evre tamamlandı */
+  evreCompleted(evreId, chapterCount) {
+    if (!window.posthog) return;
+    posthog.capture('evre_completed', {
+      evre:          evreId,
+      chapter_count: chapterCount,
+    });
+  },
+
+  /* Final ekran görüldü */
+  finalScreenSeen() {
+    if (!window.posthog) return;
+    posthog.capture('final_screen_seen', {
+      total_read: Object.keys(Store.get('read', {})).length,
+    });
+  },
+
+  /* Auth eventi */
+  authEvent(type) {
+    if (!window.posthog) return;
+    posthog.capture(`auth_${type}`); // auth_signup, auth_login, auth_logout, auth_skip
+  },
+};
+
+/* ── HOOK: render() → chapter_read event ───────────────────── */
+const _origRenderAnalytics = window.render;
+window.render = function(id) {
+  _origRenderAnalytics(id);
+  const c = CHAPTERS.find(x => x.id === id);
+  if (c) {
+    ANALYTICS.chapterRead(id, c.sure, c.evre);
+  }
+};
+
+/* ── HOOK: showPaywall → paywall_shown event ────────────────── */
+const _origShowPaywall = typeof showPaywall === 'function' ? showPaywall : null;
+if (_origShowPaywall) {
+  window.showPaywall = function(chapterId) {
+    ANALYTICS.paywallShown(chapterId);
+    _origShowPaywall(chapterId);
+  };
+}
+
+/* ── HOOK: openCheckout → checkout_started event ───────────── */
+const _origOpenCheckout = typeof openCheckout === 'function' ? openCheckout : null;
+if (_origOpenCheckout) {
+  window.openCheckout = function() {
+    ANALYTICS.checkoutStarted('paywall');
+    _origOpenCheckout();
+  };
+}
+
+/* ── HOOK: openFinalScreen → final_screen_seen event ───────── */
+const _origOpenFinalScreen = typeof openFinalScreen === 'function' ? openFinalScreen : null;
+if (_origOpenFinalScreen) {
+  window.openFinalScreen = function() {
+    ANALYTICS.finalScreenSeen();
+    _origOpenFinalScreen();
+  };
+}
+
+/* ── AUTH → identify/reset ──────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Auth login hook
+  const _origAuthOnLogin = window.authOnLogin;
+  if (typeof authOnLogin === 'function') {
+    window.authOnLogin = async function(user) {
+      await _origAuthOnLogin(user);
+      ANALYTICS.identify(user);
+    };
+  }
+
+  // Auth logout hook
+  const _origAuthOnLogout = window.authOnLogout;
+  if (typeof authOnLogout === 'function') {
+    window.authOnLogout = function() {
+      _origAuthOnLogout();
+      ANALYTICS.reset();
+    };
+  }
 });
 </script>
 
