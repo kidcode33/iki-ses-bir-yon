@@ -2188,8 +2188,10 @@ function setReact(id, key) {
 function toggleFav() {
   const now = Store.toggleFav(cur);
   const tbBtn = document.getElementById('fav-tb-btn');
-  tbBtn.className = 'tb-btn'+(now?' on':'');
-  tbBtn.querySelector('svg').setAttribute('fill', now?'currentColor':'none');
+  if (tbBtn) {
+    tbBtn.className = 'tb-btn'+(now?' on':'');
+    tbBtn.querySelector('svg').setAttribute('fill', now?'currentColor':'none');
+  }
   const rowBtn = document.getElementById('fav-row-'+cur);
   if(rowBtn) { rowBtn.className='fav-btn'+(now?' on':''); rowBtn.querySelector('svg').setAttribute('fill',now?'currentColor':'none'); rowBtn.childNodes[rowBtn.childNodes.length-1].textContent=now?' Favoride':' Favoriye Ekle'; }
 }
