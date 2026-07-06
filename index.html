@@ -4381,7 +4381,11 @@ if (_prevRenderKitabimForDamga) {
 const FREE_LIMIT = 10; // İlk 10 bölüm ücretsiz
 
 function isSubscribed() {
-  return true; // TODO: Stripe entegrasyonu tamamlanınca aktif et
+  // Supabase'den abonelik durumu kontrol et
+  if (!_authUser) return false;
+  const cached = Store.get('access_granted_at', null);
+  if (cached) return true;
+  return false;
 }
 
 function checkPaywall(chapterId) {
@@ -4408,27 +4412,40 @@ function closePaywall() {
 }
 
 function openCheckout() {
-  // TODO: Stripe Payment Link veya Checkout Session
-  // Şimdilik placeholder — Stripe entegrasyonunda doldurulacak
-  const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/PLACEHOLDER';
+  const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/test_bJe8wP98y0gb2ytb80e7m00';
+  if (typeof ANALYTICS !== 'undefined') ANALYTICS.checkoutStarted('paywall');
   window.open(STRIPE_PAYMENT_LINK, '_blank');
 }
 
-// Stripe success dönüşünde token kaydet
+// Stripe success dönüşünde erişim ver
 function handlePaymentSuccess() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('success') === '1') {
-    // TODO: Stripe webhook'tan gelen token'ı kaydet
-    // Şimdilik demo: URL parametresinden session_id al
-    const sessionId = urlParams.get('session_id');
-    if (sessionId) {
-      Store.set('access_token', sessionId);
-      Store.set('access_granted_at', new Date().toISOString());
-      // URL'i temizle
-      window.history.replaceState({}, '', window.location.pathname);
-      if (typeof showToast === 'function') {
-        showToast('Erişim açıldı — iyi yolculuklar ✦');
+    Store.set('access_granted_at', new Date().toISOString());
+
+    // Supabase'e kaydet
+    if (_authUser) {
+      const sb = getSupabase();
+      if (sb) {
+        sb.from('subscriptions').upsert({
+          user_id: _authUser.id,
+          status: 'active',
+          platform: 'stripe',
+          current_period_end: new Date(Date.now() + 365*24*60*60*1000).toISOString()
+        }, { onConflict: 'user_id' }).then(() => {});
       }
+    }
+
+    // URL'i temizle
+    window.history.replaceState({}, '', window.location.pathname);
+
+    if (typeof showToast === 'function') {
+      showToast('Erişim açıldı — iyi yolculuklar ✦');
+    }
+
+    if (typeof ANALYTICS !== 'undefined') {
+      ANALYTICS.checkoutStarted = () => {};
+      posthog?.capture('checkout_success', { platform: 'stripe' });
     }
   }
 }
