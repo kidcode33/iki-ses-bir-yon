@@ -1887,15 +1887,19 @@ body.phase-4 { --scroll-slow: 1100ms; }
   <!-- İçerik -->
   <div style="position:relative;z-index:10;width:100%;padding:24px 24px 48px;display:flex;flex-direction:column;align-items:center;text-align:center;background:linear-gradient(0deg,rgba(8,6,4,.98) 0%,rgba(8,6,4,.7) 60%,transparent 100%);">
 
-    <div style="font-family:monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,176,106,.5);margin-bottom:20px;">
+    <div style="font-family:monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,176,106,.5);margin-bottom:16px;">
       <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#D4B06A;margin-right:10px;vertical-align:middle;"></span>
-      89 Bölüm · Bir Yolculuk
+      Kur'an · Nutuk · 89 Bölüm
+    </div>
+
+    <div style="font-family:Georgia,serif;font-size:clamp(18px,3.5vw,26px);color:#F3E7D2;line-height:1.5;margin-bottom:28px;font-style:italic;">
+      İki ses var.<br>Üçüncüsü seninki.
     </div>
 
     <div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;">
       <button onclick="coverStart()"
               style="width:100%;background:#D4B06A;color:#140e08;border:none;border-radius:12px;padding:16px 24px;font-family:Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">
-        Yolculuğa Başla
+        Dinlemeye Başla
       </button>
       <button id="cover-btn-devam"
               style="display:none;width:100%;background:none;border:1px solid rgba(212,176,106,.3);border-radius:12px;padding:14px 24px;font-family:monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(212,176,106,.7);cursor:pointer;"
@@ -2302,49 +2306,15 @@ window.addEventListener('DOMContentLoaded', function() {
 
   <!-- EKRAN 1 -->
   <div class="ob-screen" id="ob-1">
-    <div class="ob-step">
-      <div class="ob-dot on"></div>
-      <div class="ob-dot"></div>
-      <div class="ob-dot"></div>
+    <div class="ob-icon" style="color:#D4B06A;font-size:28px;">✦</div>
+    <div class="ob-title" style="color:#ffffff;font-size:clamp(20px,4vw,28px);line-height:1.3;">
+      Burada cevap yok.<br>Sadece soru.
     </div>
-    <div class="ob-icon" style="color:#D4B06A;">✦</div>
-    <div class="ob-title" style="color:#ffffff;font-size:clamp(24px,5vw,38px);">İki ses. İki çağ. Aynı soru.</div>
-    <div class="ob-text" style="color:#ffffff;">
-      İnsan zor bir anda ne yapar?
+    <div class="ob-text" style="color:rgba(215,201,181,.65);font-size:15px;margin-bottom:36px;">
+      Bu yolculukta senden istenen tek şey:<br>
+      <em>Dürüst olmak.</em>
     </div>
-    <button class="ob-btn-primary" onclick="obNext(2)">Devam →</button>
-    <button class="ob-btn-skip" onclick="obSkip()">Atla</button>
-  </div>
-
-  <!-- EKRAN 2 -->
-  <div class="ob-screen" id="ob-2">
-    <div class="ob-step">
-      <div class="ob-dot"></div>
-      <div class="ob-dot on"></div>
-      <div class="ob-dot"></div>
-    </div>
-    <div class="ob-icon">◈</div>
-    <div class="ob-title" style="color:#ffffff;">Bu kitap sana ne düşüneceğini söylemeyecek.</div>
-    <div class="ob-text" style="color:#ffffff;">
-      Ama bazı sorulardan kaçmanı da zorlaştıracak.
-    </div>
-    <button class="ob-btn-primary" onclick="obNext(3)">Anladım →</button>
-    <button class="ob-btn-skip" onclick="obSkip()">Atla</button>
-  </div>
-
-  <!-- EKRAN 3 -->
-  <div class="ob-screen" id="ob-3">
-    <div class="ob-step">
-      <div class="ob-dot"></div>
-      <div class="ob-dot"></div>
-      <div class="ob-dot on"></div>
-    </div>
-    <div class="ob-icon">→</div>
-    <div class="ob-title" style="color:#ffffff;">Kendine dürüst olmaya hazır mısın?</div>
-    <div class="ob-text" style="color:#ffffff;">
-      89 bölüm. Alak'tan Nasr'a. "Oku"dan "Şükret"e.
-    </div>
-    <button class="ob-btn-primary" onclick="obFinish()">Başla →</button>
+    <button class="ob-btn-primary" onclick="obFinish()">Hazırım →</button>
     <button class="ob-btn-skip" onclick="obSkip()">Önsöze git</button>
   </div>
 
@@ -2384,6 +2354,27 @@ window.addEventListener('DOMContentLoaded', function() {
       <div class="intro-onsoz-title">Önsöz</div>
 
       <div class="intro-p">
+        Binlerce yıl boyunca insanlar anlamaya çalıştı.<br>
+        Kitaplar yazdı. Dersler verdi. Cevaplar buldu.
+      </div>
+
+      <div class="intro-p">
+        Ama anlayış — hiçbir zaman öğretilerek gelmedi.
+      </div>
+
+      <div class="intro-p spaced">
+        Bir anda geldi.<br>
+        Sessizce.<br>
+        İçeriden.
+      </div>
+
+      <div class="intro-divider"></div>
+
+      <div class="intro-p">
+        Bu yolculukta iki ses var.
+      </div>
+
+      <div class="intro-p">
         Biri binlerce yıl önce söylendi — ama hâlâ soruyor.<br>
         Biri yüz yıl önce yaşandı — ama hâlâ cevap bekliyor.
       </div>
@@ -2401,25 +2392,16 @@ window.addEventListener('DOMContentLoaded', function() {
       <div class="intro-divider"></div>
 
       <div class="intro-p">
-        89 bölüm. Her birinde bir sure, gerçek bir tarihsel an ve hayatın ortasından bir soru.
+        Biz cevap vermiyoruz.<br>
+        Sadece soruyoruz.
       </div>
 
       <div class="intro-p">
-        Soru sana soruluyor.
+        Çünkü anlayış, iki ses arasında değil —<br>
+        <em>insanın içinde doğar.</em>
       </div>
 
-      <div class="intro-p">
-        Bu yolculuk sana cevap vermeyecek.<br>
-        Ama doğru sorularla seni baş başa bırakacak.
-      </div>
-
-      <div class="intro-p">
-        Okuyacaksın. Duracaksın.<br>
-        Bazen not alacaksın. Bazen sadece bir soruyla oturacaksın.<br>
-        Bazen bir bölümü iki kez okuyacaksın.
-      </div>
-
-      <div class="intro-p">
+      <div class="intro-p spaced">
         Bu yolculukta senden istenen tek şey:<br>
         <em>Dürüst olmak.</em>
       </div>
@@ -2736,8 +2718,8 @@ function openFinalScreen() {
     <div class="fs-hero fs-anim fs-anim-1">
       <div class="fs-eyebrow">İki Ses, Bir Yön · Tamamlandı</div>
       <div class="fs-title">
-        Senin<br>
-        <span class="fs-title-dim">Yolculuğun.</span>
+        Anlayış<br>
+        <span class="fs-title-dim">içinde doğdu.</span>
       </div>
       <div class="fs-intro">${introText}</div>
     </div>`;
@@ -2844,7 +2826,7 @@ function openFinalScreen() {
   const quoteHTML = `
     <div class="fs-quote fs-anim fs-anim-7">
       <div class="fs-quote-text">${quoteText}</div>
-      <div class="fs-quote-sub">89 bölüm. İki ses. Bir yön.<br>Yön senin içindeydi.</div>
+      <div class="fs-quote-sub">İki ses dinledin.<br>Üçüncüsü — seninki.<br><br>Sen şimdi kime devredeceksin?</div>
     </div>`;
 
   // Actions
@@ -2852,11 +2834,11 @@ function openFinalScreen() {
     <div class="fs-actions fs-anim fs-anim-7">
       <button class="fs-btn-primary"
         onclick="closeFinalScreen();openSystem('kitabim')">
-        Benim Kitabım'ı Gör
+        Notlarımı Gör
       </button>
       <button class="fs-btn-secondary"
         onclick="closeFinalScreen();render(1)">
-        Baştan Oku
+        Baştan Dinle
       </button>
       <button class="fs-btn-secondary"
         onclick="closeFinalScreen()">
@@ -4306,13 +4288,13 @@ if (_prevRenderKitabimForDamga) {
 
     <!-- Emotional headline -->
     <h2 class="pw-title">
-      Buraya kadar geldin.<br>
-      <span class="pw-title-accent">Asıl yolculuk şimdi derinleşiyor.</span>
+      İki sesi duydun.<br>
+      <span class="pw-title-accent">Üçüncüsü henüz başlıyor.</span>
     </h2>
 
     <!-- Sub text -->
     <p class="pw-sub">
-      79 bölüm daha seni bekliyor.
+      79 soru daha seni bekliyor.
     </p>
 
     <!-- Divider -->
@@ -4350,7 +4332,7 @@ if (_prevRenderKitabimForDamga) {
 
     <!-- Primary CTA -->
     <button class="pw-cta" onclick="openCheckout()">
-      Yolculuğa Devam Et
+      Dinlemeye Devam Et
     </button>
 
     <!-- Trust line -->
@@ -4607,7 +4589,7 @@ const UI_STRINGS = {
   onsoz: "Önsöz",
   devam: "Devam Et",
   geri: "← Geri dön",
-  basla: "Yolculuğa Başla",
+  basla: "Dinlemeye Başla",
   gizlilik: "Gizlilik Politikası",
   kosullar: "Kullanım Koşulları",
   kuran_label: "Kur'an",
