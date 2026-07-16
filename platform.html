@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>İki Ses, Bir Yön — Anlayış Platformu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* ════════════════════════════════════════════
+   TOKENS
+   ════════════════════════════════════════════ */
+:root {
+  --ink:       #0A0806;
+  --paper:     #F5F0E8;
+  --gold:      #C9A96E;
+  --gold-dim:  rgba(201,169,110,.18);
+  --gold-line: rgba(201,169,110,.25);
+  --text-1:    #F3EDE1;
+  --text-2:    rgba(243,237,225,.55);
+  --text-3:    rgba(243,237,225,.28);
+  --surface-1: rgba(255,255,255,.03);
+  --surface-2: rgba(255,255,255,.055);
+  --border:    rgba(255,255,255,.07);
+  --border-2:  rgba(255,255,255,.04);
+  --ease:      cubic-bezier(.16,1,.3,1);
+  --ff-serif:  'Fraunces', Georgia, serif;
+  --ff-sans:   'DM Sans', system-ui, sans-serif;
+  --ff-mono:   'DM Mono', monospace;
+}
+
+/* ════════════════════════════════════════════
+   RESET & BASE
+   ════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--text-1);
+  font-family: var(--ff-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ════════════════════════════════════════════
+   GRAIN TEXTURE OVERLAY
+   ════════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: .6;
+}
+
+/* ════════════════════════════════════════════
+   NAV
+   ════════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(24px,5vw,64px);
+  height: 64px;
+  border-bottom: 1px solid var(--border-2);
+  backdrop-filter: blur(20px) saturate(1.2);
+  background: rgba(10,8,6,.7);
+  transition: background .4s var(--ease);
+}
+.nav-logo {
+  font-family: var(--ff-serif);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--text-1);
+  font-style: italic;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--text-2); }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.nav-btn {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 8px 20px;
+  border-radius: 40px;
+  transition: border-color .2s, color .2s;
+}
+.nav-btn:hover { border-color: var(--gold-line); color: var(--gold); }
+.nav-btn-primary {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
+  font-weight: 400;
+}
+.nav-btn-primary:hover { background: #d4b47a; border-color: #d4b47a; color: var(--ink); }
+
+/* ════════════════════════════════════════════
+   HERO
+   ════════════════════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px clamp(24px,5vw,64px) 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle radial ambient */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,.055) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+
+.hero-pre {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-pre::before,
+.hero-pre::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold-line);
+}
+
+.hero-display {
+  font-family: var(--ff-serif);
+  font-size: clamp(52px, 9vw, 112px);
+  font-weight: 300;
+  line-height: .96;
+  letter-spacing: -.03em;
+  color: var(--text-1);
+  margin-bottom: 28px;
+}
+.hero-display em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-philosophy {
+  font-family: var(--ff-serif);
+  font-size: clamp(16px,2vw,20px);
+  font-style: italic;
+  color: var(--text-2);
+  max-width: 480px;
+  line-height: 1.65;
+  margin-bottom: 52px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-primary {
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  background: var(--gold);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 40px;
+  transition: background .2s, transform .15s;
+  letter-spacing: .01em;
+}
+.btn-primary:hover { background: #d4b47a; transform: translateY(-1px); }
+.btn-secondary {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 14px 28px;
+  border-radius: 40px;
+  transition: border-color .2s, color .2s;
+}
+.btn-secondary:hover { border-color: var(--gold-line); color: var(--text-2); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--gold-line));
+  animation: scrollPulse 2.4s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: .4; }
+  50% { opacity: 1; }
+}
+.hero-scroll span {
+  font-family: var(--ff-mono);
+  font-size: 8px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ════════════════════════════════════════════
+   SECTION SYSTEM
+   ════════════════════════════════════════════ */
+section {
+  padding: clamp(80px,10vw,140px) clamp(24px,5vw,64px);
+}
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ════════════════════════════════════════════
+   WHY — ANLAYIŞ NİÇİN
+   ════════════════════════════════════════════ */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.why-left {
+  max-width: 480px;
+}
+.why-display {
+  font-family: var(--ff-serif);
+  font-size: clamp(32px,4vw,52px);
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+  margin-bottom: 24px;
+}
+.why-display em { font-style: italic; color: var(--gold); }
+.why-body {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.why-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.why-item {
+  padding: 28px 32px;
+  background: var(--surface-1);
+  border: 1px solid var(--border-2);
+  border-radius: 12px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: background .2s, border-color .2s;
+}
+.why-item:hover {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+.why-num {
+  font-family: var(--ff-serif);
+  font-size: 32px;
+  font-style: italic;
+  color: var(--gold);
+  opacity: .35;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: -4px;
+}
+.why-item-title {
+  font-family: var(--ff-serif);
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.why-item-text {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════════
+   FEATURED JOURNEY
+   ════════════════════════════════════════════ */
+.featured-section {
+  background: var(--surface-1);
+  border-top: 1px solid var(--border-2);
+  border-bottom: 1px solid var(--border-2);
+}
+.featured-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.featured-left {
+  padding: 52px;
+  background: rgba(255,255,255,.025);
+  display: flex;
+  flex-direction: column;
+}
+.featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-line);
+  padding: 5px 12px;
+  border-radius: 40px;
+  margin-bottom: 32px;
+  width: fit-content;
+}
+.featured-badge::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: block;
+}
+.featured-eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 12px;
+}
+.featured-title {
+  font-family: var(--ff-serif);
+  font-size: clamp(36px,4vw,56px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  margin-bottom: 20px;
+}
+.featured-title .dim { color: rgba(243,237,225,.3); }
+.featured-desc {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-2);
+  line-height: 1.75;
+  margin-bottom: 36px;
+  max-width: 380px;
+  flex: 1;
+}
+.featured-meta {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-2);
+}
+.meta-col {}
+.meta-label {
+  font-family: var(--ff-mono);
+  font-size: 8px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 4px;
+  display: block;
+}
+.meta-value {
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  color: var(--text-1);
+}
+.featured-right {
+  padding: 52px;
+  background: rgba(0,0,0,.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.featured-quote-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.featured-quote-mark {
+  font-family: var(--ff-serif);
+  font-size: 80px;
+  line-height: .8;
+  color: var(--gold);
+  opacity: .12;
+  margin-bottom: -24px;
+}
+.featured-quote {
+  font-family: var(--ff-serif);
+  font-size: clamp(18px,2.2vw,26px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-1);
+  margin-bottom: 20px;
+  border-left: 1px solid var(--gold-line);
+  padding-left: 24px;
+}
+.featured-quote-attr {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding-left: 24px;
+}
+.featured-preview {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-2);
+}
+.preview-label {
+  font-family: var(--ff-mono);
+  font-size: 8px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.preview-bols {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.preview-bol {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  color: var(--text-3);
+  background: var(--surface-1);
+  border: 1px solid var(--border-2);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* ════════════════════════════════════════════
+   COMING SOON — JOURNEYS
+   ════════════════════════════════════════════ */
+.journeys-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.journey-card {
+  padding: 32px;
+  background: var(--surface-1);
+  border-radius: 12px;
+  border: 1px solid var(--border-2);
+  filter: blur(0);
+  transition: border-color .2s;
+  position: relative;
+  overflow: hidden;
+}
+.journey-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10,8,6,.55);
+  backdrop-filter: blur(3px);
+  border-radius: inherit;
+}
+.journey-card:hover { border-color: var(--border); }
+.journey-status {
+  font-family: var(--ff-mono);
+  font-size: 8px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.journey-status::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--text-3);
+}
+.journey-sources {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.source-pill {
+  font-family: var(--ff-mono);
+  font-size: 8px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  border: 1px solid var(--border-2);
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+.journey-title {
+  font-family: var(--ff-serif);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.journey-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.65;
+  font-style: italic;
+}
+.journey-year {
+  margin-top: 24px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--text-3);
+}
+
+/* ════════════════════════════════════════════
+   HOW IT WORKS
+   ════════════════════════════════════════════ */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  position: relative;
+}
+.how-step {
+  padding: 36px 28px;
+  background: var(--surface-1);
+  border: 1px solid var(--border-2);
+  border-radius: 12px;
+}
+.how-step-num {
+  font-family: var(--ff-serif);
+  font-size: 48px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+  opacity: .2;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.how-step-title {
+  font-family: var(--ff-serif);
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.how-step-text {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════════
+   TESTIMONIALS
+   ════════════════════════════════════════════ */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.testimonial {
+  padding: 32px;
+  background: var(--surface-1);
+  border: 1px solid var(--border-2);
+  border-radius: 12px;
+}
+.testimonial-text {
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-1);
+  margin-bottom: 24px;
+}
+.testimonial-text::before { content: '"'; }
+.testimonial-text::after  { content: '"'; }
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testimonial-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ff-serif);
+  font-size: 14px;
+  color: var(--gold);
+  font-style: italic;
+  flex-shrink: 0;
+}
+.testimonial-name {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-1);
+}
+.testimonial-role {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  color: var(--text-3);
+}
+
+/* ════════════════════════════════════════════
+   FAQ
+   ════════════════════════════════════════════ */
+.faq-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border-2);
+}
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--ff-serif);
+  font-size: 17px;
+  color: var(--text-1);
+  cursor: pointer;
+  gap: 16px;
+}
+.faq-icon {
+  font-family: var(--ff-mono);
+  font-size: 18px;
+  color: var(--text-3);
+  flex-shrink: 0;
+  transition: transform .3s var(--ease), color .2s;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  color: var(--gold);
+}
+.faq-a {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.8;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s var(--ease), padding .3s var(--ease);
+}
+.faq-item.open .faq-a {
+  max-height: 400px;
+  padding-bottom: 24px;
+}
+
+/* ════════════════════════════════════════════
+   PRICING
+   ════════════════════════════════════════════ */
+.pricing-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.pricing-card {
+  padding: 44px;
+  background: var(--surface-1);
+  border: 1px solid var(--border-2);
+  border-radius: 16px;
+}
+.pricing-card.featured-plan {
+  background: var(--gold-dim);
+  border-color: var(--gold-line);
+}
+.pricing-tier {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+.pricing-card.featured-plan .pricing-tier { color: var(--gold); }
+.pricing-name {
+  font-family: var(--ff-serif);
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+.pricing-price {
+  font-family: var(--ff-serif);
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -.03em;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+.pricing-price span {
+  font-size: 20px;
+  vertical-align: super;
+  font-weight: 300;
+}
+.pricing-period {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--text-3);
+  margin-bottom: 32px;
+}
+.pricing-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 28px;
+}
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+.pricing-features li {
+  font-size: 13px;
+  color: var(--text-2);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.pricing-features li::before {
+  content: '—';
+  color: var(--text-3);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pricing-cta {
+  width: 100%;
+  padding: 14px;
+  border-radius: 40px;
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  font-style: italic;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text-2);
+  transition: border-color .2s, color .2s;
+}
+.pricing-cta:hover { border-color: var(--gold-line); color: var(--gold); }
+.pricing-card.featured-plan .pricing-cta {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
+}
+.pricing-card.featured-plan .pricing-cta:hover {
+  background: #d4b47a;
+  border-color: #d4b47a;
+}
+
+/* ════════════════════════════════════════════
+   MANIFESTO STRIP
+   ════════════════════════════════════════════ */
+.manifesto {
+  padding: clamp(80px,10vw,120px) clamp(24px,5vw,64px);
+  text-align: center;
+  border-top: 1px solid var(--border-2);
+  border-bottom: 1px solid var(--border-2);
+}
+.manifesto-text {
+  font-family: var(--ff-serif);
+  font-size: clamp(22px,3.5vw,40px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-1);
+  max-width: 720px;
+  margin: 0 auto 20px;
+}
+.manifesto-attr {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════ */
+footer {
+  padding: clamp(48px,6vw,80px) clamp(24px,5vw,64px);
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-brand {}
+.footer-logo-text {
+  font-family: var(--ff-serif);
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.footer-tagline {
+  font-family: var(--ff-serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-3);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.footer-col-title {
+  font-family: var(--ff-mono);
+  font-size: 8px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-3);
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--text-2); }
+.footer-bottom {
+  max-width: 1100px;
+  margin: 48px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom-text {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--text-3);
+}
+
+/* ════════════════════════════════════════════
+   SCROLL REVEAL
+   ════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .why-grid { grid-template-columns: 1fr; gap: 48px; }
+  .featured-card { grid-template-columns: 1fr; }
+  .journeys-grid { grid-template-columns: 1fr 1fr; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .journeys-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-scroll-line { animation: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ── NAV ─────────────────────────────── -->
+<nav>
+  <div class="nav-logo">İki Ses, <span>Bir Yön</span></div>
+  <ul class="nav-links">
+    <li><a href="#journeys">Yolculuklar</a></li>
+    <li><a href="#how">Nasıl Çalışır</a></li>
+    <li><a href="#pricing">Erişim</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-btn">Giriş Yap</button>
+    <button class="nav-btn nav-btn-primary">Dinlemeye Başla</button>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────── -->
+<section class="hero" aria-label="Platform tanıtımı">
+  <div class="hero-pre">Anlayış Platformu</div>
+  <h1 class="hero-display">
+    İki ses var.<br>
+    <em>Üçüncüsü seninki.</em>
+  </h1>
+  <p class="hero-philosophy">
+    Anlayış öğretilmez. Yaşanır.<br>
+    Farklı sesleri dikkatle oku.<br>
+    Kendi yönünü bul.
+  </p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">
+      İlk Yolculuğu Keşfet
+    </button>
+    <button class="btn-secondary" onclick="document.getElementById('why').scrollIntoView({behavior:'smooth'})">
+      Neden Farklı Sesler?
+    </button>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Kaydır</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── WHY ─────────────────────────────── -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-label">Anlayış Nedir</div>
+    <div class="why-grid">
+      <div class="why-left reveal">
+        <h2 class="why-display">
+          İnsan neden<br>
+          farklı sesleri<br>
+          <em>okumalı?</em>
+        </h2>
+        <p class="why-body">
+          Tek bir kaynakta büyümek — o kaynağın dünyasını doğal sanmayı getirir. Farklı bir ses, alışkanlığı kırar. Sormayı başlatır.
+        </p>
+        <p class="why-body">
+          Bu platform ideoloji karşılaştırmaz. İki farklı çağdan, iki farklı kaynaktan alınan sesler — aynı insan sorularının karşısına çıkar.
+        </p>
+      </div>
+      <div class="why-right">
+        <div class="why-item reveal reveal-delay-1">
+          <div class="why-num">I</div>
+          <div>
+            <div class="why-item-title">Sormak başlar.</div>
+            <div class="why-item-text">Her bölüm bir soruyla biter. Cevap verilmez — sormak için zemin hazırlanır.</div>
+          </div>
+        </div>
+        <div class="why-item reveal reveal-delay-2">
+          <div class="why-num">II</div>
+          <div>
+            <div class="why-item-title">Karşılaştırma değil, karşılaşma.</div>
+            <div class="why-item-text">İki ses kıyaslanmaz. Yan yana durur. Okuyucu kendi bağlantısını kurar.</div>
+          </div>
+        </div>
+        <div class="why-item reveal reveal-delay-3">
+          <div class="why-num">III</div>
+          <div>
+            <div class="why-item-title">Anlayış içinde doğar.</div>
+            <div class="why-item-text">Hiçbir ses üstün değildir. Üçüncü ses — okuyucununkidir.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED JOURNEY ──────────────── -->
+<section id="featured" class="featured-section">
+  <div class="section-inner">
+    <div class="section-label">İlk Yolculuk</div>
+    <div class="featured-card reveal">
+      <div class="featured-left">
+        <div class="featured-badge">Şimdi Mevcut</div>
+        <div class="featured-eyebrow">Yolculuk 001</div>
+        <h2 class="featured-title">
+          Kur'an<br>
+          <span class="dim">× Nutuk</span>
+        </h2>
+        <p class="featured-desc">
+          Zor bir anda insan ne yapar? Kur'an'ın iniş sırası ve Atatürk'ün Nutuk'undan seçilmiş 89 an — aynı sorunun karşısında.
+        </p>
+        <div class="featured-meta">
+          <div class="meta-col">
+            <span class="meta-label">Kaynaklar</span>
+            <span class="meta-value">Kur'an · Nutuk</span>
+          </div>
+          <div class="meta-col">
+            <span class="meta-label">Bölüm</span>
+            <span class="meta-value">89</span>
+          </div>
+          <div class="meta-col">
+            <span class="meta-label">Süre</span>
+            <span class="meta-value">~12 saat</span>
+          </div>
+        </div>
+        <button class="btn-primary">Dinlemeye Başla →</button>
+      </div>
+      <div class="featured-right">
+        <div class="featured-quote-block">
+          <div class="featured-quote-mark">"</div>
+          <blockquote class="featured-quote">
+            Anlayış, iki ses arasında değil; insanın içinde doğar.
+          </blockquote>
+          <div class="featured-quote-attr">Platform Felsefesi</div>
+        </div>
+        <div class="featured-preview">
+          <div class="preview-label">Öne Çıkan Bölümler</div>
+          <div class="preview-bols">
+            <span class="preview-bol">Alak · B1</span>
+            <span class="preview-bol">Kadr · B17</span>
+            <span class="preview-bol">Yûnus · B42</span>
+            <span class="preview-bol">Rahmân · B76</span>
+            <span class="preview-bol">Nasr · B89</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMING JOURNEYS ───────────────── -->
+<section id="journeys">
+  <div class="section-inner">
+    <div class="section-label">Yakında · Diğer Yolculuklar</div>
+    <div class="journeys-grid">
+
+      <div class="journey-card reveal reveal-delay-1">
+        <div class="journey-status">Yakında</div>
+        <div class="journey-sources">
+          <span class="source-pill">Mesnevi</span>
+          <span class="source-pill">Divan-ı Hümayun</span>
+        </div>
+        <h3 class="journey-title">İki Ses, Bir Aşk</h3>
+        <p class="journey-desc">Doğu şiirinin iki zirvesinden aşk, ayrılık ve anlam üzerine sorular.</p>
+        <div class="journey-year">2025 · 72 bölüm</div>
+        <div class="journey-card-overlay" style="position:absolute;inset:0;z-index:1;border-radius:inherit;backdrop-filter:blur(2px);background:rgba(10,8,6,.5);"></div>
+      </div>
+
+      <div class="journey-card reveal reveal-delay-2">
+        <div class="journey-status">Yakında</div>
+        <div class="journey-sources">
+          <span class="source-pill">Stoacılık</span>
+          <span class="source-pill">Budizm</span>
+        </div>
+        <h3 class="journey-title">İki Ses, Bir Huzur</h3>
+        <p class="journey-desc">Batı ve Doğu felsefesinden huzur, kabul ve şimdiki an üzerine iki ses.</p>
+        <div class="journey-year">2025 · 60 bölüm</div>
+        <div class="journey-card-overlay" style="position:absolute;inset:0;z-index:1;border-radius:inherit;backdrop-filter:blur(2px);background:rgba(10,8,6,.5);"></div>
+      </div>
+
+      <div class="journey-card reveal reveal-delay-3">
+        <div class="journey-status">Yakında</div>
+        <div class="journey-sources">
+          <span class="source-pill">Darwin</span>
+          <span class="source-pill">Spinoza</span>
+        </div>
+        <h3 class="journey-title">İki Ses, Bir Evren</h3>
+        <p class="journey-desc">Bilim ve felsefeden varoluş, doğa ve insan onuru üzerine sorular.</p>
+        <div class="journey-year">2026 · 55 bölüm</div>
+        <div class="journey-card-overlay" style="position:absolute;inset:0;z-index:1;border-radius:inherit;backdrop-filter:blur(2px);background:rgba(10,8,6,.5);"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ──────────────────── -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-label">Nasıl Çalışır</div>
+    <div class="how-grid">
+      <div class="how-step reveal">
+        <div class="how-step-num">1</div>
+        <h3 class="how-step-title">Bir yolculuk seç.</h3>
+        <p class="how-step-text">Her yolculuk iki farklı kaynaktan seçilmiş bölümler içerir. Mevcut yolculuktan başla veya yenisini bekle.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-step-num">2</div>
+        <h3 class="how-step-title">Oku. Dur. Tekrar oku.</h3>
+        <p class="how-step-text">Her bölüm kısa. Sahne, iki ses, bir soru. Acele etme. Nefes al.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-step-num">3</div>
+        <h3 class="how-step-title">Soruyla otur.</h3>
+        <p class="how-step-text">Her bölüm bir soruyla biter. Cevap yazabilirsin, not alabilirsin ya da sadece sessizlikte kalabilirsin.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="how-step-num">4</div>
+        <h3 class="how-step-title">Üçüncü sesi bul.</h3>
+        <p class="how-step-text">Yolculuğun sonunda iki sesi duydun. Üçüncüsü — anlayış — seninki. Ne değişti?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ──────────────────── -->
+<section>
+  <div class="section-inner">
+    <div class="section-label">Okuyucular</div>
+    <div class="testimonials-grid">
+      <div class="testimonial reveal">
+        <p class="testimonial-text">10. bölümden sonra durdum. Sadece oturdum. Uzun süre. O kadar.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">A</div>
+          <div>
+            <div class="testimonial-name">Ayşe K.</div>
+            <div class="testimonial-role">Öğretmen · İstanbul</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial reveal reveal-delay-1">
+        <p class="testimonial-text">İki kaynağı karşılaştırmak bekledim. Ama platform hiç karşılaştırmadı. Bu çok daha güçlüydü.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">M</div>
+          <div>
+            <div class="testimonial-name">Murat D.</div>
+            <div class="testimonial-role">Mühendis · Ankara</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial reveal reveal-delay-2">
+        <p class="testimonial-text">Sorular sormayı öğrendim. Cevap bulmayı değil. Bu ikisi arasındaki farkı şimdi görüyorum.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">Z</div>
+          <div>
+            <div class="testimonial-name">Zeynep A.</div>
+            <div class="testimonial-role">Psikolog · İzmir</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MANIFESTO ─────────────────────── -->
+<div class="manifesto">
+  <blockquote class="manifesto-text">
+    "Anlayış, iki ses arasında değil;<br>
+    insanın içinde doğar."
+  </blockquote>
+  <div class="manifesto-attr">İki Ses, Bir Yön · Platform Felsefesi</div>
+</div>
+
+<!-- ── FAQ ──────────────────────────── -->
+<section>
+  <div class="section-inner">
+    <div class="section-label">Sık Sorulan Sorular</div>
+    <div class="faq-wrap">
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Bu platform bir din veya ideoloji savunuyor mu?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Hayır. Platform hiçbir düşünceyi üstün göstermez. Hiçbir ideolojiyi savunmaz. Hiçbir görüşü değiştirmeye çalışmaz. Amacı yalnızca farklı sesleri dikkatle okumak için bir alan oluşturmaktır.
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Kur'an bilgisi olmadan okuyabilir miyim?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Evet. Her bölüm kendi içinde tamamdır. Önceki bilgi gerekmez. Platform her kaynağı kısa, anlaşılır ve bağlamlı biçimde sunar.
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Günde ne kadar zaman ayırmam gerekir?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Her bölüm 5-10 dakika. Ama bölümden sonra soruyla oturmak için zaman ayırmanı öneririz. Bu platformun felsefesi aceleyle çelişir.
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-3">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          İlk 10 bölümden sonra ne olur?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          İlk 10 bölüm ücretsiz. Devam için tek seferlik erişim satın alınır. Ömür boyu erişim, güncelleme dahil. Abonelik yok.
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-4">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Yeni yolculuklar ne zaman gelecek?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          2025 sonuna kadar en az iki yeni yolculuk planlanıyor. Email listemize kaydolarak haberdar olabilirsiniz.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ───────────────────────── -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="section-label">Erişim</div>
+    <div class="pricing-wrap">
+      <div class="pricing-grid">
+
+        <div class="pricing-card reveal">
+          <div class="pricing-tier">Ücretsiz</div>
+          <div class="pricing-name">Dinlemeye Başla</div>
+          <div class="pricing-price"><span>₺</span>0</div>
+          <div class="pricing-period">Sonsuza dek ücretsiz</div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li>İlk 10 bölüm tam erişim</li>
+            <li>Not alma ve sorular</li>
+            <li>Tüm cihazlarda çalışır</li>
+            <li>Kayıt gerektirmez</li>
+          </ul>
+          <button class="pricing-cta">Şimdi Başla</button>
+        </div>
+
+        <div class="pricing-card featured-plan reveal reveal-delay-1">
+          <div class="pricing-tier">Tam Erişim</div>
+          <div class="pricing-name">Tüm Yolculuk</div>
+          <div class="pricing-price"><span>₺</span>149</div>
+          <div class="pricing-period">Tek seferlik · Ömür boyu</div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li>89 bölümün tamamı</li>
+            <li>Not alma · Sorular · Günlük</li>
+            <li>Tüm cihazlarda · İnternet gerektirmez</li>
+            <li>Yeni yolculuklar dahil</li>
+            <li>Güncelleme sonsuza dek dahil</li>
+          </ul>
+          <button class="pricing-cta">Dinlemeye Devam Et</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-text">İki Ses, Bir Yön</div>
+      <div class="footer-tagline">
+        Anlayış öğretilmez. Yaşanır.<br>
+        Farklı sesleri dikkatle oku.<br>
+        Kendi yönünü bul.
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Platform</div>
+      <ul class="footer-links">
+        <li><a href="#">İlk Yolculuk</a></li>
+        <li><a href="#">Yakında</a></li>
+        <li><a href="#">Felsefe</a></li>
+        <li><a href="#">Hakkında</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Destek</div>
+      <ul class="footer-links">
+        <li><a href="#">Sık Sorulan Sorular</a></li>
+        <li><a href="#">İletişim</a></li>
+        <li><a href="#">Gizlilik</a></li>
+        <li><a href="#">Kullanım Koşulları</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">İletişim</div>
+      <ul class="footer-links">
+        <li><a href="#">pixelvadisi@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-text">© 2025 İki Ses, Bir Yön. Tüm hakları saklıdır.</div>
+    <div class="footer-bottom-text">Anlayış içinde doğar.</div>
+  </div>
+</footer>
+
+<script>
+/* ── SCROLL REVEAL ──────────────────── */
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+/* ── FAQ ────────────────────────────── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── NAV SCROLL ─────────────────────── */
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 60) {
+    nav.style.background = 'rgba(10,8,6,.92)';
+  } else {
+    nav.style.background = 'rgba(10,8,6,.7)';
+  }
+}, { passive: true });
+
+/* ── REDUCED MOTION ─────────────────── */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+}
+</script>
+</body>
+</html>
