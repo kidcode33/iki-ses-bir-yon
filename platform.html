@@ -1220,28 +1220,51 @@ footer {
 
 <!-- ── HERO ────────────────────────────── -->
 <section class="hero" aria-label="Platform tanıtımı">
+
   <div class="hero-pre">İki Ses, Bir Yön · Anlayış Platformu</div>
+
   <h1 class="hero-display">
-    İki ses var.<br>
-    <em>Üçüncüsü seninki.</em>
+    Anlayış<br>
+    <em>öğretilmez.</em>
   </h1>
+
   <p class="hero-philosophy">
-    Anlayış öğretilmez. Yaşanır.<br>
-    Farklı sesleri dikkatle incele.<br>
-    Kendi yönünü bul.
+    Bu platform sana ne düşüneceğini söylemez.<br>
+    Farklı çağlardan iki ses getirir.<br>
+    Anlayış, içinde doğar.
   </p>
+
+  <div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-bottom:44px;align-items:center;">
+    <div style="text-align:center;">
+      <div style="font-family:var(--ff-serif);font-size:13px;font-style:italic;color:var(--text-2);margin-bottom:4px;">Keşfet</div>
+      <div style="font-family:var(--ff-mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);">İki sesi seç</div>
+    </div>
+    <div style="color:var(--text-3);font-family:var(--ff-mono);font-size:10px;">→</div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--ff-serif);font-size:13px;font-style:italic;color:var(--text-2);margin-bottom:4px;">Dinle</div>
+      <div style="font-family:var(--ff-mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);">Yan yana dur</div>
+    </div>
+    <div style="color:var(--text-3);font-family:var(--ff-mono);font-size:10px;">→</div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--ff-serif);font-size:13px;font-style:italic;color:rgba(201,169,110,.8);margin-bottom:4px;">Anlamlandır</div>
+      <div style="font-family:var(--ff-mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);">Kendi sesini bul</div>
+    </div>
+  </div>
+
   <div class="hero-actions">
     <button class="btn-primary" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">
-      İlk Yolculuğu Keşfet
+      İlk Yolculuk: Kur'an × Nutuk
     </button>
-    <button class="btn-secondary" onclick="document.getElementById('why').scrollIntoView({behavior:'smooth'})">
-      Anlayış Nedir?
+    <button class="btn-secondary" onclick="openAbout()">
+      Platform Hakkında
     </button>
   </div>
+
   <div class="hero-scroll" aria-hidden="true">
     <span>Kaydır</span>
     <div class="hero-scroll-line"></div>
   </div>
+
 </section>
 
 <!-- ── WHY ─────────────────────────────── -->
