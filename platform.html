@@ -979,6 +979,225 @@ footer {
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero-scroll-line { animation: none; }
 }
+
+/* ════════════════════════════════════════════
+   EMAIL SUBSCRIBE
+   ════════════════════════════════════════════ */
+.email-section {
+  padding: clamp(60px,8vw,100px) clamp(24px,5vw,64px);
+  border-top: 1px solid var(--border-2);
+}
+.email-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+.email-eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.email-eyebrow::before, .email-eyebrow::after {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--gold-line);
+}
+.email-title {
+  font-family: var(--ff-serif);
+  font-size: clamp(22px,3.5vw,32px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.email-sub {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  font-style: italic;
+}
+.email-form {
+  display: flex;
+  gap: 8px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.email-input {
+  flex: 1;
+  padding: 13px 18px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  font-family: var(--ff-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-1);
+  outline: none;
+  transition: border-color 200ms;
+}
+.email-input::placeholder { color: var(--text-3); }
+.email-input:focus { border-color: var(--gold-line); }
+.email-btn {
+  font-family: var(--ff-serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink);
+  background: var(--gold);
+  border: none;
+  padding: 13px 24px;
+  border-radius: 40px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 200ms;
+  flex-shrink: 0;
+}
+.email-btn:hover { background: #d4b47a; }
+.email-btn:disabled { opacity: .6; cursor: not-allowed; }
+.email-note {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  color: var(--text-3);
+  margin-top: 14px;
+}
+.email-success {
+  display: none;
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--gold);
+  margin-top: 16px;
+}
+
+/* ════════════════════════════════════════════
+   ABOUT MODAL
+   ════════════════════════════════════════════ */
+.about-modal {
+  display: none;
+  position: fixed; inset: 0;
+  z-index: 800;
+  background: rgba(8,6,4,.92);
+  backdrop-filter: blur(16px);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.about-modal.open { display: flex; }
+.about-card {
+  background: #0f0d0a;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: clamp(36px,5vw,56px);
+  width: 100%;
+  max-width: 640px;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: aboutIn 500ms cubic-bezier(.16,1,.3,1) both;
+  position: relative;
+}
+@keyframes aboutIn {
+  from { opacity:0; transform: translateY(20px) scale(.97); }
+  to   { opacity:1; transform: none; }
+}
+.about-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none; border: none;
+  font-family: var(--ff-mono);
+  font-size: 18px;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: color 150ms;
+  line-height: 1;
+  padding: 4px 8px;
+}
+.about-close:hover { color: var(--text-1); }
+.about-eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .6;
+  margin-bottom: 20px;
+}
+.about-title {
+  font-family: var(--ff-serif);
+  font-size: clamp(28px,4vw,40px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  color: var(--text-1);
+  margin-bottom: 32px;
+}
+.about-body {
+  font-family: var(--ff-serif);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--text-2);
+  margin-bottom: 20px;
+}
+.about-body em {
+  font-style: italic;
+  color: var(--text-1);
+}
+.about-divider {
+  height: 1px;
+  background: var(--border-2);
+  margin: 28px 0;
+}
+.about-values {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.about-value-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.about-value-num {
+  font-family: var(--ff-serif);
+  font-size: 24px;
+  font-style: italic;
+  color: var(--gold);
+  opacity: .25;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+.about-value-title {
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+.about-value-text {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.about-closing {
+  font-family: var(--ff-serif);
+  font-size: 17px;
+  font-style: italic;
+  color: var(--gold);
+  opacity: .8;
+  line-height: 1.5;
+  padding-top: 8px;
+}
 </style>
 </head>
 
@@ -991,23 +1210,24 @@ footer {
     <li><a href="#journeys">Yolculuklar</a></li>
     <li><a href="#how">Nasıl Çalışır</a></li>
     <li><a href="#pricing">Erişim</a></li>
+    <li><a href="#" onclick="openAbout();return false;">Hakkında</a></li>
   </ul>
   <div class="nav-right">
     <button class="nav-btn">Giriş Yap</button>
-    <button class="nav-btn nav-btn-primary" onclick="location.href='app.html'">Dinlemeye Başla</button>
+    <button class="nav-btn nav-btn-primary" onclick="location.href='app.html'">Keşfetmeye Başla</button>
   </div>
 </nav>
 
 <!-- ── HERO ────────────────────────────── -->
 <section class="hero" aria-label="Platform tanıtımı">
-  <div class="hero-pre">Anlayış Platformu</div>
+  <div class="hero-pre">İki Ses, Bir Yön · Anlayış Platformu</div>
   <h1 class="hero-display">
     İki ses var.<br>
     <em>Üçüncüsü seninki.</em>
   </h1>
   <p class="hero-philosophy">
     Anlayış öğretilmez. Yaşanır.<br>
-    Farklı sesleri dikkatle oku.<br>
+    Farklı sesleri dikkatle incele.<br>
     Kendi yönünü bul.
   </p>
   <div class="hero-actions">
@@ -1015,7 +1235,7 @@ footer {
       İlk Yolculuğu Keşfet
     </button>
     <button class="btn-secondary" onclick="document.getElementById('why').scrollIntoView({behavior:'smooth'})">
-      Neden Farklı Sesler?
+      Anlayış Nedir?
     </button>
   </div>
   <div class="hero-scroll" aria-hidden="true">
@@ -1033,13 +1253,13 @@ footer {
         <h2 class="why-display">
           İnsan neden<br>
           farklı sesleri<br>
-          <em>okumalı?</em>
+          <em>dinlemeli?</em>
         </h2>
         <p class="why-body">
-          Tek bir kaynakta büyümek — o kaynağın dünyasını doğal sanmayı getirir. Farklı bir ses, alışkanlığı kırar. Sormayı başlatır.
+          Tek bir sesle büyümek — o sesin dünyasını tek dünya sanmayı getirir. Farklı bir ses, alışkanlığı kırar. Düşünmeyi başlatır.
         </p>
         <p class="why-body">
-          Bu platform ideoloji karşılaştırmaz. İki farklı çağdan, iki farklı kaynaktan alınan sesler — aynı insan sorularının karşısına çıkar.
+          Bu platform sana ne düşüneceğini söylemez. İki farklı çağdan, iki farklı kaynaktan alınan sesler — aynı insan sorularının karşısına çıkar. Anlayış, bu iki sesin arasında değil; senin içinde doğar.
         </p>
       </div>
       <div class="why-right">
@@ -1047,21 +1267,21 @@ footer {
           <div class="why-num">I</div>
           <div>
             <div class="why-item-title">Sormak başlar.</div>
-            <div class="why-item-text">Her bölüm bir soruyla biter. Cevap verilmez — sormak için zemin hazırlanır.</div>
+            <div class="why-item-text">Her yolculuk bir soruyla biter. Cevap verilmez — düşünmek için zemin hazırlanır.</div>
           </div>
         </div>
         <div class="why-item reveal reveal-delay-2">
           <div class="why-num">II</div>
           <div>
             <div class="why-item-title">Karşılaştırma değil, karşılaşma.</div>
-            <div class="why-item-text">İki ses kıyaslanmaz. Yan yana durur. Okuyucu kendi bağlantısını kurar.</div>
+            <div class="why-item-text">İki ses kıyaslanmaz. Yan yana durur. Sen kendi bağlantını kurarsın.</div>
           </div>
         </div>
         <div class="why-item reveal reveal-delay-3">
           <div class="why-num">III</div>
           <div>
             <div class="why-item-title">Anlayış içinde doğar.</div>
-            <div class="why-item-text">Hiçbir ses üstün değildir. Üçüncü ses — okuyucununkidir.</div>
+            <div class="why-item-text">Hiçbir ses üstün değildir. Üçüncü ses — seninki — anlayışın kendisidir.</div>
           </div>
         </div>
       </div>
@@ -1078,15 +1298,14 @@ footer {
         <div class="featured-badge">Şimdi Mevcut</div>
         <div class="featured-eyebrow">Yolculuk 001 · İlk Yolculuk</div>
         <h2 class="featured-title">
-          Kur'an<br>
-          <span class="dim">× Nutuk</span>
+          Kur'an × Nutuk
         </h2>
         <p class="featured-desc">
-          Zor bir anda insan ne yapar? Kur'an'ın iniş sırası ve Atatürk'ün Nutuk'undan seçilmiş 89 an — aynı sorunun karşısında.
+          Zor bir anda insan ne yapar? İki farklı çağdan iki ses — aynı sorunun karşısında. 89 bölüm, 89 soru.
         </p>
         <div class="featured-meta">
           <div class="meta-col">
-            <span class="meta-label">Kaynaklar</span>
+            <span class="meta-label">Sesler</span>
             <span class="meta-value">Kur'an · Nutuk</span>
           </div>
           <div class="meta-col">
@@ -1098,7 +1317,7 @@ footer {
             <span class="meta-value">~12 saat</span>
           </div>
         </div>
-        <button class="btn-primary" onclick="location.href='app.html'">Kur'an × Nutuk'u Başlat →</button>
+        <button class="btn-primary" onclick="location.href='app.html'">Bu Yolculuğa Gir →</button>
       </div>
       <div class="featured-right">
         <div class="featured-quote-block">
@@ -1177,39 +1396,99 @@ footer {
       <div class="how-step reveal">
         <div class="how-step-num">1</div>
         <h3 class="how-step-title">Bir yolculuk seç.</h3>
-        <p class="how-step-text">Her yolculuk iki farklı kaynaktan seçilmiş bölümler içerir. Mevcut yolculuktan başla veya yenisini bekle.</p>
+        <p class="how-step-text">Her yolculuk iki farklı kaynaktan iki ses taşır. İlk yolculukla başla — ya da yakında gelecekleri keşfet.</p>
       </div>
       <div class="how-step reveal reveal-delay-1">
         <div class="how-step-num">2</div>
-        <h3 class="how-step-title">Oku. Dur. Tekrar oku.</h3>
-        <p class="how-step-text">Her bölüm kısa. Sahne, iki ses, bir soru. Acele etme. Nefes al.</p>
+        <h3 class="how-step-title">İki sesi dinle.</h3>
+        <p class="how-step-text">Her bölüm kısa. İki farklı çağdan iki ses, aynı sorunun karşısında. Acele etme. Dur. Yeniden dinle.</p>
       </div>
       <div class="how-step reveal reveal-delay-2">
         <div class="how-step-num">3</div>
-        <h3 class="how-step-title">Soruyla otur.</h3>
-        <p class="how-step-text">Her bölüm bir soruyla biter. Cevap yazabilirsin, not alabilirsin ya da sadece sessizlikte kalabilirsin.</p>
+        <h3 class="how-step-title">Soruyla kal.</h3>
+        <p class="how-step-text">Her bölüm bir soruyla biter. Cevap vermek zorunda değilsin. Sadece soruyla bir süre kal.</p>
       </div>
       <div class="how-step reveal reveal-delay-3">
         <div class="how-step-num">4</div>
         <h3 class="how-step-title">Üçüncü sesi bul.</h3>
-        <p class="how-step-text">Yolculuğun sonunda iki sesi duydun. Üçüncüsü — anlayış — seninki. Ne değişti?</p>
+        <p class="how-step-text">İki sesi duydun. Anlayış — üçüncü ses — senin içinde doğar. Bu yolculuğun sana bıraktığı şeydir.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ── ABOUT MODAL ────────────────────── -->
+<div class="about-modal" id="about-modal" onclick="if(event.target===this)closeAbout()">
+  <div class="about-card">
+    <button class="about-close" onclick="closeAbout()">×</button>
+    <div class="about-eyebrow">İki Ses, Bir Yön · Anlayış Platformu</div>
+    <h2 class="about-title">
+      Anlayış<br>öğretilmez.
+    </h2>
+
+    <p class="about-body">
+      Binlerce yıl boyunca insanlar anlamaya çalıştı. Kitaplar yazdı. Dersler verdi. Cevaplar buldu.
+    </p>
+    <p class="about-body">
+      Ama anlayış — hiçbir zaman öğretilerek gelmedi. Bir anda geldi. <em>Sessizce. İçeriden.</em>
+    </p>
+    <p class="about-body">
+      İki Ses, Bir Yön, o anı hazırlayan bir platform.
+    </p>
+
+    <div class="about-divider"></div>
+
+    <div class="about-values">
+      <div class="about-value-item">
+        <div class="about-value-num">I</div>
+        <div>
+          <div class="about-value-title">Tarafsızlık</div>
+          <div class="about-value-text">Platform hiçbir düşünceyi üstün göstermez. Hiçbir ideolojiyi savunmaz. İki ses eşit ağırlıkta durur.</div>
+        </div>
+      </div>
+      <div class="about-value-item">
+        <div class="about-value-num">II</div>
+        <div>
+          <div class="about-value-title">Saygı</div>
+          <div class="about-value-text">Her kullanıcı kendi anlayış sürecinin mimarıdır. Platform bu sürece müdahale etmez.</div>
+        </div>
+      </div>
+      <div class="about-value-item">
+        <div class="about-value-num">III</div>
+        <div>
+          <div class="about-value-title">Sessizlik</div>
+          <div class="about-value-text">Az söz. Büyük alan. Okuyucunun tamamlaması için boşluk bırakılır.</div>
+        </div>
+      </div>
+      <div class="about-value-item">
+        <div class="about-value-num">IV</div>
+        <div>
+          <div class="about-value-title">Dürüstlük</div>
+          <div class="about-value-text">Abartı yok. Vaat yok. Bu platform sana ne düşüneceğini söylemez. Sadece iki ses getirir — ve seninle oturur.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-divider"></div>
+
+    <p class="about-closing">
+      "Anlayış, iki ses arasında değil;<br>insanın içinde doğar."
+    </p>
+  </div>
+</div>
+
 <!-- ── TESTIMONIALS ──────────────────── -->
 <section>
   <div class="section-inner">
-    <div class="section-label">Kur'an × Nutuk · Okuyucular</div>
+    <div class="section-label">Platformdan Sesler</div>
     <div class="testimonials-grid">
       <div class="testimonial reveal">
-        <p class="testimonial-text">10. bölümden sonra durdum. Sadece oturdum. Uzun süre. O kadar.</p>
+        <p class="testimonial-text">Bana bir fikir dayatılmadı. Düşünmem için alan açıldı. Farkı yavaş yavaş fark ettim.</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar">A</div>
           <div>
             <div class="testimonial-name">Ayşe K.</div>
-            <div class="testimonial-role">Öğretmen · İstanbul</div>
+            <div class="testimonial-role">Kur'an × Nutuk · İstanbul</div>
           </div>
         </div>
       </div>
@@ -1219,20 +1498,48 @@ footer {
           <div class="testimonial-avatar">M</div>
           <div>
             <div class="testimonial-name">Murat D.</div>
-            <div class="testimonial-role">Mühendis · Ankara</div>
+            <div class="testimonial-role">Kur'an × Nutuk · Ankara</div>
           </div>
         </div>
       </div>
       <div class="testimonial reveal reveal-delay-2">
-        <p class="testimonial-text">Sorular sormayı öğrendim. Cevap bulmayı değil. Bu ikisi arasındaki farkı şimdi görüyorum.</p>
+        <p class="testimonial-text">Sorular sormaya başladım. Cevap bulmaya değil. Bu ikisi arasındaki farkı şimdi görüyorum.</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar">Z</div>
           <div>
             <div class="testimonial-name">Zeynep A.</div>
-            <div class="testimonial-role">Psikolog · İzmir</div>
+            <div class="testimonial-role">Kur'an × Nutuk · İzmir</div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EMAIL SUBSCRIBE ────────────────── -->
+<section class="email-section">
+  <div class="email-inner reveal">
+    <div class="email-eyebrow">Yeni Yolculuklar</div>
+    <h2 class="email-title">
+      Yakında gelecek yolculuklardan<br>ilk sen haberdar ol.
+    </h2>
+    <p class="email-sub">
+      Mesnevi × Divan. Stoacılar × Tasavvuf. Bilim × Felsefe.<br>
+      Her yeni yolculukta iki yeni ses.
+    </p>
+    <div class="email-form">
+      <input
+        type="email"
+        class="email-input"
+        id="email-input"
+        placeholder="E-posta adresin"
+        autocomplete="email"
+      >
+      <button class="email-btn" onclick="subscribeEmail()">Haberdar Ol</button>
+    </div>
+    <div class="email-note">Reklam yok. İstediğin zaman çıkabilirsin.</div>
+    <div class="email-success" id="email-success">
+      ✦ Kaydedildi. Yeni yolculuklar geldiğinde sana ulaşacağız.
     </div>
   </div>
 </section>
@@ -1243,11 +1550,11 @@ footer {
     "Anlayış, iki ses arasında değil;<br>
     insanın içinde doğar."
   </blockquote>
-  <div class="manifesto-attr">İki Ses, Bir Yön · Platform Felsefesi</div>
+  <div class="manifesto-attr">İki Ses, Bir Yön · Anlayış Platformu</div>
 </div>
 
 <!-- ── FAQ ──────────────────────────── -->
-<section>
+<section id="faq">
   <div class="section-inner">
     <div class="section-label">Sık Sorulan Sorular</div>
     <div class="faq-wrap">
@@ -1356,32 +1663,33 @@ footer {
       <div class="footer-logo-text">İki Ses, Bir Yön</div>
       <div class="footer-tagline">
         Anlayış öğretilmez. Yaşanır.<br>
-        Farklı sesleri dikkatle oku.<br>
+        Farklı sesleri dikkatle dinle.<br>
         Kendi yönünü bul.
       </div>
     </div>
     <div>
       <div class="footer-col-title">Platform</div>
       <ul class="footer-links">
-        <li><a href="#">İlk Yolculuk</a></li>
-        <li><a href="#">Yakında</a></li>
-        <li><a href="#">Felsefe</a></li>
-        <li><a href="#">Hakkında</a></li>
+        <li><a href="app.html">İlk Yolculuk</a></li>
+        <li><a href="#journeys">Yakında</a></li>
+        <li><a href="#" onclick="openAbout();return false;">Hakkında</a></li>
+        <li><a href="#" onclick="openAbout();return false;">Felsefe</a></li>
       </ul>
     </div>
     <div>
       <div class="footer-col-title">Destek</div>
       <ul class="footer-links">
-        <li><a href="#">Sık Sorulan Sorular</a></li>
-        <li><a href="#">İletişim</a></li>
+        <li><a href="#pricing">Erişim</a></li>
+        <li><a href="#faq">Sık Sorulan Sorular</a></li>
+        <li><a href="mailto:pixelvadisi@gmail.com">İletişim</a></li>
         <li><a href="#">Gizlilik</a></li>
-        <li><a href="#">Kullanım Koşulları</a></li>
       </ul>
     </div>
     <div>
-      <div class="footer-col-title">İletişim</div>
+      <div class="footer-col-title">Haberdar Ol</div>
       <ul class="footer-links">
-        <li><a href="#">pixelvadisi@gmail.com</a></li>
+        <li><a href="#" onclick="document.querySelector('.email-section').scrollIntoView({behavior:'smooth'});return false;">Yeni Yolculuklar</a></li>
+        <li><a href="mailto:pixelvadisi@gmail.com">pixelvadisi@gmail.com</a></li>
       </ul>
     </div>
   </div>
@@ -1392,6 +1700,55 @@ footer {
 </footer>
 
 <script>
+/* ── EMAIL SUBSCRIBE ─────────────────── */
+function subscribeEmail() {
+  const input = document.getElementById('email-input');
+  const btn = document.querySelector('.email-btn');
+  const success = document.getElementById('email-success');
+  const email = input.value.trim();
+
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = 'rgba(201,100,100,.4)';
+    setTimeout(() => input.style.borderColor = '', 1500);
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Kaydediliyor…';
+
+  // Supabase email listesi — şimdilik localStorage
+  const list = JSON.parse(localStorage.getItem('email_list') || '[]');
+  if (!list.includes(email)) list.push(email);
+  localStorage.setItem('email_list', JSON.stringify(list));
+
+  setTimeout(() => {
+    input.style.display = 'none';
+    btn.style.display = 'none';
+    success.style.display = 'block';
+  }, 600);
+}
+
+// Enter tuşu desteği
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('email-input');
+  if (input) input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') subscribeEmail();
+  });
+});
+
+/* ── ABOUT MODAL ─────────────────────── */
+function openAbout() {
+  document.getElementById('about-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeAbout() {
+  document.getElementById('about-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeAbout();
+});
+
 /* ── SCROLL REVEAL ──────────────────── */
 const revealEls = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
